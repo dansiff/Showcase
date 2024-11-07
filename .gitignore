@@ -37,3 +37,17 @@ next-env.d.ts
 
 # contentlayer
 .contentlayer
+/.vs/open-react-template/config/applicationhost.config
+/.vs/open-react-template/FileContentIndex/19069b00-3106-48f6-9c49-4aacec3c957d.vsidx
+/.vs/open-react-template/FileContentIndex/7d6040bb-bf7f-46f7-859e-32b0fe91a923.vsidx
+/.vs/open-react-template/FileContentIndex/b143b83e-2da2-4e2b-9efd-19160d8945a1.vsidx
+/.vs/open-react-template/FileContentIndex/d354f0dc-cafb-4288-ac7d-127f40c75621.vsidx
+/.vs/open-react-template/FileContentIndex/f3cbcc30-593b-4c85-bad6-61bbf63bec04.vsidx
+/.vs/open-react-template/v17/.wsuo
+/.vs/open-react-template/v17/DocumentLayout.json
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/package-lock.json
+/package.json
+/.vs/open-react-template/FileContentIndex/5abbf490-7107-47ff-b2c4-75c02232a7c3.vsidx
