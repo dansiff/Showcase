@@ -101,7 +101,7 @@ const testimonials = [
     name: "Mary P.",
     company: "Ray Ban",
     content:
-      "I've never been one for coding, so finding an AI tool that doesn't require any technical skills was a dream come true. This tool exceeded my expectations, and I'm proud to show off my new stuff to friends.",
+      "I've never been one for coding, so finding an AI tool that doesn't require any technical skills was a dream come true. This team exceeded my expectations, and I'm proud to show off my new stuff to friends.",
     categories: [1, 2],
   },
 ];

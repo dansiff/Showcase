@@ -51,3 +51,4 @@ next-env.d.ts
 /package-lock.json
 /package.json
 /.vs/open-react-template/FileContentIndex/5abbf490-7107-47ff-b2c4-75c02232a7c3.vsidx
+.vs/
