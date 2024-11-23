@@ -40,10 +40,10 @@ export default function Features() {
               </span>
             </div>
             <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.gray.200),theme(colors.indigo.200),theme(colors.gray.50),theme(colors.indigo.300),theme(colors.gray.200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
-              Built for modern product teams
+              Built for modern intergration 
             </h2>
             <p className="text-lg text-indigo-200/65">
-              Open AI reads and understands your files, and with nothing more
+              Open AI utlized by Sandoval Bros reads and understands your files, and with nothing more
               than a single line of feedback, so you can go further than the
               speed of thought.
             </p>
@@ -76,8 +76,8 @@ export default function Features() {
                 Project Milestones
               </h3>
               <p className="text-indigo-200/65">
-                Track progress across custom flows for your team. Find the right
-                balance for the user, privacy and security.
+                Layout Milestones within one meeting that can be updated at anytime.
+                Hands off innovation and recommendations that you get to have final say on.
               </p>
             </article>
             <article>
@@ -94,8 +94,8 @@ export default function Features() {
                 Team Views
               </h3>
               <p className="text-indigo-200/65">
-                Track progress across custom flows for your team. Find the right
-                balance for the user, privacy and security.
+                Open to working with internal teams with robust training and coaching.
+                Keep your team up to date with professional recommendations.
               </p>
             </article>
             <article>
@@ -115,8 +115,8 @@ export default function Features() {
                 Advanced Search
               </h3>
               <p className="text-indigo-200/65">
-                Track progress across custom flows for your team. Find the right
-                balance for the user, privacy and security.
+                First page SEO with robust references linking all social media.
+                Complete Business management available including Google workspaces intergration.
               </p>
             </article>
             <article>
@@ -141,8 +141,8 @@ export default function Features() {
                 Strategic Initiatives
               </h3>
               <p className="text-indigo-200/65">
-                Track progress across custom flows for your team. Find the right
-                balance for the user, privacy and security.
+                Custom insights into the progress with whichever monitering tool you prefer.
+                If you are unsure we can recommend the best industry standards.
               </p>
             </article>
             <article>
@@ -183,8 +183,8 @@ export default function Features() {
                 Unified Timeline
               </h3>
               <p className="text-indigo-200/65">
-                Track progress across custom flows for your team. Find the right
-                balance for the user, privacy and security.
+                Complete oversight with updates when you want them.
+                No unexpected delays.
               </p>
             </article>
           </div>
