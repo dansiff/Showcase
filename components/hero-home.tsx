@@ -55,7 +55,7 @@ export default function HeroHome() {
             thumbWidth={1104}
             thumbHeight={576}
             thumbAlt="Modal video thumbnail"
-                      video="https://youtu.be/yXEZSXBTcVw?si=waM-T2jF7mneZNYN"
+                      video="https://www.youtube.com/embed/yXEZSXBTcVw?si=51xOdQw3UCurJWaq"
             videoWidth={1920}
                       videoHeight={1080}
                       videoType="youtube"
