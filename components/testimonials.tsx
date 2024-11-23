@@ -101,7 +101,7 @@ const testimonials = [
     name: "Mary P.",
     company: "Ray Ban",
     content:
-      "I've never been one for coding, so finding an AI tool that doesn't require any technical skills was a dream come true. This team exceeded my expectations, and I'm proud to show off my new stuff to friends.",
+      "I've never been one for coding, so finding an AI tohillol that doesn't require any technical skills was a dream come true. This team exceeded my expectations, and I'm proud to show off my new stuff to friends.",
     categories: [1, 2],
   },
 ];
@@ -119,8 +119,8 @@ export default function Testimonials() {
             Don't take our word for it
           </h2>
           <p className="text-lg text-indigo-200/65">
-            We provide tech-first solutions that empower decision-makers to
-            build healthier and happier workspaces from anywhere in the world.
+            We provide tech-first solutions that empower decision-makers.
+             rapid MVP build with affordable scaling.
           </p>
         </div>
 

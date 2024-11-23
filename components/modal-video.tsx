@@ -13,7 +13,8 @@ interface ModalVideoProps {
   thumbAlt: string;
   video: string;
   videoWidth: number;
-  videoHeight: number;
+    videoHeight: number;
+    videoType: 'youtube' | 'html';
 }
 
 export default function ModalVideo({
@@ -23,7 +24,8 @@ export default function ModalVideo({
   thumbAlt,
   video,
   videoWidth,
-  videoHeight,
+    videoHeight,
+  videoType, 
 }: ModalVideoProps) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -101,37 +103,53 @@ export default function ModalVideo({
           </span>
         </span>
       </button>
-      {/* End: Video thumbnail */}
-
-      <Dialog
-        initialFocus={videoRef}
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-      >
-        <DialogBackdrop
-          transition
-          className="fixed inset-0 z-[99999] bg-black/70 transition-opacity duration-300 ease-out data-[closed]:opacity-0"
-        />
-        <div className="fixed inset-0 z-[99999] flex px-4 py-6 sm:px-6">
-          <div className="mx-auto flex h-full max-w-6xl items-center">
-            <DialogPanel
-              transition
-              className="aspect-video max-h-full w-full overflow-hidden rounded-2xl bg-black shadow-2xl duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+          {/* End: Video thumbnail */}
+            {/* Modal for video */}
+            <Dialog
+                initialFocus={videoRef}
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                className="fixed inset-0 z-[99999] flex items-center justify-center bg-black bg-opacity-75"
             >
-              <video
-                ref={videoRef}
-                width={videoWidth}
-                height={videoHeight}
-                loop
-                controls
-              >
-                <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </DialogPanel>
-          </div>
+                <div className="fixed inset-0 z-[99999] flex px-4 py-6 sm:px-6">
+                    <DialogBackdrop transition className="fixed inset-0 bg-black opacity-50" />
+                    <div className="relative mx-auto max-w-2xl w-full">
+                        <div className="relative flex flex-col items-center bg-gray-900 p-4 rounded-lg shadow-lg">
+                            <button
+                                onClick={() => setModalOpen(false)}
+                                className="absolute top-2 right-2 text-white text-lg"
+                                aria-label="Close video"
+                            >
+                                &times;
+                            </button>
+
+                            {/* Conditionally render based on video type */}
+                            {videoType === "youtube" ? (
+                                <iframe
+                                    width={videoWidth || 560}
+                                    height={videoHeight || 315}
+                                    src={`${video}?autoplay=1`}
+                                    title="YouTube video player"
+                                  style={{ border: "none" }}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            ) : (
+                                <video
+                                    ref={videoRef}
+                                    width={videoWidth || 560}
+                                    height={videoHeight || 315}
+                                    controls
+                                    autoPlay
+                                >
+                                    <source src={video} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </Dialog>
         </div>
-      </Dialog>
-    </div>
-  );
+    );
 }
