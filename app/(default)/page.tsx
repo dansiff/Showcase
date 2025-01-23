@@ -1,5 +1,6 @@
+  
 export const metadata = {
-  title: "Home - Open PRO",
+    title: "Home - Open PROfs",
   description: "Page description",
 };
 
