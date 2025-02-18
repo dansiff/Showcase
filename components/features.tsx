@@ -43,9 +43,9 @@ export default function Features() {
               Built for modern intergration 
             </h2>
             <p className="text-lg text-indigo-200/65">
-              Open AI utlized by Sandoval Bros reads and understands your files, and with nothing more
-              than a single line of feedback, so you can go further than the
-              speed of thought.
+              Open AI utilized by Sandoval Bros allows rapid deployment with reduced operational cost.
+             
+       
             </p>
           </div>
           <div className="flex justify-center pb-4 md:pb-12" data-aos="fade-up">
@@ -77,7 +77,7 @@ export default function Features() {
               </h3>
               <p className="text-indigo-200/65">
                 Layout Milestones within one meeting that can be updated at anytime.
-                Hands off innovation and recommendations that you get to have final say on.
+                Hands off innovation and recommendations that you control.
               </p>
             </article>
             <article>
@@ -95,7 +95,7 @@ export default function Features() {
               </h3>
               <p className="text-indigo-200/65">
                 Open to working with internal teams with robust training and coaching.
-                Keep your team up to date with professional recommendations.
+                Keep your team up to date with professional workflows.
               </p>
             </article>
             <article>
@@ -141,8 +141,8 @@ export default function Features() {
                 Strategic Initiatives
               </h3>
               <p className="text-indigo-200/65">
-                Custom insights into the progress with whichever monitering tool you prefer.
-                If you are unsure we can recommend the best industry standards.
+                Custom insights into the progress with an option of monitering tools you prefer.
+                If you are unsure we can recommend the best industry standards with documentation.
               </p>
             </article>
             <article>

@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String  @id @default(uuid()) 
+  email     String  @unique
+  name      String?
+  role      UserRole @default(CLIENT)
+  createdAt DateTime @default(now())
+  services  Service[]
+  referrals Referral[]
+}
+
+model Service {
+  id           String  @id @default(uuid())
+  name         String
+  type         ServiceType
+  price        Float
+  status       ServiceStatus @default(PENDING)
+  clientId     String
+  client       User  @relation(fields: [clientId], references: [id])
+  commissionId String?  // Links to the referral tracking
+  commission   Referral? @relation(fields: [commissionId], references: [id])
+  createdAt    DateTime @default(now())
+}
+
+model Referral {
+  id            String  @id @default(uuid())
+  referrerEmail String  // Email of the person who referred
+  referredId    String?  // Optional - Who was referred (client ID)
+  commissionEarned Float @default(0.0)
+  createdAt     DateTime @default(now())
+}
+
+enum ServiceType {
+  WEBSITE_DESIGN
+  MARKETING
+  SEO
+  AD_CAMPAIGN
+}
+
+enum ServiceStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+enum UserRole {
+  CLIENT
+  ADMIN
+  REFERRER
+}
