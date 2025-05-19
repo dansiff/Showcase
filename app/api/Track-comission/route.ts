@@ -21,7 +21,7 @@ export async function POST(req) {
             where: { email: referredEmail },
         });
 
-        // If the referred user does not exist, create one
+        // If the referred user does not exist, create onef
         if (!referredUser) {
             referredUser = await prisma.user.create({
                 data: {
