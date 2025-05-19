@@ -1,37 +1,41 @@
-import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import { z } from 'zod';
 
-const prisma = new PrismaClient();
+// --- Prisma Client Initialization ---
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+const prisma = globalForPrisma.prisma || new PrismaClient();
 
-export async function POST(req) {
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+// --- Request Body Schema Validation ---
+const referralSchema = z.object({
+    referrerEmail: z.string().email(),
+    referredEmail: z.string().email(),
+    serviceId: z.string().min(1, "Service ID is required"),
+});
+
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { referrerEmail, referredEmail, serviceId } = body;
 
-        // Find referrer
-        const referrer = await prisma.user.findUnique({
-            where: { email: referrerEmail },
-        });
+        // Validate request data
+        const { referrerEmail, referredEmail, serviceId } = referralSchema.parse(body);
 
+        // Ensure referrer exists
+        const referrer = await prisma.user.findUnique({ where: { email: referrerEmail } });
         if (!referrer) {
-            return Response.json({ error: "Referrer not found" }, { status: 404 });
+            return NextResponse.json({ error: 'Referrer not found' }, { status: 404 });
         }
 
-        // Find referred user (optional)
-        let referredUser = await prisma.user.findUnique({
+        // Create referred user if not found
+        const referredUser = await prisma.user.upsert({
             where: { email: referredEmail },
+            update: {}, // no-op if user exists
+            create: { email: referredEmail, role: 'CLIENT' },
         });
 
-        // If the referred user does not exist, create onef
-        if (!referredUser) {
-            referredUser = await prisma.user.create({
-                data: {
-                    email: referredEmail,
-                    role: "CLIENT",
-                },
-            });
-        }
-
-        // Create a referral record
+        // Create referral record
         const referral = await prisma.referral.create({
             data: {
                 referrerEmail,
@@ -39,17 +43,31 @@ export async function POST(req) {
             },
         });
 
-        // Update the service with the referral commission
-        await prisma.service.update({
+        // Attach referral to the service
+        const updatedService = await prisma.service.update({
             where: { id: serviceId },
             data: { commissionId: referral.id },
         });
 
-        return Response.json(
-            { message: "Referral recorded successfully!", referral },
+        return NextResponse.json(
+            {
+                message: 'Referral recorded successfully!',
+                referral,
+                updatedService,
+            },
             { status: 200 }
         );
     } catch (error) {
-        return Response.json({ error: error.message }, { status: 500 });
+        // Handle validation errors from zod
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({ error: error.flatten() }, { status: 400 });
+        }
+
+        // Generic fallback
+        console.error("Referral POST error:", error);
+        return NextResponse.json(
+            { error: error instanceof Error ? error.message : 'Internal Server Error' },
+            { status: 500 }
+        );
     }
 }
