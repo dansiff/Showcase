@@ -14,36 +14,43 @@ generator client {
 }
 
 model User {
-  id        String  @id @default(uuid()) 
-  email     String  @unique
-  name      String?
-  role      UserRole @default(CLIENT)
-  createdAt DateTime @default(now())
-  services  Service[]
-  referrals Referral[]
-}
-
-model Service {
-  id           String  @id @default(uuid())
-  name         String
-  type         ServiceType
-  price        Float
-  status       ServiceStatus @default(PENDING)
-  clientId     String
-  client       User  @relation(fields: [clientId], references: [id])
-  commissionId String?  // Links to the referral tracking
-  commission   Referral? @relation(fields: [commissionId], references: [id])
-  createdAt    DateTime @default(now())
+  id          String     @id @default(uuid())
+  email       String     @unique
+  name        String
+  referrals   Referral[] // Referrals they've made
+  websites    Website[]  // Websites they've requested
+  createdAt   DateTime   @default(now())
 }
 
 model Referral {
-  id            String  @id @default(uuid())
-  referrerEmail String  // Email of the person who referred
-  referredId    String?  // Optional - Who was referred (client ID)
-  commissionEarned Float @default(0.0)
-  createdAt     DateTime @default(now())
+  id          String    @id @default(uuid())
+  referrerId  String
+  referredId  String
+  referrer    User      @relation("Referrer", fields: [referrerId], references: [id])
+  referred    User      @relation("Referred", fields: [referredId], references: [id])
+  commission  Float     @default(0.0)
+  createdAt   DateTime  @default(now())
 }
 
+model Website {
+  id             String     @id @default(uuid())
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  projectDetails String     // JSON or markdown of the request
+  tier           String     // e.g., "Starter", "Professional", "Enterprise"
+  status         String     @default("Pending")
+  createdAt      DateTime   @default(now())
+}
+
+model Service {
+  id          String     @id @default(uuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  serviceType ServiceType
+  status      ServiceStatus
+  details     String     // JSON or markdown of the service details
+  createdAt   DateTime   @default(now())
+}
 enum ServiceType {
   WEBSITE_DESIGN
   MARKETING
