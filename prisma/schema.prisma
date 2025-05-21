@@ -63,7 +63,7 @@ model User {
   referralsReceived   Referral[]      @relation("ReferredRelation")
   websites            Website[]
   payments            Payment[]
-  commissions         Commission[]
+  commissions         Commission[]    @relation("CommissionRelation")
   notifications       Notification[]
   subscription        Subscription?
   reviews             Review[]
@@ -124,6 +124,8 @@ model Commission {
   id          String     @id @default(uuid())
   referralId  String     @unique
   referral    Referral   @relation(fields: [referralId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   amount      Float
   status      PaymentStatus  @default(PENDING)
   createdAt   DateTime   @default(now())
