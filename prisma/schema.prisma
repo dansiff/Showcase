@@ -10,38 +10,37 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js" 
-  }
-
+  provider = "prisma-client-js"
+}
 
 model User {
-  id             String         @id @default(uuid())
-  email          String         @unique
-  password       String
-  role           Role           @default(CLIENT)
-  commissions    Commission[]   @relation("UserCommissions")
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id          String       @id @default(uuid())
+  email       String       @unique
+  password    String
+  role        Role         @default(CLIENT)
+  commissions Commission[] @relation("UserCommissions")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Commission {
-  id             String         @id @default(uuid())
-  userId         String
-  user           User           @relation("UserCommissions", fields: [userId], references: [id], onDelete: Cascade)
-  status         CommissionStatus @default(PENDING)
-  description    String
-  price          Float
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  payments       Payment[]      @relation("CommissionPayments")
+  id          String           @id @default(uuid())
+  userId      String
+  user        User             @relation("UserCommissions", fields: [userId], references: [id], onDelete: Cascade)
+  status      CommissionStatus @default(PENDING)
+  description String
+  price       Float
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  payments    Payment[]        @relation("CommissionPayments")
 }
 
 model Payment {
-  id             String         @id @default(uuid())
-  commissionId   String
-  commission     Commission     @relation("CommissionPayments", fields: [commissionId], references: [id], onDelete: Cascade)
-  amount         Float
-  paidAt         DateTime       @default(now())
+  id           String     @id @default(uuid())
+  commissionId String
+  commission   Commission @relation("CommissionPayments", fields: [commissionId], references: [id], onDelete: Cascade)
+  amount       Float
+  paidAt       DateTime   @default(now())
 }
 
 enum Role {
