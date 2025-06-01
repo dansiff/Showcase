@@ -1,9 +1,9 @@
-export default function Hero() {
+ï»¿export default function Hero() {
     return (
         <section className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
-            <h1 className="text-5xl font-bold mb-4">¡Bienvenidos a Querrepario!</h1>
+            <h1 className="text-5xl font-bold mb-4">Â¡Bienvenidos a Querrepario!</h1>
             <p className="text-lg mb-6 max-w-xl">
-                The home of legendary tacos—made fresh every day in your neighborhood. Authentic flavors, local ingredients, and a vibrant atmosphere.
+                The home of legendary tacosâ€”made fresh every day in your neighborhood. Authentic flavors, local ingredients, and a vibrant atmosphere.
             </p>
             <a
                 href="#menu"

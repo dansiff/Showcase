@@ -1,16 +1,16 @@
-export default function MenuCta() {
+ï»¿export default function MenuCta() {
     return (
         <section id="menu" className="py-12 bg-white flex flex-col items-center">
             <h2 className="text-3xl font-bold mb-6">Our Favorites</h2>
             <ul className="space-y-4 text-lg mb-8">
                 <li>
-                    <span className="font-semibold">Taco Al Pastor</span> – Pork, pineapple, cilantro, onion
+                    <span className="font-semibold">Taco Al Pastor</span> â€“ Pork, pineapple, cilantro, onion
                 </li>
                 <li>
-                    <span className="font-semibold">Carne Asada</span> – Grilled beef, fresh salsa, guacamole
+                    <span className="font-semibold">Carne Asada</span> â€“ Grilled beef, fresh salsa, guacamole
                 </li>
                 <li>
-                    <span className="font-semibold">Vegetariano</span> – Grilled veggies, black beans, queso fresco
+                    <span className="font-semibold">Vegetariano</span> â€“ Grilled veggies, black beans, queso fresco
                 </li>
             </ul>
             <a
