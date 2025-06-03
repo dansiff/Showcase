@@ -1,7 +1,7 @@
   
 export const metadata = {
-    title: "Website As A Service",
-  description: "Main Marketing page",
+    title: "Home - Open PROfs",
+  description: "Page description",
 };
 
 import PageIllustration from "@/components/page-illustration";
@@ -10,18 +10,13 @@ import Workflows from "@/components/workflows";
 import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
-import TacoShowcaseButton from "../../components/TacoShowcaseButton";
 
 export default function Home() {
   return (
     <>
-      <PageIllustration />
-      <Hero />
-      <Workflows />
-      <Features />
-      <Testimonials />
-          <Cta />
-      <TacoShowcaseButton />
+
+
+
     </>
   );
 }
