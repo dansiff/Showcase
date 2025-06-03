@@ -1,9 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import Logo from "./Logo";
-import Image from "next/image";
-import FooterIllustration from "@/public/images/footer-illustration.svg";
-import Link from "next/link";
+
 
 export default function Footer() {
     // Example: Open modal for cookie policy
