@@ -1,7 +1,7 @@
-  
+
 export const metadata = {
-    title: "Website As A Service",
-  description: "Main Marketing page",
+    title: "Home Catalog",
+    description: "Catalog of different styles",
 };
 
 import PageIllustration from "@/components/page-illustration";
@@ -10,21 +10,14 @@ import Workflows from "@/components/workflows";
 import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
-import TacoShowcaseButton from "../../components/TacoShowcaseButton";
 import FlashyButton from "@/components/FlashyButton";
 
 export default function Home() {
-  return (
-    <>
-      <PageIllustration />
-      <Hero />
-      <Workflows />
-      <Features />
-      <Testimonials />
-          <Cta />
-          <TacoShowcaseButton />
-          <FlashyButton href="/catalog">Shop Now</FlashyButton>
+    return (
+        <>
+            
 
-    </>
-  );
+
+        </>
+    );
 }
