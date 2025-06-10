@@ -24,7 +24,7 @@ export default function Home() {
           <Cta />
           <TacoShowcaseButton />
           <FlashyButton href="/catalog">Shop Now</FlashyButton>
-
+          <FlashyButton href="/About">About us</FlashyButton>
     </>
   );
 }

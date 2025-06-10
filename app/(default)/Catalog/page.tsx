@@ -4,20 +4,30 @@ export const metadata = {
     description: "Catalog of different styles",
 };
 
-import PageIllustration from "@/components/page-illustration";
-import Hero from "@/components/hero-home";
-import Workflows from "@/components/workflows";
-import Features from "@/components/features";
-import Testimonials from "@/components/testimonials";
-import Cta from "@/components/cta";
-import FlashyButton from "@/components/FlashyButton";
+import HomePage from "@/components/HomePage/Homepage";
+
 
 export default function Home() {
+    // Example data for the 'ecom' style
+    const homePageProps = {
+        style: "ecom" as const,
+        data: {
+            products: [
+                { id: 1, name: "Product 1", image: "/images/product1.jpg", price: 29.99 },
+                { id: 2, name: "Product 2", image: "/images/product2.jpg", price: 49.99 },
+                { id: 3, name: "Product 3", image: "/images/product3.jpg", price: 19.99 },
+            ],
+        },
+    };
+
+
     return (
         <>
+            <HomePage {...homePageProps} />
             
-
-
         </>
     );
 }
+
+
+
