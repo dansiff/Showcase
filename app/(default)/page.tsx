@@ -10,8 +10,7 @@ import Workflows from "@/components/workflows";
 import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
-import TacoShowcaseButton from "../../components/TacoShowcaseButton";
-import FlashyButton from "@/components/FlashyButton";
+
 
 export default function Home() {
   return (
