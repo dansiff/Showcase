@@ -22,9 +22,7 @@ export default function Home() {
       <Features />
       <Testimonials />
           <Cta />
-          <TacoShowcaseButton />
-          <FlashyButton href="/catalog">Shop Now</FlashyButton>
-          <FlashyButton href="/About">About us</FlashyButton>
+        
     </>
   );
 }
