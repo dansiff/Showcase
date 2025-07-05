@@ -4,7 +4,7 @@
             name: 'Taco Al Pastor',
             description: 'Marinated pork, charred pineapple, fresh cilantro, and onion.',
             price: '$3.50',
-            image: 'https://images.unsplash.com/photo-1601924572549-6c5b7ee0f877?auto=format&fit=crop&w=800&q=80',
+            image: 'https://plus.unsplash.com/premium_photo-1681406995032-c3ceeb24d7f9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             tags: ['🌮 Classic', '🍍 Sweet & Savory'],
         },
         {
@@ -18,7 +18,7 @@
             name: 'Vegetariano',
             description: 'Grilled seasonal veggies, black beans, and queso fresco.',
             price: '$3.00',
-            image: 'https://images.unsplash.com/photo-1576866209830-437f93fa054b?auto=format&fit=crop&w=800&q=80',
+            image: 'https://plus.unsplash.com/premium_photo-1664648234248-7bb670bd982b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             tags: ['🥦 Vegetarian', '🧀 Cheese Lover'],
         },
     ];
