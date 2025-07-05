@@ -11,7 +11,7 @@
             name: 'Carne Asada',
             description: 'Grilled steak, salsa roja, and creamy guacamole.',
             price: '$4.25',
-            image: 'https://images.unsplash.com/photo-1613145995977-f86e0c6f63a9?auto=format&fit=crop&w=800&q=80',
+            image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%',
             tags: ['🔥 Spicy', '🥩 High Protein'],
         },
         {
