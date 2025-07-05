@@ -56,7 +56,7 @@
                                         className="bg-red-100 text-red-700 text-xs font-medium px-2 py-1 rounded-full"
                                     >
                                         {tag}
-                                    </span>
+                                    </span> 
                                 ))}
                             </div>
                         </div>

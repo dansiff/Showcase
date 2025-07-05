@@ -10,6 +10,7 @@ import Workflows from "@/components/workflows";
 import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
+import TacoShowcaseButton from "../../components/TacoShowcaseButton";
 
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
       <Features />
       <Testimonials />
           <Cta />
-        
+          <TacoShowcaseButton />
     </>
   );
 }
