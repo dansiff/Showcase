@@ -5,12 +5,24 @@ export const metadata = {
 
 import Hero from "@/components/TacoHero";
 import MenuCta from "@/components/Menu-Tacos";
+import Header from "@/components/ui/header";
+import ClientLayout from "@/components/Layouts/ClientLayout";
+
 
 export default function Home() {
     return (
-        <>
+            <ClientLayout>
+                <Header
+                    logo={<img src="/logos/querrepario-tacos.svg" alt="Querrepario Tacos" className="h-8" />}
+                    links={[
+                        { href: "/menu", label: "Menu" },
+                        { href: "/about", label: "About" },
+                        { href: "/contact", label: "Contact" },
+                    ]}
+                />
             <Hero />
             <MenuCta />
-        </>
+            </ClientLayout>
+    
     );
 }
