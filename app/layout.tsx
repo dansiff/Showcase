@@ -4,7 +4,7 @@ import "./css/style.css";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/ui/header";
-import { useHeaderVisibility, HeaderVisibilityProvider } from "@/components/layouts/layoutcontext";
+import { useHeaderVisibility, HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const nacelle = localFont({
