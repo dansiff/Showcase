@@ -1,12 +1,12 @@
 "use client";
 
-import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
+import { HeaderVisibilityProvider } from "@/components/layouts/layoutcontext";
 import Footer from "@/components/ui/footer";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-export default function Clientlayout({ children }: { children: React.ReactNode }) {
+export default function clientlayout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         AOS.init({ once: true, disable: "phone", duration: 600, easing: "ease-out-sine" });
     }, []);

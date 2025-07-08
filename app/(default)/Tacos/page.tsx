@@ -6,7 +6,7 @@ export const metadata = {
 import Hero from "@/components/TacoHero";
 import MenuCta from "@/components/Menu-Tacos";
 import Header from "@/components/ui/header";
-import Clientlayout from "@/components/layouts/Clientlayout";
+import Clientlayout from "@/components/layouts/clientlayout";
 
 
 export default function Home() {
