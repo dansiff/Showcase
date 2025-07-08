@@ -1,17 +1,12 @@
-import "./css/style.css";
+"use client";
 
+import "./css/style.css";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
-
 import Header from "@/components/ui/header";
-import type { ReactElement } from "react";
+import { useHeaderVisibility, HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const nacelle = localFont({
     src: [
         { path: "../public/fonts/nacelle-regular.woff2", weight: "400", style: "normal" },
@@ -23,32 +18,25 @@ const nacelle = localFont({
     display: "swap",
 });
 
-export const metadata = {
-    title: "Request Next App",
-  description: "next app generated",
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const childrenArray = Array.isArray(children) ? children : [children];
-
-    const hasCustomHeader = childrenArray.some(
-        (child) =>
-            typeof child === "object" &&
-            child !== null &&
-            "type" in child &&
-            (child as any).type?.displayName === "ClientLayout"
-    );
+function LayoutShell({ children }: { children: React.ReactNode }) {
+    const showHeader = useHeaderVisibility();
 
     return (
         <html lang="en">
-            <body
-                className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}
-            >
+            <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}>
                 <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
-                    {!hasCustomHeader && <Header />}
+                    {showHeader && <Header />}
                     {children}
                 </div>
             </body>
         </html>
+    );
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <HeaderVisibilityProvider>
+            <LayoutShell>{children}</LayoutShell>
+        </HeaderVisibilityProvider>
     );
 }
