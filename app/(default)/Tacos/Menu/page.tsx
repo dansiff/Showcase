@@ -1,4 +1,4 @@
-// app/tacos/menu/page.tsx
+﻿// app/tacos/menu/page.tsx
 
 export const metadata = {
     title: "Menu - Querrepario Tacos",
@@ -8,7 +8,7 @@ export const metadata = {
 const items = [
     { name: "Carne Asada", desc: "Grilled beef with lime and spices", price: "$3.50" },
     { name: "Al Pastor", desc: "Pork marinated with pineapple and chiles", price: "$3.25" },
-    { name: "Birria", desc: "Slow-braised beef with consom� dip", price: "$4.00" },
+    { name: "Birria", desc: "Slow-braised beef with consomé dip", price: "$4.00" },
     { name: "Veggie Taco", desc: "Roasted vegetables with avocado crema", price: "$3.00" },
 ];
 
