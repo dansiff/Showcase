@@ -1,31 +1,16 @@
-"use client";
+import type { ReactNode } from "react";
 
-import { useEffect } from "react";
+// Optional: Section-specific metadata
+export const metadata = {
+  title: "Sandoval Bro's",
+  description: "The modern affordable website as a service.",
+};
 
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-import TacoFooter from "@/components/ui/TacoFooter";
-
-export default function DefaultLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  useEffect(() => {
-    AOS.init({
-      once: true,
-      disable: "phone",
-      duration: 600,
-      easing: "ease-out-sine",
-    });
-  });
-
+export default function DefaultLayout({ children }: { children: ReactNode }) {
   return (
-    <>
-      <main className="relative flex grow flex-col">{children}</main>
-
-      <TacoFooter />
-    </>
+    <div className="min-h-screen flex flex-col">
+      {/* You can add section-specific nav, banners, etc. here */}
+      {children}
+    </div>
   );
 }
