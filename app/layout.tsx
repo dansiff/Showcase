@@ -28,8 +28,8 @@ const nacelle = localFont({
 
 // Must be declared **outside client component**
 export const metadata = {
-  title: "Showcase",
-  description: "A modern, modular layout system for websites.",
+  title: "Sandoval Bro's",
+  description: "A modern, modular websites service that is affordable and local.",
 };
 
 function LayoutShell({ children }: { children: ReactNode }): ReactElement {
