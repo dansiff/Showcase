@@ -13,8 +13,8 @@ export default function Home() {
             <Header
                 variant="taco"
                 links={[
-                    { href: "/tacos/Menu", label: "Menu" },
-                    { href: "/tacos/Order", label: "Order Now" },
+                    { href: "/tacos/menu", label: "Menu" },
+                    { href: "/tacos/order", label: "Order Now" },
                 ]}
             />
             <Hero />
