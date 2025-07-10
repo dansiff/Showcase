@@ -9,18 +9,16 @@ import TacoFooter from "@/components/ui/TacoFooter";
 
 export default function TacosLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-            <body>
-                <Header
-                    links={[
-                        { href: "/tacos/menu", label: "Menu" },
-                        { href: "/tacos/order", label: "Order Now" },
-                    ]}
-                    variant="taco"
-                />
-                <main>{children}</main>
-                <TacoFooter />
-            </body>
-        </html>
+        <>
+            <Header
+                links={[
+                    { href: "/tacos/menu", label: "Menu" },
+                    { href: "/tacos/order", label: "Order Now" },
+                ]}
+                variant="taco"
+            />
+            <main>{children}</main>
+            <TacoFooter />
+        </>
     );
 }
