@@ -5,14 +5,21 @@ export const metadata = {
 
 import Hero from "@/components/TacoHero";
 import MenuCta from "@/components/Menu-Tacos";
+import Header from "@/components/ui/header";
  
-
 export default function Home() {
     return (
-            <>
-        <Hero />
+        <>
+            <Header
+                variant="taco"
+                links={[
+                    { href: "/tacos/menu", label: "Menu" },
+                    { href: "/tacos/order", label: "Order Now" },
+                ]}
+            />
+            <Hero />
             <MenuCta />
-            
-     </>
+        </>
     );
 }
+// This file serves as the main entry point for the Tacos page, integrating the header, hero section, and menu call-to-action.
