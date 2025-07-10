@@ -10,13 +10,7 @@ import Header from "@/components/ui/header";
 export default function Home() {
     return (
         <>
-            <Header
-                variant="taco"
-                links={[
-                    { href: "/tacos/menu", label: "Menu" },
-                    { href: "/tacos/order", label: "Order Now" },
-                ]}
-            />
+        
             <Hero />
             <MenuCta />
         </>
