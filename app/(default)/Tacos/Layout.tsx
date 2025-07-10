@@ -4,7 +4,7 @@
 // Update the import path below if the file exists with a different name or casing.
 // For example, if the file is named 'headervariant.tsx' or 'Headervariant.tsx', update accordingly.
 // If the file does not exist, create it at 'components/ui/HeaderVariant.tsx'.
-import Header from "@/components/ui/HeaderVariant";
+import Header from "@/components/ui/header";
 import { ReactNode } from "react";
 
 export default function TacosLayout({ children }: { children: ReactNode }) {
