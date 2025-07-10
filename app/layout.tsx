@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode, ReactElement } from "react";
 import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
-import ClientLayoutShell from "../components/layouts/ClientLayoutShell";
+import ClientLayoutShell from "@/components/layouts/ClientLayoutShell";
 
 const inter = Inter({
   subsets: ["latin"],
