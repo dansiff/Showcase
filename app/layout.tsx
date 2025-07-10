@@ -23,8 +23,8 @@ const nacelle = localFont({
 });
 
 export const metadata = {
-  title: "Showcase",
-  description: "A modern, modular layout system for websites.",
+  title: "Sandoval Bro's",
+  description: "A modern Websites as a service that is affordable.",
 };
 
 export default function RootLayout({
