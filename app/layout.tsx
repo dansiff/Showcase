@@ -3,13 +3,9 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode, ReactElement } from "react";
 import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
-import clientlayoutshells from "@/components/layouts/clientlayoutshells";
+import ClientLayoutShell from "@/components/layouts/ClientLayoutShell";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 const nacelle = localFont({
   src: [
@@ -36,8 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}>
         <HeaderVisibilityProvider>
-          {/** Use your client layout shell here */}
-          {clientlayoutshells({ children })}
+          <ClientLayoutShell>{children}</ClientLayoutShell>
         </HeaderVisibilityProvider>
       </body>
     </html>
