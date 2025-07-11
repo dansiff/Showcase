@@ -1,5 +1,6 @@
 ﻿import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
+import TacoHeader from "@/components/layout/TacoHeader";
 import { MapPin } from "lucide-react";
 
 export const metadata = {
@@ -8,7 +9,7 @@ export const metadata = {
 };
 
 const inter = Inter({ 
-  weight: ["400", "600"], // Match the weights used by nacelle
+  weight: ["400", "600"],
   subsets: ["latin"], 
   variable: "--font-inter", 
   display: "swap" 
@@ -17,11 +18,7 @@ const inter = Inter({
 export default function TacoLayout({ children }: { children: ReactNode }) {
   return (
     <div className={`min-h-screen flex flex-col ${inter.variable}`}>
-      <header className="bg-gray-200 text-gray-800 p-4 text-center">
-        <h1 className="text-2xl font-bold">¡Bienvenidos a Querrepario!</h1>
-        <p className="text-sm">The home of legendary tacos—made fresh daily. Bold flavors, local ingredients, and a fiesta in every bite.</p>
-        <button className="bg-yellow-300 text-gray-800 px-4 py-2 mt-2">See Our Menu</button>
-      </header>
+      <TacoHeader />
       <main className="container mx-auto p-4 flex-grow">{children}</main>
       <footer className="bg-gray-900 text-white p-4 text-center">
         <p>© {new Date().getFullYear()} Querrepario Tacos. All rights reserved.</p>
