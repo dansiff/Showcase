@@ -1,6 +1,8 @@
 ﻿// app/tacos/layout.tsx
-import TacoFooter from "@/components/ui/TacoFooter";
-import Header from "@/components/ui/header";
+export const metadata = {
+    title: "Querrepario Tacos",
+    description: "Experience the best tacos in town with our fresh and authentic recipes.",
+};
 import type { ReactNode } from "react";
 
 
