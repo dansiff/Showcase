@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
-import LayoutShell from "@/components/layouts/layout-shell"; // lowercase import to avoid casing issues
+
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -28,9 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}>
-        <HeaderVisibilityProvider>
-          <LayoutShell>{children}</LayoutShell>
-        </HeaderVisibilityProvider>
+        
       </body>
     </html>
   );
