@@ -1,19 +1,29 @@
+// components/layout/LayoutContext.tsx
 "use client";
+import { createContext, useState, ReactNode, useContext } from "react";
 
-import { createContext, useContext } from "react";
+// Define the context type
+export const HeaderVisibilityContext = createContext<{
+  isHeaderVisible: boolean;
+  setHeaderVisible: (visible: boolean) => void;
+} | undefined>(undefined);
 
-const HeaderVisibilityContext = createContext(true); // true = show default header
+// Custom hook to safely use the context
+export function useHeaderVisibility() {
+  const context = useContext(HeaderVisibilityContext);
+  if (context === undefined) {
+    throw new Error("useHeaderVisibility must be used within a HeaderVisibilityProvider");
+  }
+  return context;
+}
 
-export const useHeaderVisibility = () => useContext(HeaderVisibilityContext);
+// Provider component
+export function HeaderVisibilityProvider({ children }: { children: ReactNode }) {
+  const [isHeaderVisible, setHeaderVisible] = useState(true);
 
-export const HeaderVisibilityProvider = ({
-    children,
-    showHeader = true,
-}: {
-    children: React.ReactNode;
-    showHeader?: boolean;
-}) => (
-    <HeaderVisibilityContext.Provider value={showHeader}>
-        {children}
-    </HeaderVisibilityContext.Provider>
-);
+  return (
+    <HeaderVisibilityContext.Provider value={{ isHeaderVisible, setHeaderVisible }}>
+      {children}
+    </HeaderVisibilityContext.Provider> 
+  );
+}
