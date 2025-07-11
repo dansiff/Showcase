@@ -3,7 +3,7 @@ import "./css/style.css";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
-import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
+import { HeaderVisibilityProvider } from "@/components/layout/LayoutContext";
 
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });

@@ -1,6 +1,6 @@
 "use client";
 
-import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
+import { HeaderVisibilityProvider } from "@/components/layout/LayoutContext";
 import Footer from "@/components/ui/footer";
 import { useEffect } from "react";
 import AOS from "aos";

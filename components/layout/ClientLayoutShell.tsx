@@ -1,6 +1,6 @@
 "use client";
 
-import { useHeaderVisibility } from "@/components/layouts/LayoutContext";
+import { useHeaderVisibility } from "@/components/layout/LayoutContext";
 import Header from "@/components/ui/header";
 import type { ReactNode } from "react";
 
