@@ -1,9 +1,10 @@
-﻿import "./css/style.css";
+﻿// File: app/layout.tsx (Server Component Root Layout)
+import "./css/style.css";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
-import type { ReactNode, ReactElement } from "react";
+import type { ReactNode } from "react";
 import { HeaderVisibilityProvider } from "@/components/layouts/LayoutContext";
-import ClientLayoutShell from "@/components/layouts/ClientLayoutShell";
+import LayoutShell from "@/components/layouts/layout-shell"; // lowercase import to avoid casing issues
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -20,19 +21,15 @@ const nacelle = localFont({
 
 export const metadata = {
   title: "Sandoval Bro's",
-  description: "A modern Websites as a service that is affordable.",
+  description: "Modern websites as a service.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}): ReactElement {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}>
         <HeaderVisibilityProvider>
-          <ClientLayoutShell>{children}</ClientLayoutShell>
+          <LayoutShell>{children}</LayoutShell>
         </HeaderVisibilityProvider>
       </body>
     </html>
