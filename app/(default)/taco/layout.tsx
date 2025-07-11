@@ -4,18 +4,7 @@ import Header from "@/components/ui/header";
 import type { ReactNode } from "react";
 
 
-export default function TacosLayout({ children }: { children: ReactNode }) {
-  return (
-    <div className="bg-yellow-950 text-yellow-100 min-h-screen flex flex-col">
-      <Header
-        links={[
-          { href: "/tacos/menu", label: "Menu" },
-          { href: "/tacos/order", label: "Order Now" },
-        ]}
-        variant="taco"
-      />
-      <main className="flex-grow px-4 py-6">{children}</main>
-      <TacoFooter />
-    </div>
-  );
+
+export default function TacoLayout({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 }

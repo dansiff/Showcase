@@ -35,17 +35,17 @@ export default function TacoFooter() {
                     <h3 className="text-sm font-semibold text-white mb-2">Quick Links</h3>
                     <ul className="space-y-1 text-sm">
                         <li>
-                            <Link href="/tacos/menu" className="hover:text-white transition">
+                            <Link href="/taco/menu" className="hover:text-white transition">
                                 Menu
                             </Link>
                         </li>
                         <li>
-                            <Link href="/tacos/order" className="hover:text-white transition">
+                            <Link href="/taco/order" className="hover:text-white transition">
                                 Order Now
                             </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className="hover:text-white transition">
+                            <Link href="/taco/contact" className="hover:text-white transition">
                                 Contact Us
                             </Link>
                         </li>
@@ -56,8 +56,15 @@ export default function TacoFooter() {
                 <div className="space-y-3">
                     <h3 className="text-sm font-semibold text-white mb-2">Find Us</h3>
                     <p className="flex items-center gap-2 text-sm">
-                        <MapPin className="w-4 h-4 text-indigo-500" />
-                        123 Taco Lane, Chicago, IL
+                        <MapPin className="w-4 h-4 text-indigo-500" />   <a
+      href="https://www.google.com/maps?q=4720+W+Lake+St,+Chicago,+IL+60644"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-indigo-500 hover:underline"
+    >
+      4720 W Lake St, Chicago, IL
+    </a>
+                
                     </p>
                     <div className="flex items-center space-x-4 mt-2">
                         <Link href="https://instagram.com" target="_blank" className="hover:text-white">
