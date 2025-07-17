@@ -50,21 +50,21 @@ export default function TacoHeader() {
         >
           <ul className="flex flex-col md:flex-row md:space-x-6 text-lg font-semibold">
             <li>
-              <Link href="/tacos/menu" className="block py-2 hover:text-teal-300">
+              <Link href="/taco/menu" className="block py-2 hover:text-teal-300">
                 Menu
               </Link>
             </li>
             <li>
-              <Link href="/tacos/order" className="block py-2 hover:text-teal-300">
+              <Link href="/taco/order" className="block py-2 hover:text-teal-300">
                 Order
               </Link>
             </li>
             <li>
               <Link
-                href="/tacos/menu"
+                href="/taco/about"
                 className="mt-2 md:mt-0 inline-block bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition"
               >
-                See Our Menu
+                See Our Story
               </Link>
             </li>
           </ul>
