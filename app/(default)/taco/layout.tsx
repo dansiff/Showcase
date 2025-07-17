@@ -1,5 +1,6 @@
 ﻿import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
+import { Amatic_SC } from "next/font/google";
 import TacoHeader from "@/components/layout/TacoHeader";
 import { MapPin } from "lucide-react";
 
@@ -15,26 +16,31 @@ const inter = Inter({
   display: "swap" 
 });
 
+const amatic = Amatic_SC({
+  weight: "700",
+  subsets: ["latin"],
+  variable: "--font-brand",
+  display: "swap",
+});
+
 export default function TacoLayout({ children }: { children: ReactNode }) {
   return (
-    <div className={`min-h-screen flex flex-col ${inter.variable}`}>
+    <div className={`min-h-screen flex flex-col bg-orange-50 ${inter.variable} ${amatic.variable} font-sans`}>
       <TacoHeader />
-      <main className="container mx-auto p-4 flex-grow">{children}</main>
-      <footer className="bg-gray-900 text-white p-4 text-center">
-        <p>© {new Date().getFullYear()} Querrepario Tacos. All rights reserved.</p>
-        <div className="space-y-3 mt-2">
-          <h3 className="text-sm font-semibold">Find Us</h3>
-          <p className="flex items-center gap-2 text-sm">
-            <MapPin className="w-4 h-4 text-indigo-500" />
-            <a
-              href="https://www.google.com/maps?q=4720+W+Lake+St,+Chicago,+IL+60644"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-indigo-500 hover:underline"
-            >
-              4720 W Lake St, Chicago, IL
+      <main className="container mx-auto px-4 py-6 flex-grow">{children}</main>
+      <footer className="bg-gray-950 text-white px-4 py-8 mt-12">
+        <div className="container mx-auto grid md:grid-cols-2 gap-6">
+          <div>
+            <h2 className="text-xl font-brand text-orange-400 mb-2">Come Visit Us</h2>
+            <p className="text-sm text-gray-400">4720 W Lake St, Chicago, IL 60644</p>
+            <a href="https://www.google.com/maps?q=4720+W+Lake+St,+Chicago,+IL+60644" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline text-sm flex items-center mt-1">
+              <MapPin className="w-4 h-4 mr-1" /> Get Directions
             </a>
-          </p>
+          </div>
+          <div className="text-sm text-gray-400">
+            <p>© {new Date().getFullYear()} Querrepario Tacos. All rights reserved.</p>
+            <p className="mt-1">Made with love and extra salsa 🌶️</p>
+          </div>
         </div>
       </footer>
     </div>
