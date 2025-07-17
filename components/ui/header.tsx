@@ -5,6 +5,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./logo";
+import { usePathname } from "next/navigation";
+
+
+const pathname = usePathname();
+
 
 type HeaderVariant = "default" | "taco" | "transparent" | "light";
 
@@ -22,31 +27,32 @@ function resolveHeaderStyles(variant: HeaderVariant = "default") {
   switch (variant) {
     case "taco":
       return {
-        container: "bg-yellow-900/80 text-yellow-100 border-b border-yellow-800",
-        link: "text-yellow-200 hover:text-white",
-        button: "bg-yellow-700 text-white hover:bg-yellow-600",
+        container: "bg-yellow-900/90 text-yellow-100 border-b-2 border-yellow-700 shadow-md backdrop-blur-sm",
+        link: "text-yellow-100 hover:text-white transition-all duration-200",
+        button: "bg-red-600 hover:bg-red-500 text-white font-semibold",
       };
     case "transparent":
       return {
-        container: "bg-transparent text-white",
-        link: "text-white hover:opacity-80",
-        button: "bg-white text-black hover:bg-gray-100",
+        container: "bg-transparent text-white shadow-none",
+        link: "text-white hover:opacity-80 transition",
+        button: "bg-white text-black hover:bg-gray-200",
       };
     case "light":
       return {
-        container: "bg-white text-gray-900 border-b border-gray-200",
-        link: "text-gray-700 hover:text-black",
-        button: "bg-gray-100 text-black hover:bg-gray-200",
+        container: "bg-white/80 text-gray-800 border-b border-gray-200 shadow-sm",
+        link: "text-gray-800 hover:text-black",
+        button: "bg-gray-200 text-black hover:bg-gray-300",
       };
     case "default":
     default:
       return {
-        container: "bg-gray-900/90 text-gray-200",
-        link: "text-gray-300 hover:text-white",
-        button: "bg-gradient-to-t from-indigo-600 to-indigo-500 text-white",
+        container: "bg-gray-900 text-white shadow-md border-b border-gray-800",
+        link: "text-white hover:text-indigo-300 transition",
+        button: "bg-indigo-600 hover:bg-indigo-500 text-white font-semibold",
       };
   }
 }
+
 
 export default function Header({
   logo = <Logo />,
