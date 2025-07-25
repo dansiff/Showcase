@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 
 const menu = [
@@ -15,6 +18,7 @@ const menu = [
   { id: 8, name: "Quesabirria", desc: "Cheesy birria taco w/ dip", price: 4.5 },
   { id: 9, name: "Super Burrito", desc: "Beans, meat, guac & cheese", price: 8.0 },
 ];
+
 
 export default function TacoOrderPage() {
   const [cart, setCart] = useState<Record<number, number>>({});
@@ -34,6 +38,39 @@ export default function TacoOrderPage() {
     const item = menu.find((m) => m.id === +id);
     return sum + (item?.price || 0) * qty;
   }, 0);
+
+ const handleCheckout = async () => {
+    const stripe = await stripePromise;
+
+    const cartItems = Object.entries(cart)
+      .map(([id, qty]) => {
+        const item = menu.find((m) => m.id === +id);
+        if (!item) return null;
+        return {
+          name: item.name,
+          price: item.price,
+          quantity: qty,
+        };
+      })
+      .filter(Boolean);
+
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartItems }),
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      console.error("Checkout URL missing");
+    }
+  };
+
 
   return (
     <section className="bg-yellow-50 text-brown-900 py-12">
@@ -101,12 +138,13 @@ export default function TacoOrderPage() {
               Total: ${total.toFixed(2)}
             </div>
             <div className="mt-6 text-center">
-              <button
-                disabled
-                className="w-full py-3 rounded-full bg-orange-400 text-white text-lg font-bold opacity-60 cursor-not-allowed"
-              >
-                Checkout Coming Soon
-              </button>
+             <button
+  onClick={handleCheckout}
+  className="w-full py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white text-lg font-bold"
+>
+  Checkout
+</button>
+
             </div>
           </div>
         )}
