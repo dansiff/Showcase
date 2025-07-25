@@ -22,7 +22,6 @@ export async function POST(req: Request) {
     }));
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       line_items,
       mode: 'payment',
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success`,
