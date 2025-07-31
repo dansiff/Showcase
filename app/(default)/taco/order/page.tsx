@@ -79,7 +79,7 @@ export default function TacoOrderPage() {
           <h1 className="text-5xl font-extrabold tracking-tight text-orange-700 drop-shadow">
             Order Your Tacos
           </h1>
-          <p className="mt-4 text-lg text-brown-800">
+          <p className="mt-4 text-lg text-brown-900">
             Add your favorite items to your cart. Checkout is just a bite away.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function TacoOrderPage() {
               className="bg-white p-6 rounded-2xl shadow-lg border border-orange-200 relative"
             >
               <h2 className="text-xl font-bold text-orange-800">{item.name}</h2>
-              <p className="text-sm text-brown-700">{item.desc}</p>
+              <p className="text-sm text-brown-800">{item.desc}</p>
               <div className="flex items-center justify-between mt-4">
                 <span className="text-lg font-medium text-orange-600">${item.price.toFixed(2)}</span>
                 <div className="flex items-center gap-2">
