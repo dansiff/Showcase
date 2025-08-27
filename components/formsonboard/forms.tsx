@@ -14,7 +14,9 @@ const formSchema = z.object({
   businessName: z.string().min(1, "Required"),
   fullName: z.string().min(1, "Required"),
   email: z.string().email("Invalid email"),
-  phone: z.string().min(10, "Invalid phone"),
+  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone"),
+  website: z.string().url("Must be a valid URL").optional(),
+  acceptTerms: z.boolean().refine(val => val === true, "You must accept terms"),
   file: z.any().optional()
 });
 
