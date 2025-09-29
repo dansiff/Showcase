@@ -1,7 +1,8 @@
   
-export const metadata = {
+import type { Metadata } from "next";
+export const metadata: Metadata = {
     title: "Home - Open PROfs",
-  description: "Page description",
+    description: "Page description",
 };
 
 import PageIllustration from "@/components/page-illustration";
