@@ -32,3 +32,40 @@ export function CardFooter({ className, ...props }: CardProps) {
     <div className={cn("mt-4 border-t pt-2 text-xs text-gray-500", className)} {...props} />
   );
 }
+export function CardTitle({ className, ...props }: CardProps) {
+  return (
+    <h3
+      className={cn("text-xl font-bold leading-none tracking-tight", className)}
+      {...props}
+    />
+  );
+}
+
+export function CardDescription({ className, ...props }: CardProps) {
+  return (
+    <p
+      className={cn("text-sm text-gray-500", className)}
+      {...props}
+    />
+  );
+}
+
+export function CardMedia({
+  className,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    <img
+      className={cn("w-full rounded-t-2xl object-cover", className)}
+      {...props}
+    />
+  );
+}
+export function CardActions({ className, ...props }: CardProps) {
+  return (
+    <div
+      className={cn("flex justify-end gap-2 pt-2", className)}
+      {...props}
+    />
+  );
+}
