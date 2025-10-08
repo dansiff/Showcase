@@ -43,6 +43,7 @@
     "@types/react": "^19.0.3",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
+    "prisma": "^6.17.0",
     "tailwindcss": "^3.3.6"
   },
   "description": "![Open React / Next.js template preview](https://github.com/user-attachments/assets/522a5e46-2a0e-48ca-80eb-87c7fa58f3ea)",
