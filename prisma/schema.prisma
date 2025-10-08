@@ -2,6 +2,7 @@
 
 generator client {
   provider = "prisma-client-js"
+   engineType = "binary" // 👈 force Node.js engine
 }
 
 datasource db {
