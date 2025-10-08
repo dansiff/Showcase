@@ -4,11 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 
-export const metadata = {
-  title: "Sign In - Sandoval Bro's",
-  description: "Sandoval Bro's",
-};
-
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
