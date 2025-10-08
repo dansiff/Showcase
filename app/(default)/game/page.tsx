@@ -273,7 +273,7 @@ function EmbedGame() {
 
 /* ----------------- Explanatory notes (skills) ----------------- */
 
-export const GameNotes = () => (
+const GameNotes = () => (
 	<div className="mt-6 text-sm text-gray-600">
 		<h3 className="font-semibold">Ideas to showcase skills</h3>
 		<ul className="list-disc ml-5 mt-2">
