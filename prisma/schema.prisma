@@ -10,9 +10,113 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Example model
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String?
+  image         String?
+  role          UserRole       @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  profile       Profile?
+  creator       Creator?
+  subscriptions Subscription[]
+  payments      Payment[]
+}
+
+model Profile {
+  id      String @id @default(cuid())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @unique
+  bio     String?
+  dob     DateTime? // optional age gate field
+  createdAt DateTime @default(now())
+}
+
+model Creator {
+  id            String   @id @default(cuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String   @unique
+  displayName   String
+  stripeAccount String?  // optional for future payouts (Stripe Connect)
+  createdAt     DateTime @default(now())
+  plans         Plan[]
+  contents      Content[]
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  creator     Creator  @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  name        String
+  stripePriceId String  // store Stripe Price ID for recurring billing
+  priceCents  Int
+  currency    String   @default("usd")
+  billingPeriod BillingPeriod @default(MONTH)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id             String   @id @default(cuid())
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+  plan           Plan     @relation(fields: [planId], references: [id])
+  planId         String
+  stripeSubId    String   @unique
+  status         SubscriptionStatus @default(active)
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd  Boolean @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Content {
+  id          String   @id @default(cuid())
+  creator     Creator  @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  title       String
+  body        String?  // text post or link
+  storageKey  String?  // S3/object key for media
+  visibility  Visibility @default(FREE) // FREE, SUBSCRIBERS, PAID
+  priceCents  Int?     // only for PAID items
+  createdAt   DateTime @default(now())
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  amountCents   Int
+  currency      String   @default("usd")
+  stripePaymentId String?
+  metadata      Json?
+  createdAt     DateTime @default(now())
+}
+
+enum UserRole {
+  USER
+  CREATOR
+  ADMIN
+}
+
+enum BillingPeriod {
+  MONTH
+  YEAR
+}
+
+enum SubscriptionStatus {
+  active
+  past_due
+  canceled
+  unpaid
+  incomplete
+}
+
+enum Visibility {
+  FREE
+  SUBSCRIBERS
+  PAID
 }

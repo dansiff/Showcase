@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { sendEmail, sendToKitchenWebhook } from '@/lib/notifications';
+import { prisma } from '@/lib/prisma';
 
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -58,7 +59,66 @@ export async function POST(req: Request) {
       sessionId: session.id,
     });
 
-    // Optionally update your DB here
+    // Persist payment/order to DB (using Prisma). Infer schema from prisma/schema.prisma
+    try {
+      // Try to get userId from session metadata first (common pattern)
+      // metadata could contain { userId } that maps to your Prisma User.id
+      // Fallback to customer email
+      const metadata: any = (sessionWithLineItems as any).metadata ?? (session as any).metadata ?? {};
+      let userId: string | null = metadata?.userId ?? null;
+
+      let user = null;
+      if (userId) {
+        // cast to any because generated Prisma client types may differ in your workspace
+        user = await (prisma as any).user.findUnique({ where: { id: userId } });
+      }
+
+      if (!user && customerEmail) {
+        user = await (prisma as any).user.findUnique({ where: { email: customerEmail } });
+        if (!user) {
+          // create a lightweight user record so Payment.userId (required) can reference it
+          user = await (prisma as any).user.create({ data: { email: customerEmail } });
+        }
+      }
+
+      // Compute amount in cents. Prefer Stripe's amount_total; fall back to subtotal or sum of line items
+      const amountFromSession = (sessionWithLineItems as any).amount_total ?? (sessionWithLineItems as any).amount_subtotal;
+      let amountCents: number | null = null;
+      if (typeof amountFromSession === 'number') amountCents = amountFromSession;
+      else {
+        // sum line items (price.unit_amount is in cents)
+        amountCents = lineItems.reduce((sum, li: any) => {
+          const unit = li.price?.unit_amount ?? 0;
+          const qty = li.quantity ?? 1;
+          return sum + unit * qty;
+        }, 0);
+        if (amountCents === 0) amountCents = null;
+      }
+
+      if (user && amountCents !== null) {
+        await (prisma as any).payment.create({
+          data: {
+            userId: user.id,
+            amountCents: amountCents,
+            currency: (sessionWithLineItems as any).currency ?? 'usd',
+            stripePaymentId: (session as any).payment_intent ?? (sessionWithLineItems as any).payment_intent ?? undefined,
+            metadata: {
+              sessionId: session.id,
+              orderSummary,
+              lineItems: lineItems.map((li) => ({
+                description: li.description,
+                quantity: li.quantity,
+                price: li.price?.unit_amount,
+              })),
+            },
+          },
+        });
+      } else {
+        console.warn('Skipping DB write for Stripe session - missing user or amount', { customerEmail, userId, amountCents });
+      }
+    } catch (err) {
+      console.error('Failed to persist payment to DB', err);
+    }
 
     return NextResponse.json({ received: true });
   }
