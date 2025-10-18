@@ -9,8 +9,8 @@ export default function AuthCallback() {
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();
     if (!supabase) return router.push("/signin");
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
+    supabase.auth.getSession().then(({ data }: any) => {
+      if (data?.session) {
         router.push("/dashboard");
       } else {
         router.push("/signin");
