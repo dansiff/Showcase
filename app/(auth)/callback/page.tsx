@@ -1,12 +1,14 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function AuthCallback() {
   const router = useRouter();
 
   useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return router.push("/signin");
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         router.push("/dashboard");

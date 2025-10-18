@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -14,6 +14,9 @@ export default function SignIn() {
     e.preventDefault();
     setLoading(true);
     setErrorMsg("");
+
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return setErrorMsg('Supabase client not available');
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -30,6 +33,9 @@ export default function SignIn() {
   };
 
   const handleGoogleSignIn = async () => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return setErrorMsg('Supabase client not available');
+
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

@@ -1,8 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [particles, setParticles] = useState<{ x: number; y: number }[]>([]);
+
+  useEffect(() => {
+    const p = Array.from({ length: 15 }).map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+    }));
+    setParticles(p);
+  }, []);
+
   return (
     <section className="relative flex h-[80vh] w-full items-center justify-center overflow-hidden">
       {/* Animated background light beams */}
@@ -18,13 +29,13 @@ export default function Hero() {
       />
 
       {/* Floating particles */}
-      {[...Array(15)].map((_, i) => (
+      {particles.map((pos, i) => (
         <motion.span
           key={i}
           className="absolute block h-2 w-2 rounded-full bg-indigo-300/30"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: pos.x,
+            y: pos.y,
             opacity: 0.2 + Math.random() * 0.5,
             scale: 0.5,
           }}

@@ -2,7 +2,11 @@ import Stripe from 'stripe';
 import { sendEmail, sendToKitchenWebhook } from '@/lib/notifications';
 import { prisma } from '@/lib/prisma';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('Missing required env var STRIPE_SECRET_KEY. Set this in Vercel or .env for local dev.');
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2025-06-30.basil',
 });
 

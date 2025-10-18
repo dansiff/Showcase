@@ -1,7 +1,13 @@
 // app/api/checkout/session/route.ts
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET!, { apiVersion: "2025-06-30.basil" });
+
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error("Missing required env var STRIPE_SECRET_KEY. Set this in Vercel or .env for local dev.");
+}
+
+// Use STRIPE_SECRET_KEY to match the rest of the codebase and Vercel env var
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-06-30.basil" });
 
 export async function POST(req: Request) {
   const { priceId, successUrl, cancelUrl, metadata } = await req.json();
