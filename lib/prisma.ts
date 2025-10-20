@@ -1,6 +1,7 @@
 ﻿// lib/prisma.ts
 // Proper PrismaClient singleton for Next.js to avoid connection exhaustion in dev
 import { PrismaClient } from "@prisma/client";
+import { validateEnvVars } from "./env";
 
 declare global {
 	// allow global var in dev to prevent multiple instances
@@ -8,10 +9,16 @@ declare global {
 	var prisma: PrismaClient | undefined;
 }
 
-export const prisma: PrismaClient =
-	global.prisma ||
-	new PrismaClient({
-		log: process.env.NODE_ENV === "development" ? ["query", "info", "warn", "error"] : ["error"],
-	});
+const globalForPrisma = global as unknown as { prisma?: PrismaClient };
 
-if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+export const prisma: PrismaClient =
+  globalForPrisma.prisma ??
+  (() => {
+    validateEnvVars();
+    const client = new PrismaClient({
+      log: process.env.NODE_ENV === "development" ? ["query", "info", "warn", "error"] : ["error"],
+    });
+    if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = client;
+    return client;
+  })();
+

@@ -1,4 +1,5 @@
 import { createBrowserClient } from "@supabase/ssr";
+import { validateEnvVars } from "@/lib/env";
 
 // Don't create a browser client at build-time (server) — only create on the
 // browser at runtime where window is available. This prevents build errors
@@ -9,11 +10,10 @@ export function getSupabaseBrowserClient() {
   const win = window as any;
   if (win.__supabase_client) return win.__supabase_client;
 
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY");
-  }
-
-  const client = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  validateEnvVars();
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+  const client = createBrowserClient(url, anon);
   win.__supabase_client = client;
   return client;
 }

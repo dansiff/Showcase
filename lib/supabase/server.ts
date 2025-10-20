@@ -1,8 +1,10 @@
 // lib/supabase/server.ts
 import { createServerClient } from "@supabase/ssr";
+import { validateEnvVars } from "@/lib/env";
 import { cookies } from "next/headers";
 
 export async function createSupabaseServerClient() {
+  validateEnvVars();
   const cookieStore = await cookies(); // asynchronous
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
