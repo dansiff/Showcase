@@ -12,6 +12,7 @@ export default function SignupForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,12 +35,41 @@ export default function SignupForm() {
 
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({ email, password });
       if (error) {
         setErrorMsg(error.message);
-      } else {
-        router.push("/dashboard");
+        return;
       }
+
+      // when signUp succeeds, supabase returns a user in data.user (may be null if confirmation required)
+      const userId = (data as any)?.user?.id;
+
+      // If user id is present, persist profile to our server API
+      if (userId) {
+        try {
+          const resp = await fetch('/api/profile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, name, company }),
+          })
+
+          if (!resp.ok) {
+            const json = await resp.json().catch(() => ({}));
+            throw new Error(json?.error || `Profile save failed: ${resp.status}`)
+          }
+
+          setSuccessMsg('Account created — redirecting...')
+          setTimeout(() => router.push('/dashboard'), 1200)
+          return;
+        } catch (err: any) {
+          setErrorMsg(err?.message ?? String(err))
+          return;
+        }
+      }
+
+      // If no user id returned (email confirmation flow), show success message
+      setSuccessMsg('Confirmation email sent. Please check your inbox.')
+      return;
     } catch (err: any) {
       setErrorMsg(err?.message ?? String(err));
     } finally {
@@ -83,7 +113,8 @@ export default function SignupForm() {
         <input id="password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-input w-full" placeholder="Password (at least 10 characters)" required />
       </div>
 
-      {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
+  {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
+  {successMsg && <p className="text-green-500 text-sm">{successMsg}</p>}
 
       <div className="mt-6 space-y-5">
         <button type="submit" disabled={loading} className="btn w-full bg-gradient-to-t from-indigo-600 to-indigo-500 text-white">

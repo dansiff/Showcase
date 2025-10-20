@@ -22,6 +22,7 @@ model User {
   creator       Creator?
   subscriptions Subscription[]
   payments      Payment[]
+  posts         Post[]
 }
 
 model Profile {
@@ -94,6 +95,36 @@ model Payment {
   stripePaymentId String?
   metadata      Json?
   createdAt     DateTime @default(now())
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String?
+  content     String
+  imageUrl    String?
+  videoUrl    String?
+  isPremium   Boolean    @default(false)
+  isPublished Boolean    @default(true)
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  likes       PostLike[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model PostLike {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+  @@index([postId])
+  @@index([userId])
 }
 
 enum UserRole {
