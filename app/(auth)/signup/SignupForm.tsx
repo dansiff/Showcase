@@ -22,6 +22,18 @@ export default function SignupForm() {
       setErrorMsg("Please fill out all required fields.");
       return;
     }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      setErrorMsg("Please enter a valid email address.");
+      return;
+    }
+    if (name.length < 2) {
+      setErrorMsg("Name must be at least 2 characters.");
+      return;
+    }
+    if (company.length < 2) {
+      setErrorMsg("Company name must be at least 2 characters.");
+      return;
+    }
     if (password.length < 10) {
       setErrorMsg("Password must be at least 10 characters.");
       return;

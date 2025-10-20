@@ -63,6 +63,11 @@ export default function CreatorProfileView({
 }: CreatorProfileViewProps) {
   const [activeTab, setActiveTab] = useState<TabType>('posts');
   const [postFilter, setPostFilter] = useState<PostFilterType>('all');
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [errorPosts, setErrorPosts] = useState<string | null>(null);
+  const [plans, setPlans] = useState<SubscriptionPlan[]>(subscriptionPlans);
+  const [loadingPlans, setLoadingPlans] = useState(false);
+  const [errorPlans, setErrorPlans] = useState<string | null>(null);
 
   const filteredPosts = posts.filter((post) => {
     if (postFilter === 'free') return !post.isPremium;
@@ -236,8 +241,19 @@ export default function CreatorProfileView({
 
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            {subscriptionPlans.length > 0 ? (
-              subscriptionPlans.map((plan) => (
+            {loadingPlans && (
+              <div className="flex justify-center items-center py-8">
+                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-purple-500"></div>
+                <span className="ml-2 text-purple-400">Loading plans...</span>
+              </div>
+            )}
+            {errorPlans && (
+              <div className="bg-red-900 rounded-lg p-6 text-center">
+                <p className="text-red-300 text-lg">{errorPlans}</p>
+              </div>
+            )}
+            {!loadingPlans && !errorPlans && plans.length > 0 ? (
+              (plans as SubscriptionPlan[]).map((plan: SubscriptionPlan) => (
                 <TypedSubscriptionTierCard
                   key={plan.id}
                   plan={plan}
@@ -245,7 +261,7 @@ export default function CreatorProfileView({
                 />
               ))
             ) : (
-              <div className="bg-gray-900 rounded-lg p-4 text-gray-400">No subscription plans available</div>
+              !loadingPlans && !errorPlans && <div className="bg-gray-900 rounded-lg p-4 text-gray-400">No subscription plans available</div>
             )}
 
             {/* Creator Stats */}

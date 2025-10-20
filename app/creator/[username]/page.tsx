@@ -13,22 +13,30 @@ const CreatorProfileView = ({ creator, posts, subscriptionPlans }: { creator: an
 
       <section>
         <h2>Posts ({posts?.length || 0})</h2>
-        <ul>
-          {posts?.map((post: any) => (
-            <li key={post.id}>{post.title}</li>
-          )) || null}
-        </ul>
+        {(!posts || posts.length === 0) ? (
+          <div style={{ color: '#888', padding: '1rem' }}>No posts yet. Check back soon!</div>
+        ) : (
+          <ul>
+            {posts.map((post: any) => (
+              <li key={post.id}>{post.title}</li>
+            ))}
+          </ul>
+        )}
       </section>
 
       <section>
         <h2>Subscription Plans ({subscriptionPlans?.length || 0})</h2>
-        <ul>
-          {subscriptionPlans?.map((plan: any) => (
-            <li key={plan.id}>
-              {plan.name} — {plan.priceCents != null ? `$${(plan.priceCents / 100).toFixed(2)}` : 'Free'}
-            </li>
-          )) || null}
-        </ul>
+        {(!subscriptionPlans || subscriptionPlans.length === 0) ? (
+          <div style={{ color: '#888', padding: '1rem' }}>No subscription plans available.</div>
+        ) : (
+          <ul>
+            {subscriptionPlans.map((plan: any) => (
+              <li key={plan.id}>
+                {plan.name} — {plan.priceCents != null ? `$${(plan.priceCents / 100).toFixed(2)}` : 'Free'}
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );
