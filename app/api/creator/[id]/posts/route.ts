@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
-    console.log('[API] /api/creator/[id]/posts called with id:', params.id);
+    console.log('[API] /api/creator/[id]/posts called with id:', id);
     const start = Date.now();
     const posts = await (prisma as any).post.findMany({
-      where: { authorId: params.id, isPublished: true },
+      where: { authorId: id, isPublished: true },
       include: {
         likes: true,
         author: { select: { id: true, name: true, image: true } }

@@ -2,10 +2,24 @@
 // Centralized runtime env validation for required variables
 
 const requiredEnvVars = [
+  // Database
   'DATABASE_URL',
+  // Supabase (browser + server)
   'NEXT_PUBLIC_SUPABASE_URL',
   'NEXT_PUBLIC_SUPABASE_ANON_KEY',
-  // Add other required keys here as needed
+  // App URL for redirects
+  'NEXT_PUBLIC_APP_URL',
+  // Stripe
+  'STRIPE_SECRET_KEY',
+  'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
+  // Auth
+  'NEXTAUTH_SECRET',
+  // Optional depending on enabled providers
+  // 'GOOGLE_CLIENT_ID',
+  // 'GOOGLE_CLIENT_SECRET',
+  // Webhooks (optional)
+  // 'STRIPE_WEBHOOK_SECRET',
+  // 'KITCHEN_WEBHOOK_URL',
 ];
 
 export function validateEnvVars() {

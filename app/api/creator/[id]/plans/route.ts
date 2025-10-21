@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
     const plans = await prisma.plan.findMany({
       where: {
-        creator: { userId: params.id },
+        creator: { userId: id },
         isActive: true
       },
       orderBy: { priceCents: 'asc' }

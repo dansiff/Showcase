@@ -68,7 +68,7 @@ export async function POST(req: Request) {
     }
 
     // Determine success/cancel URLs
-    const baseUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     const finalSuccessUrl = successUrl || `${baseUrl}/creator/success?session_id={CHECKOUT_SESSION_ID}`;
     const finalCancelUrl = cancelUrl || (creatorId ? `${baseUrl}/creator/${creatorId}` : `${baseUrl}/`);
 
