@@ -23,6 +23,12 @@ const requiredEnvVars = [
 ];
 
 export function validateEnvVars() {
+  // Only validate in production builds to avoid blocking local dev
+  if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
+    console.warn('[ENV] Skipping env validation in local dev. Set required vars in Vercel dashboard for production.');
+    return;
+  }
+  
   const missing = requiredEnvVars.filter((key) => !process.env[key]);
   if (missing.length > 0) {
     throw new Error(

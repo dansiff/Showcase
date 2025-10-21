@@ -44,10 +44,11 @@ const CreatorProfileView = ({ creator, posts, subscriptionPlans }: { creator: an
 
 
 
-export async function generateMetadata({ params }: { params: { username: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
+  const { username } = await params;
   const creator = await (prisma as any).user.findFirst({
     where: { 
-      name: { equals: params.username, mode: 'insensitive' }
+      name: { equals: username, mode: 'insensitive' }
     },
     include: {
       profile: true
@@ -72,11 +73,12 @@ export async function generateMetadata({ params }: { params: { username: string 
   };
 }
 
-export default async function CreatorPage({ params }: { params: { username: string } }) {
+export default async function CreatorPage({ params }: { params: Promise<{ username: string }> }) {
+  const { username } = await params;
   // Fetch creator data with profile
   const creator = await (prisma as any).user.findFirst({
     where: { 
-      name: { equals: params.username, mode: 'insensitive' }
+      name: { equals: username, mode: 'insensitive' }
     },
     include: {
       profile: true,
