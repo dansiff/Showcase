@@ -82,6 +82,22 @@ export default function SignupForm() {
       console.log("[SIGNUP] User ID:", userId);
       
       if (userId) {
+        // Wait a moment for session cookies to be set
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Verify session is available
+        const { data: sessionData } = await supabase.auth.getSession();
+        console.log("[SIGNUP] Session check:", { 
+          hasSession: !!sessionData.session,
+          accessToken: sessionData.session?.access_token ? 'present' : 'missing'
+        });
+
+        if (!sessionData.session) {
+          console.log("[SIGNUP] No session yet, email confirmation required");
+          setSuccessMsg("Confirmation email sent. Check your inbox!");
+          return;
+        }
+
         console.log("[SIGNUP] Creating profile via API");
         const resp = await fetch("/api/profile", {
           method: "POST",
