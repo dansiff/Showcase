@@ -36,11 +36,12 @@ export default function SignIn() {
       password,
     });
 
+    if (error) {
+      setErrorMsg(error.message); // Display the error message from Supabase
+    }
     setLoading(false);
 
-    if (error) {
-      setErrorMsg(error.message);
-    } else {
+    if (!error) {
       window.location.href = "/dashboard";
     }
   };

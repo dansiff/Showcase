@@ -163,6 +163,7 @@ export default function SignupForm() {
         </button>
       </div>
 
+      {/* OAuth providers - commented out until properly configured
       <div className="space-y-3 mb-6">
         {providers.map((p) => (
           <button
@@ -185,6 +186,7 @@ export default function SignupForm() {
           <span className="bg-white px-4 text-gray-500">Or with email</span>
         </div>
       </div>
+      */}
 
       <form onSubmit={handleEmailSignup} className="space-y-4">
         <div>
