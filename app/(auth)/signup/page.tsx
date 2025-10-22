@@ -3,6 +3,7 @@ export const metadata = {
   description: "Join as a creator or fan",
 };
 
+import { Suspense } from "react";
 import SignupForm from "./SignupForm";
 
 export default function SignUp() {
@@ -17,7 +18,13 @@ export default function SignUp() {
             Join creators and fans building connections
           </p>
         </div>
-        <SignupForm />
+        <Suspense fallback={
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          </div>
+        }>
+          <SignupForm />
+        </Suspense>
       </div>
     </section>
   );
