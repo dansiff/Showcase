@@ -17,7 +17,7 @@ export default function ClientLayoutShells({ children }: { children: ReactNode }
           <h1>Sandoval Bro's</h1>
          <nav>
   <Link href="/" className="mr-4">Home</Link>
-  <Link href="/about" className="mr-4">About</Link>
+  <Link href="/About" className="mr-4">About</Link>
   <Link href="/services">Services</Link>
   <Link href="/taco">Taco</Link>
 </nav>

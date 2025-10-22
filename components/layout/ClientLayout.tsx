@@ -21,7 +21,7 @@ export default function ClientLayout({ children, showHeader }: ClientLayoutProps
           <h1>Sandoval Bro's</h1>
           <nav>
             <a href="/" className="mr-4">Home</a>
-            <a href="/about" className="mr-4">About</a>
+            <a href="/About" className="mr-4">About</a>
             <a href="/services">Services</a>
             <a href="/taco">Taco</a>
           </nav>
