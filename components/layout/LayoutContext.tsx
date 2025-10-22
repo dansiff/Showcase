@@ -2,28 +2,53 @@
 "use client";
 import { createContext, useState, ReactNode, useContext } from "react";
 
-// Define the context type
-export const HeaderVisibilityContext = createContext<{
-  isHeaderVisible: boolean;
-  setHeaderVisible: (visible: boolean) => void;
-} | undefined>(undefined);
+export type HeaderLink = { href: string; label: string };
+export type HeaderCTA = { href: string; label: string };
+export type HeaderVariant = "light" | "dark" | "transparent" | "taco";
 
-// Custom hook to safely use the context
-export function useHeaderVisibility() {
-  const context = useContext(HeaderVisibilityContext);
-  if (context === undefined) {
-    throw new Error("useHeaderVisibility must be used within a HeaderVisibilityProvider");
-  }
-  return context;
+export type HeaderConfig = {
+  show?: boolean;
+  variant?: HeaderVariant;
+  links?: HeaderLink[];
+  cta?: HeaderCTA | null;
+};
+
+type HeaderContextType = {
+  config: HeaderConfig;
+  setConfig: (cfg: Partial<HeaderConfig>) => void;
+};
+
+const defaultConfig: HeaderConfig = {
+  show: true,
+  variant: "light",
+  links: [
+    { href: "/creators", label: "Creators" },
+    { href: "/about", label: "About" },
+    { href: "/signin", label: "Sign in" },
+    { href: "/signup", label: "Sign up" },
+  ],
+  cta: { href: "/signup?role=creator", label: "Become a creator" },
+};
+
+export const HeaderContext = createContext<HeaderContextType | undefined>(undefined);
+
+export function useHeader() {
+  const ctx = useContext(HeaderContext);
+  if (!ctx) throw new Error("useHeader must be used within HeaderProvider");
+  return ctx;
 }
 
-// Provider component
-export function HeaderVisibilityProvider({ children }: { children: ReactNode }) {
-  const [isHeaderVisible, setHeaderVisible] = useState(true);
+// Backwards compatibility hooks
+export function useHeaderVisibility() {
+  const { config, setConfig } = useHeader();
+  return {
+    isHeaderVisible: !!config.show,
+    setHeaderVisible: (visible: boolean) => setConfig({ show: visible }),
+  };
+}
 
-  return (
-    <HeaderVisibilityContext.Provider value={{ isHeaderVisible, setHeaderVisible }}>
-      {children}
-    </HeaderVisibilityContext.Provider> 
-  );
+export function HeaderProvider({ children, initial }: { children: ReactNode; initial?: Partial<HeaderConfig> }) {
+  const [config, setConfigState] = useState<HeaderConfig>({ ...defaultConfig, ...initial });
+  const setConfig = (cfg: Partial<HeaderConfig>) => setConfigState((prev) => ({ ...prev, ...cfg }));
+  return <HeaderContext.Provider value={{ config, setConfig }}>{children}</HeaderContext.Provider>;
 }

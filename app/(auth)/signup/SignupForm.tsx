@@ -1,87 +1,92 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+
+type Provider = "google" | "discord" | "facebook" | "twitter";
+
+const providers: { id: Provider; name: string; icon: string }[] = [
+  { id: "google", name: "Google", icon: "🔍" },
+  { id: "discord", name: "Discord", icon: "💬" },
+  { id: "facebook", name: "Facebook", icon: "👍" },
+  { id: "twitter", name: "Twitter", icon: "🐦" },
+];
 
 export default function SignupForm() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
+  const searchParams = useSearchParams();
+  const roleParam = searchParams?.get("role");
+  
+  const [role, setRole] = useState<"creator" | "fan">(
+    roleParam === "creator" ? "creator" : "fan"
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
+    setSuccessMsg("");
 
-    if (!email || !password || !name || !company) {
-      setErrorMsg("Please fill out all required fields.");
+    if (!email || !password || !name) {
+      setErrorMsg("Please fill out all fields.");
       return;
     }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      setErrorMsg("Please enter a valid email address.");
+      setErrorMsg("Please enter a valid email.");
       return;
     }
-    if (name.length < 2) {
-      setErrorMsg("Name must be at least 2 characters.");
-      return;
-    }
-    if (company.length < 2) {
-      setErrorMsg("Company name must be at least 2 characters.");
-      return;
-    }
-    if (password.length < 10) {
-      setErrorMsg("Password must be at least 10 characters.");
+    if (password.length < 8) {
+      setErrorMsg("Password must be at least 8 characters.");
       return;
     }
 
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
-      setErrorMsg("Supabase client not available.");
+      setErrorMsg("Auth not available.");
       return;
     }
 
     setLoading(true);
     try {
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name, role },
+        },
+      });
+
       if (error) {
         setErrorMsg(error.message);
         return;
       }
 
-      // when signUp succeeds, supabase returns a user in data.user (may be null if confirmation required)
-      const userId = (data as any)?.user?.id;
-
-      // If user id is present, persist profile to our server API
+      const userId = data?.user?.id;
       if (userId) {
-        try {
-          const resp = await fetch('/api/profile', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, name, company }),
-          })
+        const resp = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, name, role }),
+        });
 
-          if (!resp.ok) {
-            const json = await resp.json().catch(() => ({}));
-            throw new Error(json?.error || `Profile save failed: ${resp.status}`)
-          }
-
-          setSuccessMsg('Account created — redirecting...')
-          setTimeout(() => router.push('/dashboard'), 1200)
-          return;
-        } catch (err: any) {
-          setErrorMsg(err?.message ?? String(err))
-          return;
+        if (!resp.ok) {
+          const json = await resp.json().catch(() => ({}));
+          throw new Error(json?.error || `Profile creation failed`);
         }
+
+        setSuccessMsg("Account created! Redirecting...");
+        setTimeout(() => router.push(role === "creator" ? "/dashboard" : "/"), 1200);
+        return;
       }
 
-      // If no user id returned (email confirmation flow), show success message
-      setSuccessMsg('Confirmation email sent. Please check your inbox.')
-      return;
+      setSuccessMsg("Confirmation email sent. Check your inbox!");
     } catch (err: any) {
       setErrorMsg(err?.message ?? String(err));
     } finally {
@@ -89,58 +94,146 @@ export default function SignupForm() {
     }
   };
 
-  const handleGoogle = async () => {
+  const handleOAuthSignup = async (provider: Provider) => {
     const supabase = getSupabaseBrowserClient();
-    if (!supabase) return setErrorMsg("Supabase client not available");
-    await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${window.location.origin}/auth/callback` } });
+    if (!supabase) {
+      setErrorMsg("Auth not available.");
+      return;
+    }
+
+    localStorage.setItem("pendingRole", role);
+
+    await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div>
-        <label className="mb-1 block text-sm font-medium text-indigo-200/65" htmlFor="name">
-          Name <span className="text-red-500">*</span>
-        </label>
-        <input id="name" value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-input w-full" placeholder="Your full name" required />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-indigo-200/65" htmlFor="company">
-          Company Name <span className="text-red-500">*</span>
-        </label>
-        <input id="company" value={company} onChange={(e) => setCompany(e.target.value)} type="text" className="form-input w-full" placeholder="Your company name" required />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium text-indigo-200/65" htmlFor="email">
-          Work Email <span className="text-red-500">*</span>
-        </label>
-        <input id="email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-input w-full" placeholder="Your work email" required />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-indigo-200/65" htmlFor="password">
-          Password <span className="text-red-500">*</span>
-        </label>
-        <input id="password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-input w-full" placeholder="Password (at least 10 characters)" required />
-      </div>
-
-  {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
-  {successMsg && <p className="text-green-500 text-sm">{successMsg}</p>}
-
-      <div className="mt-6 space-y-5">
-        <button type="submit" disabled={loading} className="btn w-full bg-gradient-to-t from-indigo-600 to-indigo-500 text-white">
-          {loading ? "Creating..." : "Register"}
+    <div className="mx-auto max-w-md">
+      <div className="mb-8 flex gap-3 p-1 bg-gray-100 rounded-lg">
+        <button
+          type="button"
+          onClick={() => setRole("fan")}
+          className={`flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition ${
+            role === "fan"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-600 hover:text-gray-900"
+          }`}
+        >
+          Sign up as a fan
         </button>
+        <button
+          type="button"
+          onClick={() => setRole("creator")}
+          className={`flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition ${
+            role === "creator"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-600 hover:text-gray-900"
+          }`}
+        >
+          Sign up as a creator
+        </button>
+      </div>
 
-        <div className="flex items-center gap-3 text-center text-sm italic text-gray-600 before:h-px before:flex-1 before:bg-gradient-to-r before:from-transparent before:via-gray-400/25 after:h-px after:flex-1 after:bg-gradient-to-r after:from-transparent after:via-gray-400/25">
-          or
+      <div className="space-y-3 mb-6">
+        {providers.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            onClick={() => handleOAuthSignup(p.id)}
+            className="w-full flex items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition"
+          >
+            <span className="text-lg">{p.icon}</span>
+            Continue with {p.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="relative mb-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300" />
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="bg-white px-4 text-gray-500">Or with email</span>
+        </div>
+      </div>
+
+      <form onSubmit={handleEmailSignup} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="Your name"
+            required
+          />
         </div>
 
-        <button type="button" onClick={handleGoogle} className="btn relative w-full bg-gradient-to-b from-gray-800 to-gray-800/60 text-gray-300">
-          Sign Up with Google
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-indigo-500"
+            placeholder="At least 8 characters"
+            required
+          />
+        </div>
+
+        {errorMsg && (
+          <div className="rounded-lg bg-red-50 p-3 text-sm text-red-800">
+            {errorMsg}
+          </div>
+        )}
+
+        {successMsg && (
+          <div className="rounded-lg bg-green-50 p-3 text-sm text-green-800">
+            {successMsg}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50"
+        >
+          {loading ? "Creating account..." : `Sign up as ${role}`}
         </button>
-      </div>
-    </form>
+      </form>
+
+      <p className="mt-6 text-center text-sm text-gray-600">
+        Already have an account?{" "}
+        <Link href="/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
+          Sign in
+        </Link>
+      </p>
+    </div>
   );
 }
