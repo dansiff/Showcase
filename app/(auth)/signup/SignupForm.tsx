@@ -31,28 +31,35 @@ export default function SignupForm() {
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("[SIGNUP] Form submitted");
     setErrorMsg("");
     setSuccessMsg("");
 
     if (!email || !password || !name) {
+      console.log("[SIGNUP] Validation failed: missing fields");
       setErrorMsg("Please fill out all fields.");
       return;
     }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      console.log("[SIGNUP] Validation failed: invalid email");
       setErrorMsg("Please enter a valid email.");
       return;
     }
     if (password.length < 8) {
+      console.log("[SIGNUP] Validation failed: password too short");
       setErrorMsg("Password must be at least 8 characters.");
       return;
     }
 
+    console.log("[SIGNUP] Getting Supabase client");
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
-      setErrorMsg("Auth not available.");
+      console.error("[SIGNUP] Supabase client not available");
+      setErrorMsg("Auth not available. Check console for details.");
       return;
     }
 
+    console.log("[SIGNUP] Starting signup with role:", role);
     setLoading(true);
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -63,31 +70,43 @@ export default function SignupForm() {
         },
       });
 
+      console.log("[SIGNUP] Supabase response:", { data, error });
+
       if (error) {
+        console.error("[SIGNUP] Supabase error:", error);
         setErrorMsg(error.message);
         return;
       }
 
       const userId = data?.user?.id;
+      console.log("[SIGNUP] User ID:", userId);
+      
       if (userId) {
+        console.log("[SIGNUP] Creating profile via API");
         const resp = await fetch("/api/profile", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId, name, role }),
         });
 
+        console.log("[SIGNUP] Profile API response status:", resp.status);
+
         if (!resp.ok) {
           const json = await resp.json().catch(() => ({}));
+          console.error("[SIGNUP] Profile creation failed:", json);
           throw new Error(json?.error || `Profile creation failed`);
         }
 
+        console.log("[SIGNUP] Success! Redirecting to:", role === "creator" ? "/dashboard" : "/");
         setSuccessMsg("Account created! Redirecting...");
         setTimeout(() => router.push(role === "creator" ? "/dashboard" : "/"), 1200);
         return;
       }
 
+      console.log("[SIGNUP] No user ID, email confirmation required");
       setSuccessMsg("Confirmation email sent. Check your inbox!");
     } catch (err: any) {
+      console.error("[SIGNUP] Unexpected error:", err);
       setErrorMsg(err?.message ?? String(err));
     } finally {
       setLoading(false);
@@ -95,20 +114,26 @@ export default function SignupForm() {
   };
 
   const handleOAuthSignup = async (provider: Provider) => {
+    console.log("[SIGNUP-OAUTH] Starting OAuth signup with provider:", provider);
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
-      setErrorMsg("Auth not available.");
+      console.error("[SIGNUP-OAUTH] Supabase client not available");
+      setErrorMsg("Auth not available. Check console for details.");
       return;
     }
 
+    console.log("[SIGNUP-OAUTH] Saving role to localStorage:", role);
     localStorage.setItem("pendingRole", role);
 
-    await supabase.auth.signInWithOAuth({
+    console.log("[SIGNUP-OAUTH] Initiating OAuth flow");
+    const result = await supabase.auth.signInWithOAuth({
       provider,
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+
+    console.log("[SIGNUP-OAUTH] OAuth result:", result);
   };
 
   return (
