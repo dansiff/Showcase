@@ -9,14 +9,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
 
   return (
     <>
-      {showHeader && (
-        <Header
-          links={[
-            { href: "/signin", label: "Sign In" },
-            { href: "/signup", label: "Register" },
-          ]}
-        />
-      )}
+      {showHeader && <Header />}
       <main>{children}</main>
       <Footer />
     </>
