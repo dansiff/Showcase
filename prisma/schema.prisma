@@ -152,3 +152,37 @@ enum Visibility {
   SUBSCRIBERS
   PAID
 }
+
+model ClientIntake {
+  id                  String   @id @default(cuid())
+  fullName            String
+  email               String
+  phone               String?
+  company             String
+  website             String?
+  projectType         String   // website, ecommerce, landing-page, web-app, other
+  projectDescription  String
+  goals               String
+  targetAudience      String
+  features            String[] // Array of selected features
+  designPreferences   String?
+  brandGuidelines     String?
+  contentReady        String   // ready, partial, need-help, none
+  timeline            String   // asap, 1-month, 2-3-months, flexible
+  launchDate          DateTime?
+  budget              String   // under-5k, 5k-10k, 10k-25k, 25k-50k, 50k-plus
+  competitors         String?
+  inspiration         String?
+  additionalNotes     String?
+  preferredCallDate   String?  // Preferred kickoff call date
+  preferredCallTime   String?  // Preferred kickoff call time
+  uploadedFiles       String[] // Array of file URLs
+  termsAccepted       Boolean  @default(false)
+  status              String   @default("pending") // pending, in-progress, completed, cancelled
+  depositPaid         Boolean  @default(false)
+  depositAmount       Int?     // in cents
+  finalPaymentPaid    Boolean  @default(false)
+  stripeSessionId     String?  // Stripe checkout session ID
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
