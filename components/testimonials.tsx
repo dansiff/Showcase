@@ -11,19 +11,19 @@ type CaseStudy = {
 const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "gazam",
-    title: "Product site modernization",
+    title: "EHR/EMR SaaS",
     company: "Gazam",
     summary:
-      "Delivered a modern, fast marketing site with clear conversion paths and a maintainable component system.",
-    badges: ["Next.js", "Tailwind", "Performance"],
+      "Full-stack pain clinic software with Azure hosting, Twilio video, automated intake, and data migration for multi-clinic subscription model.",
+    badges: ["React", "Azure", "Twilio", "EHR"],
   },
   {
     slug: "bluesky-telepsych",
-    title: "Telehealth web presence",
+    title: "Telepsychiatry Platform",
     company: "Bluesky Telepsych",
     summary:
-      "Built a trustworthy, ADA-conscious site structure with contact flows that route patients to the right care.",
-    badges: ["Accessibility", "SEO", "CMS"],
+      "Custom EHR/EMR on AWS with live video, automated billing, and offshore team management. Site migration from WordPress to Wix.",
+    badges: ["AWS", "Twilio", "DevOps", "HIPAA"],
   },
   {
     slug: "independent-creator",
