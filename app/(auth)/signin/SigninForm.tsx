@@ -35,12 +35,30 @@ export default function SignIn() {
     });
 
     if (error) {
-      setErrorMsg(error.message); // Display the error message from Supabase
+      setErrorMsg(error.message);
+      setLoading(false);
+      return;
     }
-    setLoading(false);
 
-    if (!error) {
-      window.location.href = "/dashboard";
+    // Fetch user profile to determine role and redirect accordingly
+    try {
+      const profileRes = await fetch("/api/profile");
+      if (profileRes.ok) {
+        const profile = await profileRes.json();
+        const isCreator = !!profile?.creator;
+        
+        console.log("[SIGNIN] Profile role:", isCreator ? "creator" : "fan");
+        
+        // Redirect based on actual role
+        window.location.href = isCreator ? "/dashboard" : "/";
+      } else {
+        // No profile found, default to homepage
+        window.location.href = "/";
+      }
+    } catch (err) {
+      console.error("[SIGNIN] Error fetching profile:", err);
+      // Fallback to homepage on error
+      window.location.href = "/";
     }
   };
 
@@ -56,6 +74,8 @@ export default function SignIn() {
       options: {
         // App Router: app/(auth)/callback builds to "/callback"
         redirectTo: `${window.location.origin}/callback`,
+        // Required for Supabase OAuth to prevent PKCE errors
+        flowType: 'pkce',
       },
     });
   };

@@ -145,6 +145,8 @@ export default function SignupForm() {
       options: {
         // App Router: app/(auth)/callback builds to "/callback"
         redirectTo: `${window.location.origin}/callback`,
+        // Required for Supabase OAuth to prevent PKCE errors
+        flowType: 'pkce',
       },
     });
 
