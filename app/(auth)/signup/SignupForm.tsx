@@ -5,13 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
-type Provider = "google" | "discord" | "facebook" | "twitter";
+type Provider = "google";
 
+// Supabase-only Google OAuth for now
 const providers: { id: Provider; name: string; icon: string }[] = [
   { id: "google", name: "Google", icon: "🔍" },
-  { id: "discord", name: "Discord", icon: "💬" },
-  { id: "facebook", name: "Facebook", icon: "👍" },
-  { id: "twitter", name: "Twitter", icon: "🐦" },
 ];
 
 export default function SignupForm() {
@@ -145,7 +143,8 @@ export default function SignupForm() {
     const result = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        // App Router: app/(auth)/callback builds to "/callback"
+        redirectTo: `${window.location.origin}/callback`,
       },
     });
 
@@ -179,7 +178,6 @@ export default function SignupForm() {
         </button>
       </div>
 
-      {/* OAuth providers - commented out until properly configured
       <div className="space-y-3 mb-6">
         {providers.map((p) => (
           <button
@@ -202,7 +200,6 @@ export default function SignupForm() {
           <span className="bg-white px-4 text-gray-500">Or with email</span>
         </div>
       </div>
-      */}
 
       <form onSubmit={handleEmailSignup} className="space-y-4">
         <div>

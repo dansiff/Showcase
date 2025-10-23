@@ -36,7 +36,7 @@ function AuthCallbackContent() {
         // If this is an email confirmation, show success page
         if (type === "email") {
           console.log("[CALLBACK] Email confirmation detected, redirecting to confirm page");
-          router.push("/auth/confirm");
+          router.push("/confirm");
           return;
         }
       }

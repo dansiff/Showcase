@@ -4,13 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
-type Provider = "google" | "discord" | "facebook" | "twitter";
+type Provider = "google";
 
+// Supabase-only Google OAuth for now
 const providers: { id: Provider; name: string; icon: string }[] = [
   { id: "google", name: "Google", icon: "🔍" },
-  { id: "discord", name: "Discord", icon: "💬" },
-  { id: "facebook", name: "Facebook", icon: "👍" },
-  { id: "twitter", name: "Twitter", icon: "🐦" },
 ];
 
 export default function SignIn() {
@@ -56,7 +54,8 @@ export default function SignIn() {
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        // App Router: app/(auth)/callback builds to "/callback"
+        redirectTo: `${window.location.origin}/callback`,
       },
     });
   };

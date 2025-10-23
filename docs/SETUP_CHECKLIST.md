@@ -5,7 +5,7 @@
 ### 1. Fix Redirect URL in Supabase Dashboard
 - [ ] Go to **Authentication** → **URL Configuration**
 - [ ] Set **Site URL**: `http://localhost:3000`
-- [ ] Add to **Redirect URLs**: `http://localhost:3000/auth/callback`
+- [ ] Add to **Redirect URLs**: `http://localhost:3000/callback`
 - [ ] Save changes
 
 ### 2. Customize Email Template
@@ -31,7 +31,7 @@
 
 ✅ **Email confirmation callback** - Now properly handles email verification  
 ✅ **Profile creation** - Creates user profile after email confirmation  
-✅ **Success page** - Beautiful confirmation page at `/auth/confirm`  
+✅ **Success page** - Beautiful confirmation page at `/confirm`  
 ✅ **Role detection** - Reads role from user metadata and creates appropriate profile  
 ✅ **Better logging** - Console logs show exactly what's happening  
 
@@ -40,8 +40,8 @@
 ## Email Flow
 
 1. User signs up → Supabase sends confirmation email
-2. User clicks link in email → Redirected to `http://localhost:3000/auth/callback?code=xxx&type=email`
-3. Callback page exchanges code for session → Creates profile → Redirects to `/auth/confirm`
+2. User clicks link in email → Redirected to `http://localhost:3000/callback?code=xxx&type=email`
+3. Callback page exchanges code for session → Creates profile → Redirects to `/confirm`
 4. Confirm page shows success → Auto-redirects to `/signin` after 5 seconds
 
 ---

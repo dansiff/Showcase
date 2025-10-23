@@ -154,8 +154,8 @@ In **Authentication** → **URL Configuration**:
   - Production: `https://your-domain.com` (set to your Vercel domain if using Vercel)
 
 2. **Redirect URLs** (add both):
-   - `http://localhost:3000/auth/callback`
-   - `https://your-domain.com/auth/callback`
+  - `http://localhost:3000/callback`
+  - `https://your-domain.com/callback`
 
 ---
 
@@ -164,7 +164,7 @@ In **Authentication** → **URL Configuration**:
 1. Sign up with a new email address
 2. Check your inbox for the confirmation email
 3. Click the confirmation link
-4. Verify you're redirected to `/auth/confirm` page
+4. Verify you're redirected to `/confirm` page
 5. Check that you're then redirected to sign in
 
 ---
@@ -216,13 +216,13 @@ Available variables in email templates:
 **For Development:**
 - ✅ Keep email confirmation enabled (for testing)
 - ✅ Set Site URL to `http://localhost:3000`
-- ✅ Add redirect URL: `http://localhost:3000/auth/callback`
+- ✅ Add redirect URL: `http://localhost:3000/callback`
 - ✅ Use Supabase's built-in email service
 
 **For Production:**
 - ✅ Use custom SMTP provider (SendGrid/SES)
 - ✅ Set Site URL to your production domain
-- ✅ Add redirect URL: `https://your-domain.com/auth/callback`
+- ✅ Add redirect URL: `https://your-domain.com/callback`
 - ✅ Customize sender name and email
 - ✅ Verify email domain for better deliverability
 
@@ -237,7 +237,7 @@ Available variables in email templates:
 
 **Confirmation link not working:**
 - Check redirect URLs are correct in Supabase
-- Verify `/auth/callback` page exists and works
+- Verify `/callback` page exists and works
 - Check browser console for errors
 
 **Not receiving emails:**
