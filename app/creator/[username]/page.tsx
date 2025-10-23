@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
+import AgeGate from '../../../components/creator/AgeGate';
 // Inline fallback for CreatorProfileView to avoid missing module during development.
 // Replace this with a dedicated ./CreatorProfileView component file when available.
 const CreatorProfileView = ({ creator, posts, subscriptionPlans }: { creator: any; posts: any[]; subscriptionPlans: any[] }) => {
@@ -51,7 +52,8 @@ export async function generateMetadata({ params }: { params: Promise<{ username:
       name: { equals: username, mode: 'insensitive' }
     },
     include: {
-      profile: true
+      profile: true,
+      creator: true,
     }
   });
 
@@ -82,6 +84,7 @@ export default async function CreatorPage({ params }: { params: Promise<{ userna
     },
     include: {
       profile: true,
+      creator: true,
     },
   });
 
@@ -120,11 +123,18 @@ export default async function CreatorPage({ params }: { params: Promise<{ userna
     orderBy: { priceCents: 'asc' }
   });
 
+  const ageRestricted = creator.creator?.ageRestricted === true;
+
   return (
-    <CreatorProfileView 
-      creator={creator} 
-      posts={posts}
-      subscriptionPlans={subscriptionPlans}
-    />
+    <>
+      {ageRestricted && (
+        <AgeGate creatorKey={`creator-${creator.id}`} />
+      )}
+      <CreatorProfileView 
+        creator={creator} 
+        posts={posts}
+        subscriptionPlans={subscriptionPlans}
+      />
+    </>
   );
 }

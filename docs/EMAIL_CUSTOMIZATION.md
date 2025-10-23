@@ -88,14 +88,14 @@ Click on **Confirm Signup** template and replace with this custom template:
 <body>
   <div class="container">
     <div class="header">
-      <h1>🚀 Welcome to Showcase</h1>
+  <h1>🚀 Welcome to The Fusion Space Inc</h1>
     </div>
     
     <div class="content">
       <h2>Confirm Your Email</h2>
       <p>Hi there! 👋</p>
       <p>
-        Thanks for signing up for Showcase! We're excited to have you join our community 
+  Thanks for signing up for The Fusion Space Inc! We're excited to have you join our community 
         of creators and fans.
       </p>
       <p>
@@ -124,7 +124,7 @@ Click on **Confirm Signup** template and replace with this custom template:
     
     <div class="footer">
       <p>
-        © 2025 Showcase. All rights reserved.<br>
+  © 2025 The Fusion Space Inc. All rights reserved.<br>
         <a href="{{ .SiteURL }}">Visit our website</a>
       </p>
     </div>
@@ -139,8 +139,8 @@ Click on **Confirm Signup** template and replace with this custom template:
 
 In **Authentication** → **Settings** → **Email Settings**:
 
-1. **Sender Name**: Change from "Supabase" to "Showcase Team"
-2. **Sender Email**: Use your custom domain email (e.g., `noreply@showcase.com`)
+1. **Sender Name**: Change from "Supabase" to "The Fusion Space Team"
+2. **Sender Email**: Use your custom domain email (e.g., `noreply@thefusionspace.com`)
 3. **Email Provider**: Consider upgrading to a custom SMTP provider like SendGrid or AWS SES for production
 
 ---
@@ -151,7 +151,7 @@ In **Authentication** → **URL Configuration**:
 
 1. **Site URL**: 
    - Dev: `http://localhost:3000`
-   - Production: `https://your-domain.com`
+  - Production: `https://your-domain.com` (set to your Vercel domain if using Vercel)
 
 2. **Redirect URLs** (add both):
    - `http://localhost:3000/auth/callback`

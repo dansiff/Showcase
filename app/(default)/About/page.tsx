@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Code, Zap, Shield, HeartHandshake, TrendingUp, Award, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us - Sandoval Bro's",
+  title: "About Us - The Fusion Space Inc",
   description: "Chicago local software company with unbeatable prices and excellent support. Professional web development with the best DevOps methods.",
 };
 
@@ -55,7 +55,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-4 py-1.5">
               <Award className="h-4 w-4 text-indigo-400" />
-              <span className="text-sm font-medium text-indigo-300">Chicago's Premier Web Development</span>
+              <span className="text-sm font-medium text-indigo-300">The Fusion Space Inc — Chicago's Premier Web Development</span>
             </div>
             
             <h1 className="mb-6 text-5xl font-bold tracking-tight text-white sm:text-6xl">
@@ -63,7 +63,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="mb-8 text-xl text-gray-400 leading-relaxed">
-              We're a <span className="text-white font-semibold">Chicago-based software company</span> specializing in professional websites with <span className="text-indigo-400 font-semibold">unbeatable prices</span> and exceptional support.
+              We're <span className="text-white font-semibold">The Fusion Space Inc</span>, a Chicago-based software company specializing in professional websites with <span className="text-indigo-400 font-semibold">unbeatable prices</span> and exceptional support.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">

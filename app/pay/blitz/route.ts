@@ -10,13 +10,18 @@ export async function GET() {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
+      locale: "auto",
+      allow_promotion_codes: true,
+      phone_number_collection: { enabled: true },
+      billing_address_collection: "auto",
       line_items: [
         {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "48-Hour Blitz Build Fee",
-              description: "Rapid website development in 48 hours",
+              name: "48-Hour Blitz Build: $3,999 (one-time)",
+              description: "Rapid website development with priority delivery — upfront build fee",
+              // images: [`${process.env.NEXT_PUBLIC_SITE_URL}/images/checkout/blitz-build.png`],
             },
             unit_amount: 399900, // $3,999 in cents
             recurring: undefined,
@@ -27,8 +32,9 @@ export async function GET() {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "Premium Monthly Hosting",
-              description: "Premium hosting, maintenance & priority support",
+              name: "Premium Monthly Hosting: $79/mo (recurring)",
+              description: "Hosting, maintenance, and priority support — billed monthly",
+              // images: [`${process.env.NEXT_PUBLIC_SITE_URL}/images/checkout/blitz-hosting.png`],
             },
             unit_amount: 7900, // $79 in cents
             recurring: {
@@ -41,6 +47,11 @@ export async function GET() {
       subscription_data: {
         metadata: {
           plan: "blitz",
+        },
+      },
+      custom_text: {
+        submit: {
+          message: "You're getting the Blitz Plan: $3,999 today + $79/mo starting immediately. ⚡",
         },
       },
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/success?session_id={CHECKOUT_SESSION_ID}`,

@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import { HeaderProvider } from "@/components/layout/LayoutContext";
-import ClientLayoutShell from "@/components/layout/ClientLayoutShell";
+// import ClientLayoutShell from "@/components/layout/ClientLayoutShell";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -20,14 +20,14 @@ const nacelle = localFont({
 });
 
 export const metadata = {
-  title: "Sandoval Bro's",
-  description: "Modern websites as a service.",
+  title: "The Fusion Space Inc",
+  description: "Modern websites as a service by The Fusion Space Inc.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}>
+  <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased overflow-x-hidden`}>
         <HeaderProvider>
           {children}
         </HeaderProvider>

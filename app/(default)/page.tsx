@@ -1,6 +1,6 @@
   
 export const metadata = {
-  title: "Sandoval Bro's - Website As A Service",
+  title: "The Fusion Space Inc — Website As A Service",
   description: "Professional websites tailored to your business needs",
 };
 

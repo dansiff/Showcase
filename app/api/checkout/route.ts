@@ -32,7 +32,7 @@ export async function POST(req: Request) {
               currency: 'usd',
               product_data: {
                 name: 'Website Development Project - 50% Deposit',
-                description: `Deposit for project. Remaining $${(depositAmount / 100).toFixed(2)} due upon completion.`,
+                description: `Deposit for project. Remaining $${depositAmount.toFixed(2)} due upon completion.`,
               },
               unit_amount: depositAmount * 100, // Stripe uses cents
             },

@@ -27,7 +27,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/features"
                 >
                   Features
                 </a>
@@ -35,7 +35,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/integrations"
                 >
                   Integrations
                 </a>
@@ -43,7 +43,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/pricing"
                 >
                   Pricing &amp; Plans
                 </a>
@@ -51,7 +51,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/changelog"
                 >
                   Changelog
                 </a>
@@ -59,7 +59,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/method"
                 >
                   Our method
                 </a>
@@ -67,7 +67,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/privacy"
                 >
                   User policy
                 </a>
@@ -89,15 +89,15 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/contact"
                 >
-                  
+                  Contact
                 </a>
               </li>
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/blog"
                 >
                   Blog
                 </a>
@@ -105,7 +105,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/careers"
                 >
                   Careers
                 </a>
@@ -113,7 +113,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/financials"
                 >
                   Financial statements
                 </a>
@@ -127,7 +127,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/community"
                 >
                   Community
                 </a>
@@ -135,7 +135,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/terms"
                 >
                   Terms of service
                 </a>
@@ -143,7 +143,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/security"
                 >
                   Report a vulnerability
                 </a>
@@ -191,7 +191,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/cookies"
                 >
                   Cookie manager
                 </a>
@@ -205,11 +205,11 @@ export default function Footer() {
             </div>
             <div className="text-sm">
               <p className="mb-3 text-indigo-200/65">
-                Sandoval Bros
+                The Fusion Space Inc
                 <span className="text-gray-700"> · </span>
                 <a
                   className="text-indigo-200/65 transition hover:text-indigo-500"
-                  href="#0"
+                  href="/terms"
                 >
                   Terms
                 </a>

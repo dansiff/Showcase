@@ -27,7 +27,7 @@ export default function ClientsShowcase() {
   ];
 
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative py-20 sm:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center mb-16">

@@ -19,9 +19,9 @@ export default function DefaultLayout({ children }: { children: ReactNode }) {
         cta: { href: "/signup?role=creator", label: "Get Started" },
       }}
     >
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col overflow-x-hidden">
         <Header />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow overflow-x-hidden">{children}</main>
         <Footer />
       </div>
     </HeaderProvider>
