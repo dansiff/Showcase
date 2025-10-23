@@ -68,12 +68,8 @@ function AuthCallbackContent() {
           const existingProfile = await profileCheck.json();
           console.log("[CALLBACK] Profile exists, redirecting based on role");
           
-          // Redirect based on existing role
-          if (existingProfile?.creator) {
-            router.push("/dashboard");
-          } else {
-            router.push("/");
-          }
+          // Centralize post-auth routing via portal hub
+          router.push("/portal");
           return;
         }
       } catch (err) {
@@ -110,16 +106,12 @@ function AuthCallbackContent() {
           localStorage.removeItem("pendingRole");
         }
 
-        // Route based on role
-        console.log("[CALLBACK] Redirecting to:", finalRole === "creator" ? "/dashboard" : "/");
-        if (finalRole === "creator") {
-          router.push("/dashboard");
-        } else {
-          router.push("/");
-        }
+        // Route to portal hub which will direct based on available portals
+        console.log("[CALLBACK] Redirecting to portal hub");
+        router.push("/portal");
       } catch (err) {
         console.error("[CALLBACK] Error during profile creation:", err);
-        router.push("/dashboard"); // Default fallback
+        router.push("/portal"); // Default fallback to hub
       }
     };
 

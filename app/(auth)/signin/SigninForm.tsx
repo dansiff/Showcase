@@ -40,26 +40,8 @@ export default function SignIn() {
       return;
     }
 
-    // Fetch user profile to determine role and redirect accordingly
-    try {
-      const profileRes = await fetch("/api/profile");
-      if (profileRes.ok) {
-        const profile = await profileRes.json();
-        const isCreator = !!profile?.creator;
-        
-        console.log("[SIGNIN] Profile role:", isCreator ? "creator" : "fan");
-        
-        // Redirect based on actual role
-        window.location.href = isCreator ? "/dashboard" : "/";
-      } else {
-        // No profile found, default to homepage
-        window.location.href = "/";
-      }
-    } catch (err) {
-      console.error("[SIGNIN] Error fetching profile:", err);
-      // Fallback to homepage on error
-      window.location.href = "/";
-    }
+    // Redirect to portal hub; hub will route based on role/availability
+    window.location.href = "/portal";
   };
 
   const handleOAuthSignIn = async (provider: Provider) => {

@@ -4,7 +4,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import {
   detectAvailablePortals,
   portalConfig,

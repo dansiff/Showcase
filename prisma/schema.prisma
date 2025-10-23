@@ -23,6 +23,9 @@ model User {
   subscriptions Subscription[]
   payments      Payment[]
   posts         Post[]
+  // Affiliates & referrals
+  affiliates    Affiliate[]
+  referrals     Referral[]     @relation("UserReferrals")
 }
 
 model Profile {
@@ -216,4 +219,53 @@ model ClientIntake {
   stripeSessionId     String?  // Stripe checkout session ID
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+}
+
+// =========================
+// Affiliates & Referrals
+// =========================
+
+model Affiliate {
+  id            String   @id @default(cuid())
+  code          String   @unique
+  user          User?    @relation(fields: [userId], references: [id])
+  userId        String?
+  ratePercent   Int      @default(10) // Commission percent of net receipts
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  referrals     Referral[]
+  payouts       AffiliatePayout[]
+}
+
+model Referral {
+  id              String    @id @default(cuid())
+  affiliate       Affiliate @relation(fields: [affiliateId], references: [id])
+  affiliateId     String
+  referredUser    User?     @relation(name: "UserReferrals", fields: [referredUserId], references: [id])
+  referredUserId  String?
+  referredEmail   String?
+  attribution     String    @default("signup") // signup, subscription, purchase
+  revenueCents    Int       @default(0)
+  commissionCents Int       @default(0)
+  status          String    @default("tracked") // tracked, converted, paid
+  meta            Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([affiliateId])
+  @@index([referredUserId])
+}
+
+model AffiliatePayout {
+  id            String    @id @default(cuid())
+  affiliate     Affiliate @relation(fields: [affiliateId], references: [id])
+  affiliateId   String
+  amountCents   Int
+  status        String    @default("requested") // requested, approved, paid
+  notes         String?
+  createdAt     DateTime  @default(now())
+  paidAt        DateTime?
+
+  @@index([affiliateId])
 }
