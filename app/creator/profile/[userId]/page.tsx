@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import LikeButton from './LikeButton';
@@ -38,7 +38,7 @@ export default async function CreatorProfile({
   const { userId } = await params;
   
   // Get current viewer
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
   const { data: { user: viewer } } = await supabase.auth.getUser();
   
   const data = await getCreatorProfile(userId, viewer?.id);
@@ -55,12 +55,12 @@ export default async function CreatorProfile({
       <div className="max-w-6xl mx-auto mb-12">
         <div className="flex items-center gap-6 mb-6">
           <div className="w-24 h-24 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-bold">
-            {data.displayName?.[0]?.toUpperCase() || data.email[0].toUpperCase()}
+            {data.creator?.displayName?.[0]?.toUpperCase() || data.email[0].toUpperCase()}
           </div>
           <div>
-            <h1 className="text-4xl font-bold mb-2">{data.displayName || data.email}</h1>
+            <h1 className="text-4xl font-bold mb-2">{data.creator?.displayName || data.email}</h1>
             <p className="text-gray-400">
-              {data.creator.bio || 'Content creator on Showcase'}
+              Content creator on Showcase
             </p>
           </div>
         </div>
