@@ -12,7 +12,8 @@ export default function DefaultLayout({ children }: { children: ReactNode }) {
         links: [
           { href: "/", label: "Home" },
           { href: "/About", label: "About" },
-          { href: "/Showcasesites", label: "Our Work" },
+          { href: "/Showcasesites", label: "Themes" },
+          { href: "/pricing", label: "Pricing" },
           { href: "/signin", label: "Sign In" },
         ],
         cta: { href: "/signup?role=creator", label: "Get Started" },
