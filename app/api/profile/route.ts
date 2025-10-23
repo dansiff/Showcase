@@ -65,7 +65,8 @@ export async function POST(req: Request) {
             data: {
               userId: user.id,
               displayName: user.user_metadata?.name || user.email?.split('@')[0] || 'Creator',
-            },
+              promoEndsAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90-day launch promo
+            } as any,
           })
         }
       }

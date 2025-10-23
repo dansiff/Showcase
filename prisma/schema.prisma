@@ -41,9 +41,15 @@ model Creator {
   displayName   String
   stripeAccount String?  // optional for future payouts (Stripe Connect)
   ageRestricted Boolean  @default(false) // if true, show age-gate before viewing content
+  revenueSharePercent Int? // Optional creator-specific override of platform fee percentage (0-100)
+  payoutCadence PayoutCadence @default(WEEKLY)
+  payoutMethod  PayoutMethod  @default(STRIPE_CONNECT)
+  activatedAt   DateTime @default(now())
+  promoEndsAt   DateTime?
   createdAt     DateTime @default(now())
   plans         Plan[]
   contents      Content[]
+  payoutRequests PayoutRequest[]
 }
 
 model Plan {
@@ -152,6 +158,30 @@ enum Visibility {
   FREE
   SUBSCRIBERS
   PAID
+}
+
+enum PayoutCadence {
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+}
+
+enum PayoutMethod {
+  STRIPE_CONNECT
+  BANK_WIRE
+  PAYPAL
+}
+
+model PayoutRequest {
+  id          String   @id @default(cuid())
+  creator     Creator  @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  amountCents Int?
+  method      PayoutMethod
+  cadence     PayoutCadence?
+  status      String   @default("requested") // requested, approved, paid, rejected
+  notes       String?
+  createdAt   DateTime @default(now())
 }
 
 model ClientIntake {

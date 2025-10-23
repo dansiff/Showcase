@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Package, FileText, Users, DollarSign } from "lucide-react";
 
 async function getAdminStats() {
-  const [totalIntakes, pendingIntakes, inProgressIntakes, completedIntakes, totalRevenue] = await Promise.all([
+  const [totalIntakes, pendingIntakes, inProgressIntakes, completedIntakes, totalRevenue, pendingPayouts] = await Promise.all([
     prisma.clientIntake.count(),
     prisma.clientIntake.count({ where: { status: "pending" } }),
     prisma.clientIntake.count({ where: { status: "in-progress" } }),
@@ -12,6 +12,7 @@ async function getAdminStats() {
       where: { depositPaid: true },
       _sum: { depositAmount: true },
     }),
+    (prisma as any).payoutRequest.count({ where: { status: 'requested' } }),
   ]);
 
   return {
@@ -20,6 +21,7 @@ async function getAdminStats() {
     inProgressIntakes,
     completedIntakes,
     totalRevenue: (totalRevenue._sum.depositAmount || 0) / 100, // Convert cents to dollars
+    pendingPayouts,
   };
 }
 
@@ -54,6 +56,13 @@ export default async function AdminDashboard() {
       icon: DollarSign,
       color: "bg-green-500",
       link: "/admin/intakes?paid=true",
+    },
+    {
+      title: "Payout Requests",
+      value: stats.pendingPayouts,
+      icon: DollarSign,
+      color: "bg-purple-500",
+      link: "/admin/payouts?status=requested",
     },
   ];
 
