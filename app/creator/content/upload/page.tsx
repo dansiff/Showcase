@@ -1,42 +1,53 @@
 // app/creator/content/upload/page.tsx
 // Creator portal: upload new content
 
-import { redirect } from "next/navigation";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
 
-export const metadata = {
-  title: "Upload Content — The Fusion Space",
-  description: "Share new content with your audience",
-};
+export default function UploadContent() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-async function verifyCreator() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user: authUser },
-  } = await supabase.auth.getUser();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-  if (!authUser) {
-    redirect("/signin");
-  }
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+      isPremium: formData.get("isPremium") === "on",
+      isPublished: formData.get("isPublished") === "on",
+      // Note: File upload would go here in production
+      imageUrl: null,
+      videoUrl: null,
+    };
 
-  const user = await prisma.user.findUnique({
-    where: { email: authUser.email! },
-    include: {
-      creator: true,
-    },
-  });
+    try {
+      const res = await fetch("/api/creator/content/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-  if (!user?.creator) {
-    redirect("/portal");
-  }
+      const result = await res.json();
 
-  return { user, creator: user.creator };
-}
+      if (!res.ok) {
+        throw new Error(result.error || "Failed to create post");
+      }
 
-export default async function UploadContent() {
-  const { user, creator } = await verifyCreator();
+      // Redirect to library on success
+      router.push("/creator/content/library");
+    } catch (err: any) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -64,7 +75,13 @@ export default async function UploadContent() {
 
       {/* Upload Form */}
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <form className="bg-white rounded-xl shadow-md p-8 space-y-6">
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-red-800 text-sm">{error}</p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-md p-8 space-y-6">
           {/* Title */}
           <div>
             <label
@@ -188,9 +205,10 @@ export default async function UploadContent() {
             </Link>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition shadow-md"
+              disabled={loading}
+              className="px-6 py-2.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Publish Post
+              {loading ? "Publishing..." : "Publish Post"}
             </button>
           </div>
         </form>

@@ -71,22 +71,22 @@ async function getAffiliateData() {
   if (affiliate) {
     stats.totalReferrals = affiliate.referrals.length;
     stats.pendingReferrals = affiliate.referrals.filter(
-      (r) => r.status === "PENDING"
+      (r: any) => r.status === "tracked"
     ).length;
     stats.convertedReferrals = affiliate.referrals.filter(
-      (r) => r.status === "CONVERTED"
+      (r: any) => r.status === "converted"
     ).length;
     stats.totalCommissions = affiliate.referrals.reduce(
-      (sum, r) => sum + r.commissionCents,
+      (sum: number, r: any) => sum + r.commissionCents,
       0
     );
 
     const totalPaid = affiliate.payouts.reduce(
-      (sum, p) => sum + (p.status === "PAID" ? p.amountCents : 0),
+      (sum: number, p: any) => sum + (p.status === "paid" ? p.amountCents : 0),
       0
     );
 
-    stats.pendingPayouts = affiliate.totalEarnedCents - totalPaid;
+    stats.pendingPayouts = stats.totalCommissions - totalPaid;
   }
 
   return { user, creator: user.creator, affiliate, stats };
@@ -208,8 +208,8 @@ export default async function AffiliatePage() {
                     </div>
                   </div>
                   <div className="flex-shrink-0">
-                    <div className="text-xs text-gray-600 mb-1">Commission Rate</div>
-                    <div className="text-lg font-bold text-gray-900">{affiliate.commissionRate}%</div>
+                  <div className="text-xs text-gray-600 mb-1">Commission Rate</div>
+                  <div className="text-lg font-bold text-gray-900">{affiliate.ratePercent}%</div>
                   </div>
                 </div>
               </div>
@@ -262,14 +262,14 @@ export default async function AffiliatePage() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {affiliate.referrals.map((referral) => (
+                  {affiliate.referrals.map((referral: any) => (
                     <div
                       key={referral.id}
                       className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
                     >
                       <div>
                         <div className="font-semibold text-gray-900">
-                          {referral.referredUser.name || "Anonymous User"}
+                          {referral.referredUser?.name || "Anonymous User"}
                         </div>
                         <div className="text-sm text-gray-600">
                           {new Date(referral.createdAt).toLocaleDateString()}
@@ -278,7 +278,7 @@ export default async function AffiliatePage() {
                       <div className="text-right">
                         <div
                           className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            referral.status === "CONVERTED"
+                            referral.status === "converted"
                               ? "bg-green-100 text-green-700"
                               : "bg-yellow-100 text-yellow-700"
                           }`}
@@ -302,7 +302,7 @@ export default async function AffiliatePage() {
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">Payout History</h2>
                 <div className="space-y-3">
-                  {affiliate.payouts.map((payout) => (
+                  {affiliate.payouts.map((payout: any) => (
                     <div
                       key={payout.id}
                       className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
@@ -317,7 +317,7 @@ export default async function AffiliatePage() {
                       </div>
                       <div
                         className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          payout.status === "PAID"
+                          payout.status === "paid"
                             ? "bg-green-100 text-green-700"
                             : "bg-yellow-100 text-yellow-700"
                         }`}

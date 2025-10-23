@@ -76,8 +76,8 @@ export async function POST(request: NextRequest) {
       data: {
         userId: user.id,
         code,
-        commissionRate: 10, // 10% default commission
-        isActive: true,
+        ratePercent: 10, // 10% default commission
+        active: true,
       },
     });
 

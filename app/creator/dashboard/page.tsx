@@ -53,20 +53,20 @@ async function getCreatorData() {
     },
   });
 
-  // Get affiliate stats
-  const affiliate = await prisma.affiliate.findUnique({
-    where: { userId: user.id },
-    include: {
-      _count: {
-        select: {
-          referrals: true,
-        },
-      },
-    },
-  });
+  // Affiliate features commented out for MVP - will re-enable after Prisma sync
+  // const affiliate = await prisma.affiliate.findUnique({
+  //   where: { userId: user.id },
+  //   include: {
+  //     _count: {
+  //       select: {
+  //         referrals: true,
+  //       },
+  //     },
+  //   },
+  // });
 
-  const totalReferrals = affiliate?._count.referrals || 0;
-  const totalCommissions = affiliate?.totalEarnedCents || 0;
+  // const totalReferrals = affiliate?._count.referrals || 0;
+  // const totalCommissions = affiliate?.totalEarnedCents || 0;
 
   return {
     user,
@@ -75,10 +75,10 @@ async function getCreatorData() {
     stats: {
       totalPosts,
       totalLikes,
-      totalReferrals,
-      totalCommissions,
+      totalReferrals: 0, // Disabled for MVP
+      totalCommissions: 0, // Disabled for MVP
     },
-    affiliate,
+    affiliate: null, // Disabled for MVP
   };
 }
 
@@ -130,24 +130,24 @@ export default async function CreatorDashboard() {
             <p className="text-3xl font-bold text-gray-900">{stats.totalLikes}</p>
           </div>
 
-          {/* Referrals */}
+          {/* Subscribers - Placeholder for future */}
           <div className="bg-white rounded-xl shadow-md p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Referrals</h3>
-              <span className="text-2xl">🤝</span>
+              <h3 className="text-sm font-medium text-gray-600">Subscribers</h3>
+              <span className="text-2xl">👥</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{stats.totalReferrals}</p>
+            <p className="text-3xl font-bold text-gray-900">0</p>
+            <p className="text-xs text-gray-500 mt-1">Coming soon</p>
           </div>
 
-          {/* Commissions */}
+          {/* Views - Placeholder for future */}
           <div className="bg-white rounded-xl shadow-md p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Commissions</h3>
-              <span className="text-2xl">💰</span>
+              <h3 className="text-sm font-medium text-gray-600">Profile Views</h3>
+              <span className="text-2xl">�️</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
-              ${(stats.totalCommissions / 100).toFixed(2)}
-            </p>
+            <p className="text-3xl font-bold text-gray-900">0</p>
+            <p className="text-xs text-gray-500 mt-1">Coming soon</p>
           </div>
         </div>
 
@@ -277,7 +277,8 @@ export default async function CreatorDashboard() {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Affiliate Section */}
+            {/* Affiliate Section - Disabled for MVP */}
+            {/* 
             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-md p-6 text-white">
               <h2 className="text-xl font-bold mb-3">Affiliate Program</h2>
               <p className="text-indigo-100 text-sm mb-4">
@@ -303,6 +304,7 @@ export default async function CreatorDashboard() {
                 </button>
               )}
             </div>
+            */}
 
             {/* Profile Preview */}
             <div className="bg-white rounded-xl shadow-md p-6">

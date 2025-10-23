@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       where: { code: code.toUpperCase() },
     });
 
-    if (!affiliate || !affiliate.isActive) {
+    if (!affiliate || !affiliate.active) {
       return NextResponse.json(
         { error: "Invalid or inactive affiliate code" },
         { status: 404 }
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
       where: { code: cookieCode.toUpperCase() },
     });
 
-    if (!affiliate || !affiliate.isActive) {
+    if (!affiliate || !affiliate.active) {
       return NextResponse.json({
         success: false,
         message: "Invalid affiliate code",

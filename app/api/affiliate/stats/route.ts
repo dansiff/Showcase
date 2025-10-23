@@ -59,26 +59,26 @@ export async function GET(request: NextRequest) {
     // Calculate stats
     const totalReferrals = affiliate.referrals.length;
     const pendingReferrals = affiliate.referrals.filter(
-      (r) => r.status === "PENDING"
+      (r: any) => r.status === "tracked"
     ).length;
     const convertedReferrals = affiliate.referrals.filter(
-      (r) => r.status === "CONVERTED"
+      (r: any) => r.status === "converted"
     ).length;
 
     const totalCommissions = affiliate.referrals.reduce(
-      (sum, r) => sum + r.commissionCents,
+      (sum: number, r: any) => sum + r.commissionCents,
       0
     );
 
     const totalPaid = affiliate.payouts.reduce(
-      (sum, p) => sum + (p.status === "PAID" ? p.amountCents : 0),
+      (sum: number, p: any) => sum + (p.status === "paid" ? p.amountCents : 0),
       0
     );
 
-    const pendingPayouts = affiliate.totalEarnedCents - totalPaid;
+    const pendingPayouts = totalCommissions - totalPaid;
 
     // Recent referrals with details
-    const recentReferrals = affiliate.referrals.slice(0, 10).map((r) => ({
+    const recentReferrals = affiliate.referrals.slice(0, 10).map((r: any) => ({
       id: r.id,
       userName: r.referredUser.name,
       userEmail: r.referredUser.email,
@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
     }));
 
     // Top performing months
-    const referralsByMonth = affiliate.referrals.reduce((acc, r) => {
+    const referralsByMonth = affiliate.referrals.reduce((acc: Record<string, number>, r: any) => {
       const month = new Date(r.createdAt).toISOString().slice(0, 7); // YYYY-MM
       acc[month] = (acc[month] || 0) + 1;
       return acc;
@@ -98,8 +98,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       affiliate: {
         code: affiliate.code,
-        commissionRate: affiliate.commissionRate,
-        isActive: affiliate.isActive,
+        commissionRate: affiliate.ratePercent,
+        isActive: affiliate.active,
         createdAt: affiliate.createdAt,
       },
       stats: {
@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
       },
       recentReferrals,
       referralsByMonth,
-      recentPayouts: affiliate.payouts.map((p) => ({
+      recentPayouts: affiliate.payouts.map((p: any) => ({
         id: p.id,
         amount: p.amountCents,
         status: p.status,

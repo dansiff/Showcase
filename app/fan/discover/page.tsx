@@ -112,7 +112,7 @@ export default async function DiscoverPage() {
             {creators.map((creator) => (
               <Link
                 key={creator.id}
-                href={`/creator/${creator.user.id}`}
+                href={`/creator/profile/${creator.user.id}`}
                 className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 {/* Creator Header */}
