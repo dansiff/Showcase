@@ -1,14 +1,32 @@
 // app/api/affiliate/track/route.ts
 // Track affiliate referrals via cookie
+// TEMPORARILY DISABLED FOR MVP LAUNCH
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+
+export async function GET(request: NextRequest) {
+  return NextResponse.json(
+    { error: "Affiliate system temporarily disabled" },
+    { status: 503 }
+  );
+}
+
+export async function POST(request: NextRequest) {
+  return NextResponse.json(
+    { error: "Affiliate system temporarily disabled" },
+    { status: 503 }
+  );
+}
+
+/*
+// COMMENTED OUT UNTIL AFFILIATE SYSTEM IS RE-ENABLED
 
 const AFFILIATE_COOKIE_NAME = "aff_ref";
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30 days in seconds
 
 // GET: Set affiliate tracking cookie
-export async function GET(request: NextRequest) {
+export async function GET_DISABLED(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const code = searchParams.get("ref");
@@ -145,3 +163,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+*/

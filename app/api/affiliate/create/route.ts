@@ -1,9 +1,27 @@
 // app/api/affiliate/create/route.ts
 // Create or activate affiliate account for a user
+// TEMPORARILY DISABLED FOR MVP LAUNCH
 
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
+
+export async function POST(request: NextRequest) {
+  return NextResponse.json(
+    { error: "Affiliate system temporarily disabled" },
+    { status: 503 }
+  );
+}
+
+export async function GET(request: NextRequest) {
+  return NextResponse.json(
+    { error: "Affiliate system temporarily disabled" },
+    { status: 503 }
+  );
+}
+
+/*
+// COMMENTED OUT UNTIL AFFILIATE SYSTEM IS RE-ENABLED
 
 // Generate a unique 8-character affiliate code
 function generateAffiliateCode(): string {
@@ -136,3 +154,4 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+*/

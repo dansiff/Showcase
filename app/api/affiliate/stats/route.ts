@@ -1,11 +1,22 @@
 // app/api/affiliate/stats/route.ts
 // Get affiliate performance statistics
+// TEMPORARILY DISABLED FOR MVP LAUNCH
 
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
+  return NextResponse.json(
+    { error: "Affiliate system temporarily disabled" },
+    { status: 503 }
+  );
+}
+
+/*
+// COMMENTED OUT UNTIL AFFILIATE SYSTEM IS RE-ENABLED
+
+export async function GET_DISABLED(request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
     const {
@@ -133,3 +144,4 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+*/
