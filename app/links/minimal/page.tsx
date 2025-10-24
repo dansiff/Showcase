@@ -113,7 +113,7 @@ export default function LinksMinimalPage() {
         {/* Footer */}
         <div className="mt-12 text-center">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} {profile.name}
+            © 2025 {profile.name}
           </p>
         </div>
       </div>

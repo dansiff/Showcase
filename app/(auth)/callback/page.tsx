@@ -30,16 +30,38 @@ function AuthCallbackContent() {
       
       if (code) {
         console.log("[CALLBACK] Attempting code exchange for OAuth flow");
-        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+        
+        // Important: exchangeCodeForSession retrieves the code_verifier from localStorage
+        // If it fails with "code verifier should be non-empty", the verifier was lost
+        const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+        
         if (exchangeError) {
           console.error("[CALLBACK] Error exchanging code:", exchangeError);
-          // Only show error if it's a real OAuth flow failure
-          if (exchangeError.message && !exchangeError.message.includes("code verifier")) {
-            setError(exchangeError.message);
-            setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 3000);
+          console.log("[CALLBACK] Exchange error details:", {
+            message: exchangeError.message,
+            status: exchangeError.status,
+            name: exchangeError.name,
+          });
+          
+          // Check if we already have a valid session despite the error
+          const { data: { session: existingSession } } = await supabase.auth.getSession();
+          
+          if (existingSession) {
+            console.log("[CALLBACK] Found existing session despite exchange error, continuing...");
+          } else {
+            // Only show error if it's NOT a code verifier issue
+            if (exchangeError.message && !exchangeError.message.includes("code verifier")) {
+              setError(exchangeError.message);
+              setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 3000);
+              return;
+            }
+            
+            // Code verifier issue - likely cache/storage problem
+            console.warn("[CALLBACK] Code verifier error - may need to sign in again");
+            setError("Authentication session expired. Please sign in again.");
+            setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 2000);
             return;
           }
-          console.log("[CALLBACK] Code exchange error ignored (likely false alarm)");
         } else {
           console.log("[CALLBACK] Code exchanged successfully");
         }

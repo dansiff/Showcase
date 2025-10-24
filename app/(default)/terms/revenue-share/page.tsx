@@ -9,7 +9,7 @@ export default function RevenueSharePolicyPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <h1 className="text-3xl font-bold">Revenue Share Policy</h1>
-      <p className="mt-3 text-indigo-200/80">Effective: {new Date().toLocaleDateString()}</p>
+      <p className="mt-3 text-indigo-200/80">Effective: October 24, 2025</p>
 
       <section className="mt-8 space-y-3">
         <h2 className="text-xl font-semibold">Summary</h2>
