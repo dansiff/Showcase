@@ -50,3 +50,6 @@ export async function POST(req: Request) {
     return new NextResponse('Processing error', { status: 500 });
   }
 }
+
+// Ensure Node.js runtime (Prisma and Stripe SDK need Node, not Edge)
+export const runtime = 'nodejs';

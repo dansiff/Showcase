@@ -9,6 +9,7 @@ const requiredEnvVars = [
   'NEXT_PUBLIC_SUPABASE_ANON_KEY',
   // App URL for redirects
   'NEXT_PUBLIC_APP_URL',
+  'NEXT_PUBLIC_SITE_URL',
   // Stripe
   'STRIPE_SECRET_KEY',
   'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
@@ -34,6 +35,17 @@ export function validateEnvVars() {
     throw new Error(
       `Missing required environment variables: ${missing.join(', ')}.\nCheck your Vercel dashboard or .env files.`
     );
+  }
+
+  // Additional soft checks (warn but do not throw)
+  const pub = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+  const sec = process.env.STRIPE_SECRET_KEY || '';
+  if ((pub.startsWith('pk_live') && sec.startsWith('sk_test')) || (pub.startsWith('pk_test') && sec.startsWith('sk_live'))) {
+    console.warn('[ENV] Stripe key mode mismatch: publishable and secret keys appear to be from different modes.');
+  }
+
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    console.warn('[ENV] STRIPE_WEBHOOK_SECRET is not set. Webhook verification will fail in production.');
   }
 }
 
