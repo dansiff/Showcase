@@ -52,7 +52,30 @@ export default function PlatformSigninForm() {
         localStorage.removeItem("authSource");
         localStorage.removeItem("pendingRole");
         
-        // Update user metadata to track platform source
+        // Ensure Prisma user exists BEFORE redirecting to portal
+        try {
+          console.log("[PLATFORM-SIGNIN] Ensuring Prisma user exists");
+          const profileResp = await fetch("/api/profile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: data.user.user_metadata?.name || data.user.email?.split('@')[0] || 'User',
+              role: data.user.user_metadata?.role || "fan", // Default to fan if no role
+            }),
+          });
+
+          if (!profileResp.ok) {
+            console.warn("[PLATFORM-SIGNIN] Profile creation warning:", await profileResp.text());
+            // Continue anyway - portal will create user if needed
+          } else {
+            console.log("[PLATFORM-SIGNIN] Prisma user ready");
+          }
+        } catch (err) {
+          console.warn("[PLATFORM-SIGNIN] Profile sync error (non-critical):", err);
+          // Continue anyway
+        }
+        
+        // Update metadata to track platform source
         await supabase.auth.updateUser({
           data: {
             lastLoginSource: "platform",
@@ -85,6 +108,10 @@ export default function PlatformSigninForm() {
 
     // Store that this is a platform login
     localStorage.setItem("authSource", "platform");
+    
+    // For sign-in (not signup), we don't force a role
+    // The callback will use existing role or default to "fan"
+    console.log("[PLATFORM-SIGNIN-OAUTH] Initiating OAuth sign-in");
 
     await supabase.auth.signInWithOAuth({
       provider,

@@ -114,7 +114,7 @@ function AuthCallbackContent() {
       console.log("[CALLBACK] Final role:", finalRole, "(pending:", pendingRole, ", metadata:", userRole, ")");
 
       try {
-        // Create profile via API
+        // Create profile via API - this ensures Prisma user exists
         console.log("[CALLBACK] Creating profile with role:", finalRole);
         const response = await fetch("/api/profile", {
           method: "POST",
@@ -128,6 +128,9 @@ function AuthCallbackContent() {
         if (!response.ok) {
           const errorText = await response.text();
           console.error("[CALLBACK] Failed to create profile:", errorText);
+          
+          // Don't fail completely - portal will create user if needed
+          console.warn("[CALLBACK] Continuing to portal despite profile creation error");
         } else {
           console.log("[CALLBACK] Profile created successfully");
         }
