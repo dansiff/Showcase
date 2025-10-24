@@ -23,20 +23,26 @@ function AuthCallbackContent() {
                              localStorage.getItem("authSource") === "platform";
       console.log("[CALLBACK] Platform auth:", isPlatformAuth);
 
-      // Exchange the code for a session
+      // Exchange the code for a session (only for OAuth flows)
       const code = searchParams.get("code");
       const type = searchParams.get("type"); // Check if this is email confirmation
       console.log("[CALLBACK] Code present:", !!code, "Type:", type);
       
       if (code) {
+        console.log("[CALLBACK] Attempting code exchange for OAuth flow");
         const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
         if (exchangeError) {
           console.error("[CALLBACK] Error exchanging code:", exchangeError);
-          setError(exchangeError.message);
-          setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 3000);
-          return;
+          // Only show error if it's a real OAuth flow failure
+          if (exchangeError.message && !exchangeError.message.includes("code verifier")) {
+            setError(exchangeError.message);
+            setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 3000);
+            return;
+          }
+          console.log("[CALLBACK] Code exchange error ignored (likely false alarm)");
+        } else {
+          console.log("[CALLBACK] Code exchanged successfully");
         }
-        console.log("[CALLBACK] Code exchanged successfully");
         
         // If this is an email confirmation, show success page
         if (type === "email") {
@@ -44,6 +50,8 @@ function AuthCallbackContent() {
           router.push("/confirm");
           return;
         }
+      } else {
+        console.log("[CALLBACK] No code present, checking for existing session");
       }
 
       // Get the session

@@ -31,32 +31,47 @@ export default function PlatformSigninForm() {
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-      options: {
-        data: {
-          rememberMe,
-          source: "platform", // Track that this came from platform
-        },
-      },
-    });
+    try {
+      // Sign in with password (direct session, no code exchange)
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      setErrorMsg(error.message);
-      setLoading(false);
-      return;
-    }
+      if (error) {
+        console.error("[PLATFORM-SIGNIN] Error:", error);
+        setErrorMsg(error.message);
+        setLoading(false);
+        return;
+      }
 
-    if (data?.session) {
-      showToast("Welcome back! Redirecting...", "success", 1500);
-      
-      // Redirect to portal hub (it will route to appropriate dashboard)
-      setTimeout(() => {
-        window.location.href = "/portal";
-      }, 800);
-    } else {
-      setErrorMsg("Sign in failed. Please try again.");
+      if (data?.session) {
+        console.log("[PLATFORM-SIGNIN] Session created successfully");
+        
+        // Clear any stale auth tracking
+        localStorage.removeItem("authSource");
+        localStorage.removeItem("pendingRole");
+        
+        // Update user metadata to track platform source
+        await supabase.auth.updateUser({
+          data: {
+            lastLoginSource: "platform",
+          },
+        }).catch((err: any) => console.log("[PLATFORM-SIGNIN] Metadata update failed (non-critical):", err));
+        
+        showToast("Welcome back! Redirecting...", "success", 1500);
+        
+        // Direct redirect to portal (no callback needed for password auth)
+        setTimeout(() => {
+          window.location.href = "/portal";
+        }, 800);
+      } else {
+        setErrorMsg("Sign in failed. Please try again.");
+        setLoading(false);
+      }
+    } catch (err: any) {
+      console.error("[PLATFORM-SIGNIN] Unexpected error:", err);
+      setErrorMsg(err.message || "An unexpected error occurred");
       setLoading(false);
     }
   };
