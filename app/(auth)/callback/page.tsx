@@ -31,6 +31,17 @@ function AuthCallbackContent() {
       if (code) {
         console.log("[CALLBACK] Attempting code exchange for OAuth flow");
         
+        // Debug: Check what's in localStorage
+        console.log("[CALLBACK] Checking localStorage for Supabase auth data...");
+        const storageKeys = Object.keys(localStorage).filter(k => k.includes('supabase'));
+        console.log("[CALLBACK] Supabase storage keys found:", storageKeys.length);
+        storageKeys.forEach(key => {
+          const value = localStorage.getItem(key);
+          if (value) {
+            console.log(`[CALLBACK] ${key}: ${value.substring(0, 100)}...`);
+          }
+        });
+        
         // Important: exchangeCodeForSession retrieves the code_verifier from localStorage
         // If it fails with "code verifier should be non-empty", the verifier was lost
         const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
@@ -57,9 +68,13 @@ function AuthCallbackContent() {
             }
             
             // Code verifier issue - likely cache/storage problem
-            console.warn("[CALLBACK] Code verifier error - may need to sign in again");
-            setError("Authentication session expired. Please sign in again.");
-            setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 2000);
+            console.warn("[CALLBACK] Code verifier error - localStorage was cleared or blocked");
+            console.warn("[CALLBACK] This usually means:");
+            console.warn("[CALLBACK] 1. Third-party cookies are blocked");
+            console.warn("[CALLBACK] 2. Browser cleared storage between OAuth redirect");
+            console.warn("[CALLBACK] 3. Incognito mode is clearing storage");
+            setError("Authentication failed: Session data was lost. Please try again.");
+            setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 3000);
             return;
           }
         } else {
