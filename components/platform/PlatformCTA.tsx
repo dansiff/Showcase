@@ -68,7 +68,7 @@ export default function PlatformCTA({ isAuthenticated }: PlatformCTAProps) {
                 ) : (
                   <>
                     <Link
-                      href="/signup"
+                      href="/platform/signup?role=creator"
                       className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105"
                     >
                       <Rocket className="w-5 h-5" />
@@ -205,7 +205,7 @@ export default function PlatformCTA({ isAuthenticated }: PlatformCTAProps) {
                 ) : (
                   <>
                     <Link
-                      href="/signup"
+                      href="/platform/signup?role=fan"
                       className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 hover:scale-105"
                     >
                       <Heart className="w-5 h-5" />
@@ -242,7 +242,7 @@ export default function PlatformCTA({ isAuthenticated }: PlatformCTAProps) {
 
             {!isAuthenticated && (
               <Link
-                href="/signup"
+                href="/platform/signup"
                 className="inline-flex items-center gap-2 px-10 py-5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg shadow-xl shadow-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105"
               >
                 Get Started — It's Free

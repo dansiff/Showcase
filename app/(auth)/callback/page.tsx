@@ -18,6 +18,11 @@ function AuthCallbackContent() {
         return;
       }
 
+      // Check if this came from platform
+      const isPlatformAuth = searchParams.get("source") === "platform" || 
+                             localStorage.getItem("authSource") === "platform";
+      console.log("[CALLBACK] Platform auth:", isPlatformAuth);
+
       // Exchange the code for a session
       const code = searchParams.get("code");
       const type = searchParams.get("type"); // Check if this is email confirmation
@@ -28,7 +33,7 @@ function AuthCallbackContent() {
         if (exchangeError) {
           console.error("[CALLBACK] Error exchanging code:", exchangeError);
           setError(exchangeError.message);
-          setTimeout(() => router.push("/signin"), 3000);
+          setTimeout(() => router.push(isPlatformAuth ? "/platform/signin" : "/signin"), 3000);
           return;
         }
         console.log("[CALLBACK] Code exchanged successfully");
@@ -51,7 +56,7 @@ function AuthCallbackContent() {
       
       if (!session || !user) {
         console.error("[CALLBACK] No session found, redirecting to signin");
-        router.push("/signin");
+        router.push(isPlatformAuth ? "/platform/signin" : "/signin");
         return;
       }
 
@@ -82,10 +87,11 @@ function AuthCallbackContent() {
             console.log("[CALLBACK] Could not ensure user, but continuing to portal");
           }
           
-          // Clear any pending role
+          // Clear any pending data
           localStorage.removeItem("pendingRole");
+          localStorage.removeItem("authSource");
           
-          // Redirect via window.location for full page refresh to ensure auth state is current
+          // Redirect to portal (always goes through portal hub for routing)
           window.location.href = "/portal";
           return;
         }
@@ -118,10 +124,11 @@ function AuthCallbackContent() {
           console.log("[CALLBACK] Profile created successfully");
         }
 
-        // Clear the pending role
+        // Clear the pending role and auth source
         if (pendingRole) {
           localStorage.removeItem("pendingRole");
         }
+        localStorage.removeItem("authSource");
 
         // Route to portal hub - use window.location for full page refresh
         console.log("[CALLBACK] Redirecting to portal hub");

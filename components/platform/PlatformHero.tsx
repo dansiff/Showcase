@@ -84,7 +84,7 @@ export default function PlatformHero({ isAuthenticated }: PlatformHeroProps) {
               ) : (
                 <>
                   <Link
-                    href="/signup"
+                    href="/platform/signup"
                     className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold text-lg shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105"
                   >
                     <span className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export default function PlatformHero({ isAuthenticated }: PlatformHeroProps) {
                     </span>
                   </Link>
                   <Link
-                    href="/signin"
+                    href="/platform/signin"
                     className="px-8 py-4 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
                   >
                     Sign In

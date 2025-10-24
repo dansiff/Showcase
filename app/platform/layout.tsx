@@ -57,14 +57,14 @@ export default function PlatformLayout({
               {/* Auth Buttons */}
               <div className="flex items-center gap-3 ml-2">
                 <Link
-                  href="/signin"
+                  href="/platform/signin"
                   className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:text-purple-300 transition-colors"
                 >
                   <LogIn className="w-4 h-4" />
                   Sign In
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/platform/signup"
                   className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-300"
                 >
                   <UserPlus className="w-4 h-4" />
