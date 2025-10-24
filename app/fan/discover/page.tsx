@@ -23,7 +23,7 @@ async function getCreators() {
   }
 
   // Fetch all active creators with their user info
-  // Select ageRestricted explicitly so TypeScript knows the field exists
+  // Use include to avoid strict select typing mismatches during Prisma client generation on CI
   const creators = await prisma.creator.findMany({
     where: {
       user: {
@@ -32,23 +32,13 @@ async function getCreators() {
         },
       },
     },
-    select: {
-      id: true,
-      createdAt: true,
-      userId: true,
-      displayName: true,
-      stripeAccount: true,
-      ageRestricted: true,
+    include: {
       user: {
         select: {
           id: true,
           name: true,
           email: true,
-          posts: {
-            select: {
-              id: true,
-            },
-          },
+          posts: { select: { id: true } },
         },
       },
     },
