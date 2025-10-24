@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { showToast } from "@/components/ui/toast";
 
 type Provider = "google";
 
@@ -14,6 +15,7 @@ const providers: { id: Provider; name: string; icon: string }[] = [
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -29,9 +31,15 @@ export default function SignIn() {
       return;
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
+      options: {
+        // Extend session duration if "Remember me" is checked
+        data: {
+          rememberMe,
+        },
+      },
     });
 
     if (error) {
@@ -40,8 +48,18 @@ export default function SignIn() {
       return;
     }
 
-    // Redirect to portal hub; hub will route based on role/availability
-    window.location.href = "/portal";
+    if (data?.session) {
+      // Show success feedback
+      showToast("Welcome back! Redirecting...", "success", 1500);
+      
+      // Brief delay to show toast before redirect
+      setTimeout(() => {
+        window.location.href = "/portal";
+      }, 800);
+    } else {
+      setErrorMsg("Sign in failed. Please try again.");
+      setLoading(false);
+    }
   };
 
   const handleOAuthSignIn = async (provider: Provider) => {
@@ -136,6 +154,19 @@ export default function SignIn() {
               placeholder="Your password"
               required
             />
+          </div>
+
+          <div className="flex items-center">
+            <input
+              id="remember-me"
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+              Remember me for 30 days
+            </label>
           </div>
 
           {errorMsg && (

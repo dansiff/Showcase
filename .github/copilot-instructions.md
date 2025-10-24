@@ -15,17 +15,20 @@ This repo is a Next.js 15 App Router monorepo-style app with multiple portals (f
 - Paths use alias `@/*` (see `tsconfig.json`). Prefer `@/lib/...`, `@/components/...`.
 - Server-side DB calls go through `@/lib/prisma`. Keep route handlers in `app/api/**/route.ts`.
 - Auth UI flows: app/(auth) pages use Supabase (`getSupabaseBrowserClient` with `flowType: 'pkce'`). After login, redirect to `/portal` and let hub logic route by role.
+- **Email-first Prisma normalization**: All API routes resolve the Prisma user by `email` (not Supabase `user.id`), create the Prisma user if missing, then use the Prisma user's internal `id` for relations (Creator, Profile, etc.). This prevents mismatches between Supabase's user.id and Prisma's id.
 - Default portal order: admin → creator → client → fan (see `getDefaultPortalPath`). When users have multiple portals, show the hub.
 - Stripe API version is pinned in code. Webhook signature is required; do not parse JSON body before verifying (`await req.text()`).
 - Use Tailwind + `cn` from `lib/utils.ts` for class merging.
 
 ## Environment and secrets
 - Required envs are checked in `lib/env.ts`. Key variables: `DATABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_APP_URL`, `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `NEXTAUTH_SECRET`. Optional: `STRIPE_WEBHOOK_SECRET`, `SMTP_*`, `SLACK_WEBHOOK_URL`, `DISCORD_WEBHOOK_URL`, `ADMIN_EMAIL`.
+- Use a pooled Supabase connection for serverless (Vercel): set `DATABASE_URL` to the pool endpoint (port 6543) with `?pgbouncer=true&connection_limit=1&sslmode=require`. See `.env.example`.
 - `lib/prisma` calls `validateEnvVars()` once; local dev skips strict validation.
 
 ## Developer workflows
 - Run: `npm run dev` (Next dev). Build: `npm run build`; Start: `npm start`; Lint: `npm run lint`. Seed sample data: `npm run seed` (requires DB ready).
 - Database: Prisma v6 with Postgres. When models change, run migrations (standard Prisma commands) before `seed`. Models include Users, Creators, Plans, Subscriptions, Content, Posts/Likes, ClientIntake, Affiliate/Referral/Payout.
+- CI: `postinstall` runs `prisma generate` to keep Prisma Client types in sync on Vercel.
 - Stripe webhooks: develop against `app/api/webhook/stripe/route.ts`. Verify signatures with `STRIPE_WEBHOOK_SECRET`; CLI can forward events.
 - Auth: Supabase clients only. Prefer `createSupabaseServerClient()` in server components and `getSupabaseBrowserClient()` in client components. The NextAuth route (`app/api/Nextauth/route.ts`) is present but not used by the current auth UI.
 

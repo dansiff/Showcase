@@ -6,14 +6,17 @@ import { DEFAULT_REVENUE_SHARE_PERCENT, MIN_REVENUE_SHARE_PERCENT, MAX_REVENUE_S
 export async function GET() {
   try {
     const supabase = await createSupabaseServerClient()
-    const { data: { user } } = await supabase.auth.getUser()
+  const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const [creator, dbUser] = await Promise.all([
-    prisma.creator.findUnique({ where: { userId: user.id } }) as any,
-    prisma.user.findUnique({ where: { id: user.id }, select: { role: true } })
-  ])
+  // Normalize user by email for Prisma (internal id)
+  let dbUser = await prisma.user.findUnique({ where: { email: user.email! } })
+  if (!dbUser) {
+    dbUser = await prisma.user.create({ data: { email: user.email!, name: user.user_metadata?.name ?? null } as any })
+  }
+
+  const creator = (await prisma.creator.findUnique({ where: { userId: dbUser.id } })) as any
 
   if (!creator) return NextResponse.json({
     ageRestricted: false,
@@ -48,8 +51,11 @@ export async function POST(req: Request) {
     }
 
     // Only admins can set revenueSharePercent overrides
-    const dbUser = await prisma.user.findUnique({ where: { id: user.id }, select: { role: true } })
-    const isAdmin = dbUser?.role === 'ADMIN'
+    let dbUser = await prisma.user.findUnique({ where: { email: user.email! } })
+    if (!dbUser) {
+      dbUser = await prisma.user.create({ data: { email: user.email!, name: user.user_metadata?.name ?? null } as any })
+    }
+    const isAdmin = dbUser.role === 'ADMIN'
     if (typeof revenueSharePercent !== 'undefined') {
       if (!isAdmin) {
         return NextResponse.json({ error: 'Forbidden: admin only' }, { status: 403 })
@@ -63,11 +69,11 @@ export async function POST(req: Request) {
     }
 
     // Ensure creator record exists
-    let creator: any = await prisma.creator.findUnique({ where: { userId: user.id } })
+    let creator: any = await prisma.creator.findUnique({ where: { userId: dbUser.id } })
     if (!creator) {
       creator = (await prisma.creator.create({
         data: {
-          userId: user.id,
+          userId: dbUser.id,
           displayName: user.user_metadata?.name || user.email?.split('@')[0] || 'Creator',
           ...(typeof ageRestricted === 'boolean' ? { ageRestricted } : {}),
           ...(typeof revenueSharePercent === 'number' && isAdmin ? { revenueSharePercent: Math.round(revenueSharePercent) } : {}),
@@ -76,7 +82,7 @@ export async function POST(req: Request) {
       })) as any
     } else {
       creator = (await prisma.creator.update({
-        where: { userId: user.id },
+        where: { userId: dbUser.id },
         data: {
           ...(typeof ageRestricted === 'boolean' ? { ageRestricted } : {}),
           ...(typeof revenueSharePercent === 'number' && isAdmin ? { revenueSharePercent: Math.round(revenueSharePercent) } : {}),

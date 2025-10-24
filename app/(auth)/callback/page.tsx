@@ -66,14 +66,31 @@ function AuthCallbackContent() {
         const profileCheck = await fetch("/api/profile");
         if (profileCheck.ok) {
           const existingProfile = await profileCheck.json();
-          console.log("[CALLBACK] Profile exists, redirecting based on role");
+          console.log("[CALLBACK] Profile exists, redirecting to portal");
           
-          // Centralize post-auth routing via portal hub
-          router.push("/portal");
+          // Ensure Prisma user exists by email before routing
+          const ensureUserResp = await fetch("/api/profile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              role: existingProfile.role || "USER",
+              name: userName || user.email?.split('@')[0] || 'User'
+            }),
+          });
+          
+          if (!ensureUserResp.ok) {
+            console.log("[CALLBACK] Could not ensure user, but continuing to portal");
+          }
+          
+          // Clear any pending role
+          localStorage.removeItem("pendingRole");
+          
+          // Redirect via window.location for full page refresh to ensure auth state is current
+          window.location.href = "/portal";
           return;
         }
       } catch (err) {
-        console.log("[CALLBACK] No existing profile, will create one");
+        console.log("[CALLBACK] No existing profile or error checking, will create one");
       }
 
       // Check for pending role from OAuth signup
@@ -106,12 +123,13 @@ function AuthCallbackContent() {
           localStorage.removeItem("pendingRole");
         }
 
-        // Route to portal hub which will direct based on available portals
+        // Route to portal hub - use window.location for full page refresh
         console.log("[CALLBACK] Redirecting to portal hub");
-        router.push("/portal");
+        window.location.href = "/portal";
       } catch (err) {
         console.error("[CALLBACK] Error during profile creation:", err);
-        router.push("/portal"); // Default fallback to hub
+        // Even on error, try to redirect to portal
+        window.location.href = "/portal";
       }
     };
 

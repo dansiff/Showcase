@@ -9,7 +9,7 @@ export async function PATCH(req: Request, context: any) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const dbUser = await prisma.user.findUnique({ where: { id: user.id } })
+  const dbUser = await prisma.user.findUnique({ where: { email: user.email! } })
     if (!dbUser || dbUser.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
     const body = await req.json().catch(() => ({}))

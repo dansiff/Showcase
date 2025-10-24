@@ -18,7 +18,7 @@ export async function GET(
     }
 
     const dbUser = await prisma.user.findUnique({
-      where: { id: user.id },
+      where: { email: user.email! },
     });
 
     if (!dbUser || dbUser.role !== "ADMIN") {
@@ -61,7 +61,7 @@ export async function PATCH(
     }
 
     const dbUser = await prisma.user.findUnique({
-      where: { id: user.id },
+      where: { email: user.email! },
     });
 
     if (!dbUser || dbUser.role !== "ADMIN") {

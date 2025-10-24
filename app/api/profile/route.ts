@@ -13,7 +13,7 @@ export async function GET() {
     }
 
     const profile = await prisma.user.findUnique({
-      where: { id: user.id },
+      where: { email: user.email! },
       include: {
         profile: true,
         creator: true,
@@ -44,26 +44,37 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { role, name, company } = body || {}
 
+    // Normalize to DB user by email (Prisma uses internal id; Supabase uses external id)
+    let dbUser = await prisma.user.findUnique({ where: { email: user.email! } })
+    if (!dbUser) {
+      dbUser = await prisma.user.create({
+        data: {
+          email: user.email!,
+          name: user.user_metadata?.name ?? null,
+        } as any,
+      })
+    }
+
     // Handle role-based signup (from OAuth callback)
     if (role) {
       const userRole = role === "creator" ? "CREATOR" : "USER"
       
       // Update user role
       await prisma.user.update({
-        where: { id: user.id },
+        where: { email: user.email! },
         data: { role: userRole },
       })
 
       // If creator, ensure Creator record exists
       if (userRole === "CREATOR") {
         const existingCreator = await prisma.creator.findUnique({
-          where: { userId: user.id },
+          where: { userId: dbUser.id },
         })
 
         if (!existingCreator) {
           await prisma.creator.create({
             data: {
-              userId: user.id,
+              userId: dbUser.id,
               displayName: user.user_metadata?.name || user.email?.split('@')[0] || 'Creator',
               promoEndsAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90-day launch promo
             } as any,
@@ -77,23 +88,23 @@ export async function POST(req: Request) {
     // Legacy: Handle old profile update (name + company)
     if (name) {
       await prisma.user.update({
-        where: { id: user.id },
+        where: { email: user.email! },
         data: { name },
       })
     }
 
     if (company) {
       const existingProfile = await prisma.profile.findUnique({
-        where: { userId: user.id },
+        where: { userId: dbUser.id },
       })
 
       if (!existingProfile) {
         await prisma.profile.create({
-          data: { userId: user.id, bio: `Company: ${company}` },
+          data: { userId: dbUser.id, bio: `Company: ${company}` },
         })
       } else {
         await prisma.profile.update({
-          where: { userId: user.id },
+          where: { userId: dbUser.id },
           data: { bio: `Company: ${company}` },
         })
       }

@@ -2,11 +2,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./logo";
 import { usePathname } from "next/navigation";
 import { useHeader } from "@/components/layout/LayoutContext";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { SignOutButton } from "@/components/SignOutButton";
 
 type HeaderVariant = "default" | "taco" | "transparent" | "light";
 
@@ -49,8 +51,21 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
   const { config } = useHeader();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const styles = resolveHeaderStyles((config.variant as HeaderVariant) || "light");
   const links = config.links || [];
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const supabase = getSupabaseBrowserClient();
+      if (!supabase) return;
+      
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsSignedIn(!!session);
+    };
+
+    checkAuth();
+  }, [pathname]);
 
   if (config.show === false) return null;
 
@@ -83,17 +98,29 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
             })}
           </nav>
 
-          {/* CTA */}
-          {config.cta && (
-            <div className="hidden md:block">
-              <Link 
-                href={config.cta.href} 
-                className={`inline-flex items-center rounded-lg px-6 py-2.5 text-sm transition-all hover:scale-105 ${styles.button}`}
-              >
-                {config.cta.label}
-              </Link>
-            </div>
-          )}
+          {/* CTA - Show sign out button if signed in, otherwise show default CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            {isSignedIn ? (
+              <>
+                <Link 
+                  href="/portal" 
+                  className={`inline-flex items-center rounded-lg px-6 py-2.5 text-sm transition-all hover:scale-105 ${styles.button}`}
+                >
+                  Portal
+                </Link>
+                <SignOutButton className="!bg-transparent !border-gray-300" />
+              </>
+            ) : (
+              config.cta && (
+                <Link 
+                  href={config.cta.href} 
+                  className={`inline-flex items-center rounded-lg px-6 py-2.5 text-sm transition-all hover:scale-105 ${styles.button}`}
+                >
+                  {config.cta.label}
+                </Link>
+              )
+            )}
+          </div>
 
           {/* Mobile menu button */}
           <button
@@ -122,14 +149,29 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
                     {link.label}
                   </Link>
                 ))}
-                {config.cta && (
-                  <Link 
-                    href={config.cta.href} 
-                    className={`mt-2 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm ${styles.button}`}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {config.cta.label}
-                  </Link>
+                {isSignedIn ? (
+                  <>
+                    <Link 
+                      href="/portal" 
+                      className={`mt-2 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm ${styles.button}`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Portal
+                    </Link>
+                    <div className="mt-2">
+                      <SignOutButton className="w-full" />
+                    </div>
+                  </>
+                ) : (
+                  config.cta && (
+                    <Link 
+                      href={config.cta.href} 
+                      className={`mt-2 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm ${styles.button}`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {config.cta.label}
+                    </Link>
+                  )
                 )}
               </nav>
             </div>

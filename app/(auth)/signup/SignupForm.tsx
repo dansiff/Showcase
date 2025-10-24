@@ -72,7 +72,17 @@ export default function SignupForm() {
 
       if (error) {
         console.error("[SIGNUP] Supabase error:", error);
-        setErrorMsg(error.message);
+        
+        // Friendly error for duplicate email
+        if (error.message?.toLowerCase().includes("already registered") || 
+            error.message?.toLowerCase().includes("already exists") ||
+            error.status === 422) {
+          setErrorMsg(
+            "This email is already registered. Please sign in instead or reset your password if you forgot it."
+          );
+        } else {
+          setErrorMsg(error.message);
+        }
         return;
       }
 
@@ -250,8 +260,25 @@ export default function SignupForm() {
         </div>
 
         {errorMsg && (
-          <div className="rounded-lg bg-red-50 p-3 text-sm text-red-800">
-            {errorMsg}
+          <div className="rounded-lg bg-red-50 p-4 text-sm">
+            <p className="text-red-800 font-medium mb-2">{errorMsg}</p>
+            {(errorMsg.toLowerCase().includes("already registered") || 
+              errorMsg.toLowerCase().includes("already exists")) && (
+              <div className="flex gap-2 mt-3">
+                <Link
+                  href="/signin"
+                  className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition"
+                >
+                  Go to Sign In
+                </Link>
+                <Link
+                  href="/reset-password"
+                  className="text-xs px-3 py-1.5 bg-gray-600 text-white rounded-md hover:bg-gray-500 transition"
+                >
+                  Reset Password
+                </Link>
+              </div>
+            )}
           </div>
         )}
 

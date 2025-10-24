@@ -1,5 +1,6 @@
 import VideoThumb from "@/public/images/hero-image-01.jpg";
 import ModalVideo from "@/components/modal-video";
+import PortalLink from "@/components/PortalLink";
 
 export default function HeroHome() {
     return (
@@ -27,6 +28,11 @@ export default function HeroHome() {
                             </p>
 
                             <div className="mx-auto flex flex-col sm:flex-row sm:justify-center gap-4 max-w-sm sm:max-w-none">
+                                {/* Portal Link - shows "Sign In" or "Go to Portal" based on auth state */}
+                                <div data-aos="fade-up" data-aos-delay={300}>
+                                    <PortalLink />
+                                </div>
+
                                 {/* Stripe Checkout CTA */}
                                 <a
                                     data-aos="fade-up"
