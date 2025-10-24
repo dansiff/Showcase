@@ -76,35 +76,28 @@ function AuthCallbackContent() {
 
       // Check if profile already exists
       try {
+        console.log("[CALLBACK] Checking for existing profile...");
         const profileCheck = await fetch("/api/profile");
+        console.log("[CALLBACK] Profile check response:", profileCheck.status);
+        
         if (profileCheck.ok) {
           const existingProfile = await profileCheck.json();
-          console.log("[CALLBACK] Profile exists, redirecting to portal");
-          
-          // Ensure Prisma user exists by email before routing
-          const ensureUserResp = await fetch("/api/profile", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-              role: existingProfile.role || "USER",
-              name: userName || user.email?.split('@')[0] || 'User'
-            }),
+          console.log("[CALLBACK] Existing profile found:", {
+            hasId: !!existingProfile.id,
+            role: existingProfile.role,
+            hasCreator: !!existingProfile.creator,
           });
           
-          if (!ensureUserResp.ok) {
-            console.log("[CALLBACK] Could not ensure user, but continuing to portal");
-          }
-          
-          // Clear any pending data
+          // Profile exists - just clear pending data and redirect
           localStorage.removeItem("pendingRole");
           localStorage.removeItem("authSource");
           
-          // Redirect to portal (always goes through portal hub for routing)
+          console.log("[CALLBACK] Redirecting existing user to portal");
           window.location.href = "/portal";
           return;
         }
       } catch (err) {
-        console.log("[CALLBACK] No existing profile or error checking, will create one");
+        console.log("[CALLBACK] No existing profile or error checking, will create one:", err);
       }
 
       // Check for pending role from OAuth signup
@@ -115,7 +108,12 @@ function AuthCallbackContent() {
 
       try {
         // Create profile via API - this ensures Prisma user exists
-        console.log("[CALLBACK] Creating profile with role:", finalRole);
+        console.log("[CALLBACK] Creating new profile with:", {
+          role: finalRole,
+          name: userName || user.email?.split('@')[0] || 'User',
+          userEmail: user.email,
+        });
+        
         const response = await fetch("/api/profile", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -125,14 +123,23 @@ function AuthCallbackContent() {
           }),
         });
 
+        console.log("[CALLBACK] Profile creation response:", {
+          status: response.status,
+          ok: response.ok,
+        });
+
         if (!response.ok) {
           const errorText = await response.text();
-          console.error("[CALLBACK] Failed to create profile:", errorText);
+          console.error("[CALLBACK] Failed to create profile:", {
+            status: response.status,
+            error: errorText,
+          });
           
           // Don't fail completely - portal will create user if needed
           console.warn("[CALLBACK] Continuing to portal despite profile creation error");
         } else {
-          console.log("[CALLBACK] Profile created successfully");
+          const result = await response.json();
+          console.log("[CALLBACK] Profile created successfully:", result);
         }
 
         // Clear the pending role and auth source
@@ -140,13 +147,15 @@ function AuthCallbackContent() {
           localStorage.removeItem("pendingRole");
         }
         localStorage.removeItem("authSource");
+        console.log("[CALLBACK] Cleared localStorage");
 
         // Route to portal hub - use window.location for full page refresh
-        console.log("[CALLBACK] Redirecting to portal hub");
+        console.log("[CALLBACK] Redirecting to portal hub at /portal");
         window.location.href = "/portal";
       } catch (err) {
         console.error("[CALLBACK] Error during profile creation:", err);
         // Even on error, try to redirect to portal
+        console.log("[CALLBACK] Redirecting to portal despite error");
         window.location.href = "/portal";
       }
     };

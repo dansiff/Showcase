@@ -17,75 +17,110 @@ export const metadata = {
 };
 
 async function getUserWithPortals() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user: authUser },
-  } = await supabase.auth.getUser();
+  try {
+    const supabase = await createSupabaseServerClient();
+    const {
+      data: { user: authUser },
+      error: authError,
+    } = await supabase.auth.getUser();
 
-  if (!authUser) {
-    redirect("/signin");
-  }
+    console.log("[PORTAL] Auth user check:", {
+      hasUser: !!authUser,
+      email: authUser?.email,
+      error: authError?.message,
+    });
 
-  // Fetch user with relations, create if doesn't exist
-  let user = await prisma.user.findUnique({
-    where: { email: authUser.email! },
-    include: {
-      creator: true,
-      profile: true,
-    },
-  });
+    if (!authUser) {
+      console.log("[PORTAL] No auth user, redirecting to signin");
+      redirect("/signin");
+    }
 
-  // If user doesn't exist in Prisma, create them
-  if (!user) {
-    console.log("[PORTAL] Creating Prisma user for:", authUser.email);
-    user = await prisma.user.create({
-      data: {
-        email: authUser.email!,
-        name: authUser.user_metadata?.name || authUser.email?.split('@')[0] || 'User',
-        role: authUser.user_metadata?.role === "creator" ? "CREATOR" : "USER",
-      },
+    // Fetch user with relations, create if doesn't exist
+    let user = await prisma.user.findUnique({
+      where: { email: authUser.email! },
       include: {
         creator: true,
         profile: true,
       },
     });
 
-    // If they signed up as creator, create creator profile
-    if (authUser.user_metadata?.role === "creator") {
-      await prisma.creator.create({
-        data: {
-          userId: user.id,
-          displayName: user.name || 'Creator',
-          promoEndsAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-        },
-      });
+    console.log("[PORTAL] Database user check:", {
+      found: !!user,
+      email: authUser.email,
+      hasCreator: !!user?.creator,
+      hasProfile: !!user?.profile,
+    });
+
+    // If user doesn't exist in Prisma, create them
+    if (!user) {
+      console.log("[PORTAL] Creating new Prisma user for:", authUser.email);
       
-      // Refresh user data to include creator
-      user = await prisma.user.findUnique({
-        where: { email: authUser.email! },
+      // Determine role from Supabase user_metadata
+      const userRole = authUser.user_metadata?.role === "creator" ? "CREATOR" : "USER";
+      
+      user = await prisma.user.create({
+        data: {
+          email: authUser.email!,
+          name: authUser.user_metadata?.name || authUser.email?.split('@')[0] || 'User',
+          role: userRole,
+        },
         include: {
           creator: true,
           profile: true,
         },
       });
+
+      console.log("[PORTAL] Created user:", {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      });
+
+      // If they signed up as creator, create creator profile
+      if (userRole === "CREATOR") {
+        console.log("[PORTAL] Creating creator profile for user:", user.id);
+        await prisma.creator.create({
+          data: {
+            userId: user.id,
+            displayName: user.name || 'Creator',
+            promoEndsAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+          },
+        });
+        
+        // Refresh user data to include creator
+        user = await prisma.user.findUnique({
+          where: { email: authUser.email! },
+          include: {
+            creator: true,
+            profile: true,
+          },
+        });
+
+        console.log("[PORTAL] Creator profile created, user refreshed:", !!user?.creator);
+      }
     }
+
+    if (!user) {
+      // This should never happen at this point, but TypeScript needs the check
+      console.error("[PORTAL] User still null after creation attempt");
+      redirect("/signin");
+    }
+
+    // Check for client intakes
+    const clientIntakes = await prisma.clientIntake.findMany({
+      where: { email: user.email },
+      take: 1,
+    });
+
+    const portals = detectAvailablePortals(user, clientIntakes.length > 0);
+
+    console.log("[PORTAL] Available portals:", portals);
+
+    return { user, portals };
+  } catch (error) {
+    console.error("[PORTAL] Error in getUserWithPortals:", error);
+    throw error; // Re-throw to trigger error.tsx
   }
-
-  if (!user) {
-    // This should never happen at this point, but TypeScript needs the check
-    console.error("[PORTAL] User still null after creation attempt");
-    redirect("/signin");
-  }
-
-  // Check for client intakes
-  const clientIntakes = await prisma.clientIntake.findMany({
-    where: { email: user.email },
-    take: 1,
-  });
-
-  const portals = detectAvailablePortals(user, clientIntakes.length > 0);
-
-  return { user, portals };
 }
 
 export default async function PortalHub() {
