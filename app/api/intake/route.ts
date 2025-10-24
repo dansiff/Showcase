@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendSlackNotification, sendDiscordNotification, sendEmail } from "@/lib/notifications";
+import { rateLimits, getClientIp } from "@/lib/rate-limit";
+import { handleApiError, apiSuccess } from "@/lib/api-handler";
+import { validateEmail, validateString, ValidationError } from "@/lib/validation";
 
 // Email notification helper
 async function sendTeamNotification(intake: any) {
@@ -88,6 +91,21 @@ The Showcase Team
 
 export async function POST(req: Request) {
   try {
+    // 1. Rate limiting (3 submissions per hour per IP)
+    const clientIp = getClientIp(req);
+    const rateLimitResult = await rateLimits.strict.check(`intake:${clientIp}`);
+    
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        {
+          error: 'Too many submissions. Please try again later.',
+          retryAfter: Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000),
+        },
+        { status: 429 }
+      );
+    }
+
+    // 2. Parse and validate request body
     const body = await req.json();
     
     const {
@@ -115,6 +133,21 @@ export async function POST(req: Request) {
       uploadedFiles,
       termsAccepted,
     } = body;
+
+    // 3. Validate required fields
+    validateString(fullName, 'fullName', { minLength: 2, maxLength: 100 });
+    const validatedEmail = validateEmail(email);
+    validateString(company, 'company', { minLength: 2, maxLength: 100 });
+    validateString(projectType, 'projectType', { minLength: 2, maxLength: 50 });
+    validateString(projectDescription, 'projectDescription', { minLength: 10, maxLength: 2000 });
+    validateString(goals, 'goals', { minLength: 10, maxLength: 2000 });
+    validateString(targetAudience, 'targetAudience', { minLength: 5, maxLength: 500 });
+    validateString(timeline, 'timeline', { minLength: 2, maxLength: 50 });
+    validateString(budget, 'budget', { minLength: 2, maxLength: 50 });
+
+    if (!termsAccepted) {
+      throw new ValidationError('You must accept the terms and conditions', 'termsAccepted');
+    }
 
     // Validation
     if (!fullName || !email || !company || !projectType || !projectDescription || !goals || !targetAudience || !timeline || !budget) {
@@ -181,24 +214,17 @@ export async function POST(req: Request) {
 
     Promise.all([
       sendTeamNotification(intake),
-      sendClientConfirmation(email, fullName, intake.id),
+      sendClientConfirmation(validatedEmail, fullName, intake.id),
       sendSlackNotification(notificationData),
       sendDiscordNotification(notificationData),
     ]).catch(err => console.error("Notification error:", err));
 
-    return NextResponse.json(
-      { 
-        success: true, 
-        intakeId: intake.id,
-        message: "Intake form submitted successfully" 
-      },
-      { status: 201 }
+    return apiSuccess(
+      { intakeId: intake.id },
+      "Intake form submitted successfully",
+      201
     );
-  } catch (err: any) {
-    console.error("Intake API error:", err);
-    return NextResponse.json(
-      { error: err?.message ?? "Internal server error" },
-      { status: 500 }
-    );
+  } catch (err) {
+    return handleApiError(err);
   }
 }

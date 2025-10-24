@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "seed": "node scripts/seed.mjs"
+    "seed": "node scripts/seed.mjs",
+    "test:pre-launch": "node scripts/pre-launch-test.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
