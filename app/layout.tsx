@@ -27,7 +27,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-  <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased overflow-x-hidden`}>
+      <body className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased overflow-x-hidden`}>
         <HeaderProvider>
           {children}
         </HeaderProvider>

@@ -1,5 +1,4 @@
 import { createBrowserClient } from "@supabase/ssr";
-import { validateEnvVars } from "@/lib/env";
 
 // Don't create a browser client at build-time (server) — only create on the
 // browser at runtime where window is available. This prevents build errors
@@ -20,12 +19,6 @@ export function getSupabaseBrowserClient() {
   console.log("[SUPABASE] Creating new client");
   console.log("[SUPABASE] URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
   console.log("[SUPABASE] Anon key present:", !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-
-  try {
-    validateEnvVars();
-  } catch (err) {
-    console.error("[SUPABASE] Env validation failed:", err);
-  }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;

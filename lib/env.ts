@@ -1,7 +1,7 @@
 // lib/env.ts
 // Centralized runtime env validation for required variables
 
-const requiredEnvVars = [
+const requiredServerEnvVars = [
   // Database
   'DATABASE_URL',
   // Supabase (browser + server)
@@ -23,17 +23,33 @@ const requiredEnvVars = [
   // 'KITCHEN_WEBHOOK_URL',
 ];
 
+const requiredClientEnvVars = [
+  // Supabase (browser accessible)
+  'NEXT_PUBLIC_SUPABASE_URL',
+  'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+  // App URL for redirects
+  'NEXT_PUBLIC_APP_URL',
+  // Stripe (browser accessible)
+  'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
+];
+
 export function validateEnvVars() {
-  // Only validate in production builds to avoid blocking local dev
+  const isClient = typeof window !== 'undefined';
+  
+  // Skip validation in local dev (unless on Vercel)
   if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
     console.warn('[ENV] Skipping env validation in local dev. Set required vars in Vercel dashboard for production.');
     return;
   }
   
-  const missing = requiredEnvVars.filter((key) => !process.env[key]);
+  // Only validate client-accessible vars on the browser
+  const varsToCheck = isClient ? requiredClientEnvVars : requiredServerEnvVars;
+  const missing = varsToCheck.filter((key) => !process.env[key]);
+  
   if (missing.length > 0) {
+    const context = isClient ? 'client' : 'server';
     throw new Error(
-      `Missing required environment variables: ${missing.join(', ')}.\nCheck your Vercel dashboard or .env files.`
+      `Missing required ${context} environment variables: ${missing.join(', ')}.\nCheck your Vercel dashboard or .env files.`
     );
   }
 
