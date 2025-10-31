@@ -1,9 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
-import dynamic from 'next/dynamic'
-
-const EmilyChat = dynamic(() => import('@/components/emily/Chat'), { ssr: false })
+import EmilyChat from '@/components/emily/Chat'
 
 async function hasValidAccess(token: string | undefined | null) {
   if (!token) return false
