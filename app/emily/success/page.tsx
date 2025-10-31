@@ -1,8 +1,8 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 
-export default function EmilySuccess() {
+function EmilySuccessContent() {
   const params = useSearchParams()
   const router = useRouter()
   const [status, setStatus] = useState<'loading'|'ok'|'error'>('loading')
@@ -36,5 +36,13 @@ export default function EmilySuccess() {
       <h1 className="text-2xl font-semibold">{status === 'loading' ? 'Please wait…' : status === 'ok' ? 'Success' : 'There was an issue'}</h1>
       <p className="mt-3 text-gray-600">{message}</p>
     </div>
+  )
+}
+
+export default function EmilySuccess() {
+  return (
+    <Suspense fallback={<div className="py-16 text-center"><p className="text-gray-600">Loading…</p></div>}>
+      <EmilySuccessContent />
+    </Suspense>
   )
 }
