@@ -41,8 +41,19 @@ function EmilySuccessContent() {
 
 export default function EmilySuccess() {
   return (
-    <Suspense fallback={<div className="py-16 text-center"><p className="text-gray-600">Loading…</p></div>}>
-      <EmilySuccessContent />
+    <Suspense
+      fallback={
+        <div className="py-20 text-center">
+          <h1 className="text-2xl font-semibold text-gray-900">Loading…</h1>
+          <p className="mt-2 text-gray-600">Preparing your access</p>
+        </div>
+      }
+    >
+      <div className="bg-white">
+        <div className="py-20 text-center">
+          <EmilySuccessContent />
+        </div>
+      </div>
     </Suspense>
   )
 }

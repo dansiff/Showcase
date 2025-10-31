@@ -1,13 +1,16 @@
 export default function EmilyLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-dvh bg-gradient-to-b from-pink-50 to-white text-gray-900">
-      <header className="max-w-4xl mx-auto px-4 py-6">
-        <a href="/emily" className="inline-flex items-center gap-2 font-semibold text-pink-600">
-          <span className="text-xl">Emily</span>
-          <span className="opacity-70">• exclusives</span>
-        </a>
+    <div className="min-h-dvh bg-white text-gray-900">
+      <header className="border-b">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-4 flex items-center justify-between">
+          <a href="/emily" className="inline-flex items-center gap-3">
+            <span className="h-8 w-8 rounded-md bg-pink-600/90" aria-hidden />
+            <span className="text-[15px] tracking-tight font-semibold text-gray-900">Emily Atelier</span>
+          </a>
+          <div className="text-xs text-gray-500">30‑day access • One‑time purchase</div>
+        </div>
       </header>
-      <main className="max-w-4xl mx-auto px-4 pb-16">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 pb-16">
         {children}
       </main>
     </div>

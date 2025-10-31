@@ -60,14 +60,22 @@ export default function EmilyChat() {
   }
 
   return (
-    <div className="rounded-xl border bg-white/60 p-4 grid gap-3">
-      <div className="h-64 overflow-y-auto bg-white/60 rounded border p-3 space-y-2">
+    <div className="rounded-2xl border bg-white p-4 grid gap-3 shadow-sm">
+      <div className="h-64 overflow-y-auto rounded-xl border bg-white p-3 space-y-3">
         {loading && <div className="text-gray-500 text-sm">Loading…</div>}
         {!loading && messages.length === 0 && <div className="text-gray-500 text-sm">Say hello 👋</div>}
         {messages.map(m => (
           <div key={m.id} className={m.sender === 'buyer' ? 'text-right' : 'text-left'}>
-            <div className={`inline-block px-3 py-2 rounded-lg text-sm ${m.sender === 'buyer' ? 'bg-pink-600 text-white' : 'bg-gray-200'}`}>
-              {m.type === 'text' ? m.content : m.url}
+            <div
+              className={`inline-flex max-w-[80%] px-3 py-2 rounded-2xl text-sm shadow-sm ${
+                m.sender === 'buyer'
+                  ? 'bg-pink-600 text-white rounded-tr-sm'
+                  : 'bg-gray-100 text-gray-900 rounded-tl-sm'
+              }`}
+            >
+              {m.type === 'text' ? m.content : (
+                <a className="underline" href={m.url || '#'} target="_blank" rel="noreferrer">{m.url}</a>
+              )}
             </div>
           </div>
         ))}
@@ -75,13 +83,13 @@ export default function EmilyChat() {
       </div>
       <div className="flex gap-2">
         <input
-          className="flex-1 border rounded px-3 py-2"
+          className="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-200"
           placeholder="Write a message…"
           value={text}
           onChange={e => setText(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') send() }}
         />
-        <button className="bg-pink-600 text-white rounded px-4" onClick={send}>Send</button>
+        <button className="bg-pink-600 hover:bg-pink-700 text-white rounded-lg px-4 transition" onClick={send}>Send</button>
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
