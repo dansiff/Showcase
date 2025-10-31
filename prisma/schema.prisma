@@ -269,3 +269,48 @@ model AffiliatePayout {
 
   @@index([affiliateId])
 }
+
+// =========================
+// Emily MVP (single-creator)
+// =========================
+
+// Access tokens granted post-purchase (no auth required).
+// A random token is issued and set as an HTTP-only cookie to gate access.
+model AccessToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  purpose   String   @default("emily") // scope for future creators
+  createdAt DateTime @default(now())
+  expiresAt DateTime?
+  revoked   Boolean  @default(false)
+
+  @@index([email])
+  @@index([purpose])
+}
+
+// Simple message log for Emily's paid room.
+// Messages are associated to an access token (per-buyer). Creator can also post.
+model EmilyMessage {
+  id        String   @id @default(cuid())
+  token     String
+  sender    String              // "buyer" | "creator"
+  type      String   @default("text") // "text" | "image" | "audio"
+  content   String?
+  url       String?
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([createdAt])
+}
+
+// Editable sections for Emily's paid page.
+model EmilyContent {
+  id        String   @id @default(cuid())
+  section   String   @unique
+  title     String?
+  body      String?
+  mediaUrls String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
