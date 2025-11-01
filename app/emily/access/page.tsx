@@ -3,8 +3,7 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import EmilyChat from '@/components/emily/Chat'
 import StudioCard from '@/components/emily/StudioCard'
-import dynamic from 'next/dynamic'
-const ContentEditor = dynamic(() => import('@/components/emily/ContentEditor'), { ssr: false })
+import AdminEditor from '@/components/emily/AdminEditor'
 
 async function hasValidAccess(token: string | undefined | null) {
   if (!token) return false
@@ -69,12 +68,7 @@ export default async function EmilyAccessPage() {
       <section className="mt-8 grid gap-6">
         <h3 className="font-semibold mb-2 text-gray-900">Private chat</h3>
         <EmilyChat />
-        {admin && (
-          <div>
-            <h3 className="font-semibold mb-2 text-gray-900">Editor (admin)</h3>
-            <ContentEditor />
-          </div>
-        )}
+        <AdminEditor admin={admin} />
       </section>
     </div>
   )
