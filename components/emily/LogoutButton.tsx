@@ -9,10 +9,13 @@ export default function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="p-4 border rounded-xl hover:bg-red-50 transition text-center border-red-200"
+      className="group relative p-5 bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-200 rounded-2xl hover:border-red-400 hover:shadow-lg transition-all"
     >
-      <div className="text-sm font-medium text-red-600">Logout</div>
-      <div className="text-xs text-red-400 mt-1">Clear session</div>
+      <div className="text-3xl mb-3">🚪</div>
+      <div className="text-sm font-semibold text-red-700 group-hover:text-red-800 transition">
+        Logout
+      </div>
+      <div className="text-xs text-red-500 mt-1">End session</div>
     </button>
   )
 }
