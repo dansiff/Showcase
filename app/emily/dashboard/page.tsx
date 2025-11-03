@@ -5,6 +5,10 @@ import StudioCard from '@/components/emily/StudioCard'
 import AdminEditor from '@/components/emily/AdminEditor'
 import LogoutButton from '@/components/emily/LogoutButton'
 
+// Force dynamic rendering since we use cookies
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function isAdmin(cookieVal: string | undefined) {
   const key = process.env.EMILY_ADMIN_KEY
   if (!key) return false
@@ -21,12 +25,34 @@ export default async function EmilyDashboardPage() {
     redirect('/emily/admin')
   }
 
-  // Load content stats
-  const [note, messageCount, accessTokenCount] = await Promise.all([
-    (prisma as any).emilyContent.findUnique({ where: { section: 'note' } }),
-    (prisma as any).emilyMessage.count(),
-    (prisma as any).accessToken.count({ where: { revoked: false } }),
-  ])
+  // Load content stats with error handling and timeout
+  let note = null
+  let messageCount = 0
+  let accessTokenCount = 0
+  let dbError = false
+
+  try {
+    // Set a timeout for DB queries
+    const timeout = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Query timeout')), 5000)
+    )
+
+    const queryPromise = Promise.allSettled([
+      (prisma as any).emilyContent.findUnique({ where: { section: 'note' } }),
+      (prisma as any).emilyMessage.count(),
+      (prisma as any).accessToken.count({ where: { revoked: false } }),
+    ])
+
+    const results = await Promise.race([queryPromise, timeout]) as any
+
+    if (results[0]?.status === 'fulfilled') note = results[0].value
+    if (results[1]?.status === 'fulfilled') messageCount = results[1].value
+    if (results[2]?.status === 'fulfilled') accessTokenCount = results[2].value
+  } catch (err) {
+    console.error('[EMILY-DASHBOARD] DB query error:', err)
+    dbError = true
+    // Continue with default values
+  }
 
   return (
     <div className="bg-white min-h-screen">
@@ -38,6 +64,16 @@ export default async function EmilyDashboardPage() {
             Manage content, view stats, and customize Emily's page.
           </p>
         </div>
+
+        {/* DB Error Warning */}
+        {dbError && (
+          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-sm text-yellow-800">
+              ⚠️ <strong>Database connection issue.</strong> Stats may not be current. The content editor below will still work.
+              Check your DATABASE_URL in Vercel environment variables.
+            </p>
+          </div>
+        )}
 
         {/* Quick stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
