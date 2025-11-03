@@ -102,10 +102,10 @@ export default function AdminManagePage() {
             <p className="mt-2 text-sm text-gray-600">Manage admin accounts for Emily&apos;s platform</p>
           </div>
           <button
-            onClick={() => router.push('/emily/access')}
+            onClick={() => router.push('/emily/dashboard')}
             className="text-sm text-gray-600 hover:text-gray-900"
           >
-            ← Back to Access
+            ← Back to Dashboard
           </button>
         </div>
 

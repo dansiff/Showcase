@@ -28,9 +28,13 @@ export default async function EmilyAccessPage() {
   const cookieStore = await cookies()
   const token = cookieStore.get('emily_access')?.value
   const adminCookie = cookieStore.get('emily_admin')?.value
-  const ok = await hasValidAccess(token)
-  if (!ok) redirect('/emily')
   const admin = isAdmin(adminCookie)
+  
+  // Allow access if valid token OR admin
+  const hasAccessToken = await hasValidAccess(token)
+  if (!hasAccessToken && !admin) {
+    redirect('/emily')
+  }
 
   // Load content (note section)
   const note = await (prisma as any).emilyContent.findUnique({ where: { section: 'note' } })

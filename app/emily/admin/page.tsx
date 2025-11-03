@@ -24,8 +24,8 @@ export default function AdminLogin() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data?.error || 'Login failed')
-      // Cookie is set server-side, redirect to access
-      router.push('/emily/access')
+      // Cookie is set server-side, redirect to dashboard
+      router.push('/emily/dashboard')
     } catch (e: any) {
       setError(e.message || 'Invalid credentials')
     }
