@@ -16,6 +16,10 @@ export const metadata = {
   description: "Access your portals",
 };
 
+// This page relies on cookies/session and must be rendered dynamically
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getUserWithPortals() {
   try {
     const supabase = await createSupabaseServerClient();

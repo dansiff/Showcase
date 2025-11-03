@@ -25,7 +25,40 @@ export async function handleStripeWebhook(event: Stripe.Event) {
 
   const customerEmail = sessionWithLineItems.customer ? (sessionWithLineItems.customer as Stripe.Customer).email : null;
   const lineItems = sessionWithLineItems.line_items?.data || [];
+  const metadata: any = (sessionWithLineItems as any).metadata ?? (session as any).metadata ?? {};
 
+  // ========== Emily Access Provisioning ==========
+  if (metadata.purpose === 'emily_access') {
+    if (!customerEmail) {
+      console.warn('[STRIPE-WEBHOOK] Emily purchase without customer email:', session.id);
+      return { handled: true };
+    }
+    try {
+      const token = crypto.randomUUID().replace(/-/g, '');
+      const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+      await (prisma as any).accessToken.create({
+        data: {
+          email: customerEmail,
+          token,
+          purpose: 'emily',
+          expiresAt,
+        },
+      });
+      console.log('[STRIPE-WEBHOOK] Emily access token created:', { email: customerEmail, token });
+      // TODO: Send email with access link
+      await sendEmail({
+        to: customerEmail,
+        subject: 'Your Emily Studio Access',
+        text: `Thanks for your purchase!\n\nYour private access link:\n${process.env.NEXT_PUBLIC_APP_URL || 'https://your-site.com'}/emily/access\n\nYou can access for 30 days. Bookmark this page!\n\n— Emily`,
+      });
+    } catch (err) {
+      console.error('[STRIPE-WEBHOOK] Failed to provision Emily access:', err);
+      throw err;
+    }
+    return { handled: true };
+  }
+
+  // ========== Existing Taco/General Orders ==========
   // 2. Format summary
   const orderSummary = lineItems.map(item => `${item.quantity} x ${item.description}`).join('\n');
 
@@ -52,7 +85,6 @@ export async function handleStripeWebhook(event: Stripe.Event) {
 
   // 4. Persist Payment to DB (idempotent)
   try {
-    const metadata: any = (sessionWithLineItems as any).metadata ?? (session as any).metadata ?? {};
     let userId: string | null = metadata?.userId ?? null;
 
     let user = null;

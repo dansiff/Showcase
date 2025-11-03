@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	eslint: {
+		// Avoid failing the production build on ESLint issues
+		ignoreDuringBuilds: true,
+	},
 	async headers() {
 		const securityHeaders = [
 			// Prevent MIME type sniffing

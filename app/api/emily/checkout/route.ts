@@ -7,6 +7,14 @@ export async function POST() {
     const priceId = process.env.STRIPE_EMILY_PRICE_ID
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL
 
+    // Debug logging (remove after testing)
+    console.log('[EMILY-CHECKOUT] Env check:', {
+      hasSecret: !!secret,
+      secretPrefix: secret?.slice(0, 7),
+      priceId,
+      appUrl,
+    })
+
     if (!secret) {
       return NextResponse.json({ error: 'Missing STRIPE_SECRET_KEY' }, { status: 500 })
     }
