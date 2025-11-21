@@ -42,3 +42,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message || 'server error' }, { status: 500 })
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const limit = Number(searchParams.get('limit') || '50');
+    const upcomingOnly = searchParams.get('upcoming') === 'true';
+    const where: any = {};
+    if (upcomingOnly) {
+      where.pickupAt = { gte: new Date(Date.now() - 30*60*1000) }; // show from 30m ago forward
+    }
+    const orders = await (prisma as any)["order"].findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      take: Math.min(limit, 200),
+      include: { items: true }
+    });
+    return NextResponse.json({ orders });
+  } catch (err: any) {
+    console.error('orders list error', err);
+    return NextResponse.json({ error: err.message || 'server error' }, { status: 500 });
+  }
+}

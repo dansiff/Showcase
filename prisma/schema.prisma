@@ -336,6 +336,17 @@ model OrderItem {
   unitCents Int
 }
 
+// Game leaderboards (Snake, Invaders)
+model GameScore {
+  id        String   @id @default(cuid())
+  game      String
+  name      String?
+  score     Int
+  createdAt DateTime @default(now())
+
+  @@index([game, score])
+}
+
 // Multi-admin system for Emily (backward-compatible with EMILY_ADMIN_KEY).
 // Stores individual admin accounts with email + hashed password.
 model Admin {
