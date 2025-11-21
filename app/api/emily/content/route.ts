@@ -24,6 +24,17 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const cookieStore = await cookies()
+    const adminCookie = cookieStore.get('emily_admin')?.value
+    const expectedKey = process.env.EMILY_ADMIN_KEY
+    
+    console.log('[EMILY-CONTENT][POST] Auth check:', {
+      hasCookie: !!adminCookie,
+      hasKey: !!expectedKey,
+      cookiePrefix: adminCookie?.substring(0, 10),
+      keyPrefix: expectedKey?.substring(0, 10),
+      match: adminCookie === expectedKey
+    })
+    
     if (!isAdmin(cookieStore)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
