@@ -98,8 +98,8 @@ function GameCard({
 }) {
 	return (
 		<div className="relative group rounded-2xl p-4 flex flex-col justify-between bg-gradient-to-br from-slate-800/80 via-indigo-700/70 to-purple-700/70 border border-indigo-600/40 hover:border-pink-400/60 transition-all hover:shadow-xl hover:shadow-pink-500/10 overflow-hidden">
-			<div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4),transparent_60%)] transition-opacity" />
-			<div className="flex items-start gap-3">
+			<div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4),transparent_60%)] transition-opacity pointer-events-none" />
+			<div className="flex items-start gap-3 relative z-10">
 				<div className="w-14 h-14 rounded-lg bg-slate-900/80 flex items-center justify-center shadow-lg ring-1 ring-indigo-400/40 group-hover:ring-pink-300/60">{icon}</div>
 				<div>
 					<h3 className="font-semibold text-amber-200 drop-shadow-sm tracking-tight">{title}</h3>
@@ -107,7 +107,7 @@ function GameCard({
 					<p className="text-xs text-slate-200/80 mt-2 leading-relaxed">{description}</p>
 				</div>
 			</div>
-			<div className="mt-4 flex justify-end">
+			<div className="mt-4 flex justify-end relative z-10">
 				<button onClick={onOpen} className="px-4 py-2 rounded-lg shadow bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white text-sm font-semibold tracking-wide hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-pink-300">Play ▶</button>
 			</div>
 		</div>
