@@ -137,17 +137,18 @@ function TicTacToe() {
 	return (
 		<div className="animate-fade-in">
 			<div className="flex items-center justify-between mb-4">
-				<h2 className="text-xl font-semibold text-amber-200">Tic Tac Taco</h2>
-				<div className="text-sm text-gray-600">Turn: {turn}</div>
+				<h2 className="text-xl font-semibold text-amber-200" id="tictactoe-title">Tic Tac Taco</h2>
+				<div className="text-sm text-gray-600" aria-live="polite" aria-label={`Current turn: ${turn}`}>Turn: {turn}</div>
 			</div>
 
-			<div className="grid grid-cols-3 gap-2 max-w-xs">
+			<div className="grid grid-cols-3 gap-2 max-w-xs" role="grid" aria-labelledby="tictactoe-title">
 				{board.map((v, i) => (
 					<button
 						key={i}
 						onClick={() => handleClick(i)}
-						aria-label={`Cell ${i + 1}`}
-						className="h-16 w-16 flex items-center justify-center border border-slate-600 text-2xl font-bold bg-slate-800/60 hover:bg-slate-700/70 rounded-lg shadow-inner"
+						aria-label={v ? `Cell ${i + 1}, ${v}` : `Cell ${i + 1}, empty`}
+						disabled={!!v || !!winner}
+						className="h-16 w-16 flex items-center justify-center border border-slate-600 text-2xl font-bold bg-slate-800/60 hover:bg-slate-700/70 rounded-lg shadow-inner disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						{v}
 					</button>
@@ -156,14 +157,15 @@ function TicTacToe() {
 
 			<div className="mt-4">
 				{winner ? (
-					<div className="text-emerald-400 font-semibold">Winner: {winner}</div>
+					<div className="text-emerald-400 font-semibold" role="alert" aria-live="assertive">Winner: {winner}</div>
 				) : (
-					<div className="text-slate-400">No winner yet</div>
+					<div className="text-slate-400" aria-live="polite">No winner yet</div>
 				)}
 				<div className="mt-2">
 					<button
 						onClick={reset}
 						className="px-3 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100 text-xs"
+						aria-label="Reset game"
 					>
 						Reset
 					</button>
@@ -233,25 +235,28 @@ function MemoryMatch() {
 	return (
 		<div className="animate-fade-in">
 			<div className="flex items-center justify-between mb-4">
-				<h2 className="text-xl font-semibold text-pink-300">Memory Munch</h2>
+				<h2 className="text-xl font-semibold text-pink-300" id="memory-title">Memory Munch</h2>
 				<div>
 					<button
 						onClick={reset}
 						className="px-3 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100 text-xs"
+						aria-label="Reset game"
 					>
 						Reset
 					</button>
 				</div>
 			</div>
 
-			<div className="grid grid-cols-4 gap-3 max-w-md">
+			<div className="grid grid-cols-4 gap-3 max-w-md" role="grid" aria-labelledby="memory-title">
 				{cards.map((val, i) => {
 					const isFlipped = flipped.includes(i) || matched[i];
 					return (
 						<button
 							key={i}
 							onClick={() => handleFlip(i)}
-							className={`h-20 border rounded flex items-center justify-center text-xl font-semibold transition-colors border-slate-600 ${
+							aria-label={isFlipped ? `Card ${i+1}, showing ${val}` : `Card ${i+1}, hidden`}
+							disabled={flipped.includes(i) || matched[i]}
+							className={`h-20 border rounded flex items-center justify-center text-xl font-semibold transition-colors border-slate-600 disabled:cursor-not-allowed ${
 								isFlipped ? "bg-indigo-600/40 text-white" : "bg-slate-800/60 text-slate-300"
 							}`}
 						>
@@ -377,8 +382,15 @@ function SnakeGame() {
 	});
 	const [paused, setPaused] = useState(false);
 	const [muted, setMuted] = useState(false);
+	const [leaderboard, setLeaderboard] = useState<{name?:string;score:number}[]>([]);
+	const [showSubmit, setShowSubmit] = useState(false);
+	const [submitName, setSubmitName] = useState('');
 	// simple particle system state
 	const particlesRef = useRef<{x:number;y:number;life:number;h:number}[]>([]);
+
+	useEffect(() => {
+		fetch('/api/game/scores?game=snake&limit=5').then(r=>r.json()).then(d=>setLeaderboard(d.scores||[])).catch(()=>{});
+	}, []);
 
 	// minimal sound synth using Web Audio API
 	const audioCtxRef = useRef<AudioContext | null>(null);
@@ -498,24 +510,67 @@ function SnakeGame() {
 			setHighScore(score);
 			try { window.localStorage.setItem('snakeHigh', String(score)); } catch {}
 		}
-	}, [score, highScore]);
+		if (!running && score >= 10 && !showSubmit) {
+			const topScore = leaderboard[0]?.score || 0;
+			if (score > topScore || leaderboard.length < 5) setShowSubmit(true);
+		}
+	}, [score, highScore, running, leaderboard, showSubmit]);
+
+	async function submitScore() {
+		if (!submitName.trim()) return;
+		try {
+			await fetch('/api/game/scores', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({game:'snake',name:submitName.trim(),score}) });
+			const res = await fetch('/api/game/scores?game=snake&limit=5');
+			const data = await res.json();
+			setLeaderboard(data.scores||[]);
+			setShowSubmit(false);
+		} catch(e) { console.error(e); }
+	}
 
 	return (
 		<div className="animate-fade-in">
 			<div className="flex items-center justify-between mb-4">
-				<h2 className="text-xl font-semibold text-lime-300">Snake Snack</h2>
-				<div className="flex items-center gap-3 text-[10px]">
-					<div className="px-2 py-1 rounded bg-lime-800/40 text-lime-200">Len {score}</div>
-					<div className="px-2 py-1 rounded bg-lime-900/40 text-lime-300">Best {highScore}</div>
-					<button onClick={() => setPaused(p=>!p)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100">{paused? 'Resume':'Pause'}</button>
-					<button onClick={() => setMuted(m=>!m)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100">{muted? 'Unmute':'Mute'}</button>
-					<button onClick={() => window.location.reload()} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100">Restart</button>
+				<h2 className="text-xl font-semibold text-lime-300" id="snake-title">Snake Snack</h2>
+				<div className="flex items-center gap-3 text-[10px]" role="group" aria-label="Game controls and stats">
+					<div className="px-2 py-1 rounded bg-lime-800/40 text-lime-200" aria-label={`Current length ${score}`}>Len {score}</div>
+					<div className="px-2 py-1 rounded bg-lime-900/40 text-lime-300" aria-label={`Best length ${highScore}`}>Best {highScore}</div>
+					<button onClick={() => setPaused(p=>!p)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label={paused?'Resume game':'Pause game'}>{paused? 'Resume':'Pause'}</button>
+					<button onClick={() => setMuted(m=>!m)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label={muted?'Unmute sounds':'Mute sounds'}>{muted? 'Unmute':'Mute'}</button>
+					<button onClick={() => window.location.reload()} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label="Restart game">Restart</button>
 				</div>
 			</div>
-			<div className="overflow-auto">
-				<canvas ref={canvasRef} className="border rounded" />
+			<div className="grid md:grid-cols-[1fr,200px] gap-4">
+				<div className="overflow-auto">
+					<canvas ref={canvasRef} className="border rounded" aria-label="Snake game canvas" role="img" />
+					{!running && <div className="mt-3 text-red-400" role="alert" aria-live="assertive">Game over — press Restart</div>}
+				</div>
+				{leaderboard.length > 0 && (
+					<aside className="bg-slate-800/40 rounded p-3 border border-slate-700" aria-labelledby="snake-leaderboard">
+						<h3 className="text-xs font-semibold mb-2 text-lime-300" id="snake-leaderboard">Top Scores</h3>
+						<ol className="text-[10px] space-y-1" aria-label="Snake leaderboard">
+							{leaderboard.map((entry,i)=>(
+								<li key={i} className="flex justify-between" aria-label={`Rank ${i+1}: ${entry.name||'Anonymous'} with score ${entry.score}`}>
+									<span className="truncate">{i+1}. {entry.name||'Anon'}</span>
+									<span className="font-mono">{entry.score}</span>
+								</li>
+							))}
+						</ol>
+					</aside>
+				)}
 			</div>
-			{!running && <div className="mt-3 text-red-400">Game over — press Restart</div>}
+			{showSubmit && (
+				<div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" role="dialog" aria-labelledby="submit-dialog-title" aria-modal="true">
+					<div className="bg-slate-800 rounded-lg p-6 max-w-sm w-full mx-4 border border-slate-600">
+						<h3 className="text-lg font-semibold text-lime-300 mb-3" id="submit-dialog-title">New High Score!</h3>
+						<p className="text-sm text-slate-300 mb-4">Length: {score}. Enter your name for the leaderboard:</p>
+						<input type="text" value={submitName} onChange={e=>setSubmitName(e.target.value)} maxLength={40} placeholder="Your name" className="w-full px-3 py-2 rounded bg-slate-900 border border-slate-600 text-slate-100 mb-4" aria-label="Enter your name" />
+						<div className="flex gap-2">
+							<button onClick={submitScore} className="flex-1 px-4 py-2 rounded bg-lime-600 hover:bg-lime-500 text-white" aria-label="Submit score">Submit</button>
+							<button onClick={()=>setShowSubmit(false)} className="px-4 py-2 rounded bg-slate-700 hover:bg-slate-600 text-slate-100" aria-label="Skip submission">Skip</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
@@ -533,7 +588,15 @@ function SpaceInvaders() {
 	});
 	const [paused, setPaused] = useState(false);
 	const [muted, setMuted] = useState(false);
+	const [leaderboard, setLeaderboard] = useState<{name?:string;score:number}[]>([]);
+	const [showSubmit, setShowSubmit] = useState(false);
+	const [submitName, setSubmitName] = useState('');
+	const [gameOver, setGameOver] = useState(false);
 	const particlesRef = useRef<{x:number;y:number;life:number}[]>([]);
+
+	useEffect(() => {
+		fetch('/api/game/scores?game=invaders&limit=5').then(r=>r.json()).then(d=>setLeaderboard(d.scores||[])).catch(()=>{});
+	}, []);
 	const audioCtxRef = useRef<AudioContext | null>(null);
 	function blip(freq=520, dur=0.07, vol=0.25) {
 		try {
@@ -669,26 +732,69 @@ function SpaceInvaders() {
 			setHighScore(score);
 			try { window.localStorage.setItem('invadersHigh', String(score)); } catch {}
 		}
-	}, [score, highScore]);
+		if (gameOver && score >= 50 && !showSubmit) {
+			const topScore = leaderboard[0]?.score || 0;
+			if (score > topScore || leaderboard.length < 5) setShowSubmit(true);
+		}
+	}, [score, highScore, gameOver, leaderboard, showSubmit]);
+
+	async function submitScore() {
+		if (!submitName.trim()) return;
+		try {
+			await fetch('/api/game/scores', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({game:'invaders',name:submitName.trim(),score}) });
+			const res = await fetch('/api/game/scores?game=invaders&limit=5');
+			const data = await res.json();
+			setLeaderboard(data.scores||[]);
+			setShowSubmit(false);
+		} catch(e) { console.error(e); }
+	}
 
 	return (
 		<div className="animate-fade-in">
 			<div className="flex items-center justify-between mb-4">
-				<h2 className="text-xl font-semibold text-violet-300">Space Invaders Jr.</h2>
+				<h2 className="text-xl font-semibold text-violet-300" id="invaders-title">Space Invaders Jr.</h2>
 				<div className="flex flex-col items-end gap-1 text-[10px]">
-					<div className="text-slate-400">←/→/A/D move • Space/F/J/+ fire • P pause • M mute</div>
-					<div className="flex gap-2">
-						<div className="px-2 py-1 rounded bg-violet-800/40 text-violet-200">Score {score}</div>
-						<div className="px-2 py-1 rounded bg-violet-900/40 text-violet-300">High {highScore}</div>
-						<div className="px-2 py-1 rounded bg-pink-800/40 text-pink-200">Wave {wave}</div>
-						<button onClick={() => setPaused(p=>!p)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100">{paused? 'Resume':'Pause'}</button>
-						<button onClick={() => setMuted(m=>!m)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100">{muted? 'Unmute':'Mute'}</button>
+					<div className="text-slate-400" role="note">←/→/A/D move • Space/F/J/+ fire • P pause • M mute</div>
+					<div className="flex gap-2" role="group" aria-label="Game stats and controls">
+						<div className="px-2 py-1 rounded bg-violet-800/40 text-violet-200" aria-label={`Current score ${score}`}>Score {score}</div>
+						<div className="px-2 py-1 rounded bg-violet-900/40 text-violet-300" aria-label={`High score ${highScore}`}>High {highScore}</div>
+						<div className="px-2 py-1 rounded bg-pink-800/40 text-pink-200" aria-label={`Wave ${wave}`}>Wave {wave}</div>
+						<button onClick={() => setPaused(p=>!p)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label={paused?'Resume game':'Pause game'}>{paused? 'Resume':'Pause'}</button>
+						<button onClick={() => setMuted(m=>!m)} className="px-2 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label={muted?'Unmute sounds':'Mute sounds'}>{muted? 'Unmute':'Mute'}</button>
 					</div>
 				</div>
 			</div>
-			<div className="overflow-auto">
-				<canvas ref={canvasRef} className="border border-slate-700 rounded w-full max-w-[480px] bg-slate-900/80" />
+			<div className="grid md:grid-cols-[1fr,200px] gap-4">
+				<div className="overflow-auto">
+					<canvas ref={canvasRef} className="border border-slate-700 rounded w-full max-w-[480px] bg-slate-900/80" aria-label="Space Invaders game canvas" role="img" />
+				</div>
+				{leaderboard.length > 0 && (
+					<aside className="bg-slate-800/40 rounded p-3 border border-slate-700" aria-labelledby="invaders-leaderboard">
+						<h3 className="text-xs font-semibold mb-2 text-violet-300" id="invaders-leaderboard">Top Scores</h3>
+						<ol className="text-[10px] space-y-1" aria-label="Invaders leaderboard">
+							{leaderboard.map((entry,i)=>(
+								<li key={i} className="flex justify-between" aria-label={`Rank ${i+1}: ${entry.name||'Anonymous'} with score ${entry.score}`}>
+									<span className="truncate">{i+1}. {entry.name||'Anon'}</span>
+									<span className="font-mono">{entry.score}</span>
+								</li>
+							))}
+						</ol>
+					</aside>
+				)}
 			</div>
+			{showSubmit && (
+				<div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" role="dialog" aria-labelledby="invaders-submit-title" aria-modal="true">
+					<div className="bg-slate-800 rounded-lg p-6 max-w-sm w-full mx-4 border border-slate-600">
+						<h3 className="text-lg font-semibold text-violet-300 mb-3" id="invaders-submit-title">New High Score!</h3>
+						<p className="text-sm text-slate-300 mb-4">Score: {score}. Enter your name for the leaderboard:</p>
+						<input type="text" value={submitName} onChange={e=>setSubmitName(e.target.value)} maxLength={40} placeholder="Your name" className="w-full px-3 py-2 rounded bg-slate-900 border border-slate-600 text-slate-100 mb-4" aria-label="Enter your name" />
+						<div className="flex gap-2">
+							<button onClick={submitScore} className="flex-1 px-4 py-2 rounded bg-violet-600 hover:bg-violet-500 text-white" aria-label="Submit score">Submit</button>
+							<button onClick={()=>setShowSubmit(false)} className="px-4 py-2 rounded bg-slate-700 hover:bg-slate-600 text-slate-100" aria-label="Skip submission">Skip</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

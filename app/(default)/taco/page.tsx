@@ -1,7 +1,4 @@
-export const metadata = {
-    title: "Home - Querrepario Tacos",
-    description: "Best authentic tacos in town. Fresh, local, and always delicious!",
-};
+"use client";
 
 import Hero from "@/components/TacoHero";
 import MenuCta from "@/components/Menu-Tacos";
