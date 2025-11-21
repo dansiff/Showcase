@@ -203,7 +203,7 @@ function calculateWinner(squares: ("X" | "O" | null)[]) {
 
 function MemoryMatch() {
 	const pairCount = 6;
-	const [cards, setCards] = useState<number[]>(() => shufflePairs(pairCount));
+	const [cards, setCards] = useState<string[]>(() => shufflePairs(pairCount));
 	const [flipped, setFlipped] = useState<number[]>([]);
 	const [matched, setMatched] = useState<Record<number, boolean>>({});
 
@@ -270,9 +270,10 @@ function MemoryMatch() {
 }
 
 function shufflePairs(pairs: number) {
-	const arr: number[] = [];
-	for (let i = 1; i <= pairs; i++) {
-		arr.push(i, i);
+	const symbols = ['🌮', '🍩', '🍕', '🍔', '🍟', '🌭'];
+	const arr: string[] = [];
+	for (let i = 0; i < pairs; i++) {
+		arr.push(symbols[i], symbols[i]);
 	}
 	for (let i = arr.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
@@ -673,6 +674,13 @@ function SpaceInvaders() {
 			// move enemies
 			let leftMost = Math.min(...enemies.filter(e=>e.alive).map(e=>e.x)) || 0;
 			let rightMost = Math.max(...enemies.filter(e=>e.alive).map(e=>e.x)) || w;
+					let bottomMost = Math.max(...enemies.filter(e=>e.alive).map(e=>e.y)) || 0;
+					// Game over if enemies reach player zone
+					if (bottomMost > player.y - 20) {
+						setGameOver(true);
+						anim = false;
+						return;
+					}
 			if (rightMost > w - 20 || leftMost < 20) dir *= -1;
 			const aliveCount = enemies.filter(e=>e.alive).length;
 			const speedMultiplier = 1 + (wave-1)*0.3 + (Math.max(0,(cols*rows - aliveCount)) * 0.02);
@@ -767,6 +775,7 @@ function SpaceInvaders() {
 			<div className="grid md:grid-cols-[1fr,200px] gap-4">
 				<div className="overflow-auto">
 					<canvas ref={canvasRef} className="border border-slate-700 rounded w-full max-w-[480px] bg-slate-900/80" aria-label="Space Invaders game canvas" role="img" />
+								{gameOver && <div className="mt-3 text-red-400" role="alert" aria-live="assertive">Game over — Invaders reached Earth! Final Score: {score}</div>}
 				</div>
 				{leaderboard.length > 0 && (
 					<aside className="bg-slate-800/40 rounded p-3 border border-slate-700" aria-labelledby="invaders-leaderboard">
