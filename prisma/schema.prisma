@@ -317,23 +317,87 @@ model EmilyContent {
 
 }
 
-model Order {
+// Restaurant menu categories
+model MenuCategory {
   id          String      @id @default(cuid())
-  createdAt   DateTime    @default(now())
-  customerName String
+  name        String
+  description String?
+  displayOrder Int       @default(0)
+  active      Boolean     @default(true)
+  items       MenuItem[]
+}
+
+// Restaurant menu items
+model MenuItem {
+  id          String      @id @default(cuid())
+  categoryId  String
+  category    MenuCategory @relation(fields: [categoryId], references: [id])
+  sku         String      @unique
+  name        String
+  description String?
+  priceCents  Int
+  available   Boolean     @default(true)
+  prepTimeMins Int        @default(10)
+  imageUrl    String?
+  allergens   String?     // comma-separated: "dairy,gluten,nuts"
+  displayOrder Int        @default(0)
+  customizations CustomizationOption[]
+}
+
+// Customization options for menu items (e.g., extra cheese, no onions)
+model CustomizationOption {
+  id          String      @id @default(cuid())
+  menuItemId  String
+  menuItem    MenuItem    @relation(fields: [menuItemId], references: [id])
+  name        String      // e.g., "Add guacamole", "No cilantro"
+  priceCents  Int         @default(0)
+  available   Boolean     @default(true)
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  customerName  String
+  customerEmail String?
   customerPhone String
-  pickupAt    DateTime
-  totalCents  Int
-  items       OrderItem[]
+  pickupAt      DateTime
+  status        String      @default("pending") // pending, confirmed, preparing, ready, completed, cancelled
+  subtotalCents Int
+  taxCents      Int         @default(0)
+  tipCents      Int         @default(0)
+  totalCents    Int
+  specialInstructions String?
+  estimatedReadyAt DateTime?
+  items         OrderItem[]
+  statusHistory OrderStatusHistory[]
+  
+  @@index([status, pickupAt])
+  @@index([customerPhone])
 }
 
 model OrderItem {
-  id       String  @id @default(cuid())
-  order    Order   @relation(fields: [orderId], references: [id])
-  orderId  String
-  sku      String
-  qty      Int
-  unitCents Int
+  id            String  @id @default(cuid())
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId       String
+  sku           String
+  name          String  // snapshot at order time
+  qty           Int
+  unitCents     Int
+  customizations String? // JSON string of selected customizations
+  specialRequest String?
+}
+
+// Order status audit trail
+model OrderStatusHistory {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status    String
+  note      String?
+  createdAt DateTime @default(now())
+  
+  @@index([orderId, createdAt])
 }
 
 // Game leaderboards (Snake, Invaders)

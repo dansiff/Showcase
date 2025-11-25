@@ -31,6 +31,109 @@ export async function sendToKitchenWebhook(payload: any) {
   });
 }
 
+// Order notification for restaurant
+type OrderNotification = {
+  type: 'new_order' | 'status_change';
+  orderId: string;
+  customerName: string;
+  customerPhone: string;
+  totalCents: number;
+  itemCount: number;
+  pickupAt: string;
+  newStatus?: string;
+};
+
+export async function sendOrderNotification(data: OrderNotification) {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const slackUrl = process.env.SLACK_WEBHOOK_URL;
+  const discordUrl = process.env.DISCORD_WEBHOOK_URL;
+
+  // Email notification
+  if (adminEmail && process.env.SMTP_HOST) {
+    try {
+      const subject = data.type === 'new_order' 
+        ? `New Taco Order #${data.orderId.slice(0, 8)}` 
+        : `Order #${data.orderId.slice(0, 8)} - ${data.newStatus}`;
+      
+      const text = `
+Order ID: ${data.orderId}
+Customer: ${data.customerName}
+Phone: ${data.customerPhone}
+Items: ${data.itemCount}
+Total: $${(data.totalCents / 100).toFixed(2)}
+Pickup: ${new Date(data.pickupAt).toLocaleString()}
+${data.newStatus ? `Status: ${data.newStatus}` : ''}
+      `.trim();
+
+      await sendEmail({ to: adminEmail, subject, text });
+    } catch (e) {
+      console.error('Email notification failed:', e);
+    }
+  }
+
+  // Slack notification
+  if (slackUrl) {
+    try {
+      await fetch(slackUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          blocks: [
+            {
+              type: 'header',
+              text: {
+                type: 'plain_text',
+                text: data.type === 'new_order' ? '🌮 New Taco Order!' : '📋 Order Status Update',
+                emoji: true
+              }
+            },
+            {
+              type: 'section',
+              fields: [
+                { type: 'mrkdwn', text: `*Order:*\n#${data.orderId.slice(0, 8)}` },
+                { type: 'mrkdwn', text: `*Customer:*\n${data.customerName}` },
+                { type: 'mrkdwn', text: `*Phone:*\n${data.customerPhone}` },
+                { type: 'mrkdwn', text: `*Total:*\n$${(data.totalCents / 100).toFixed(2)}` },
+                { type: 'mrkdwn', text: `*Items:*\n${data.itemCount}` },
+                { type: 'mrkdwn', text: `*Pickup:*\n${new Date(data.pickupAt).toLocaleString()}` }
+              ]
+            }
+          ]
+        })
+      });
+    } catch (e) {
+      console.error('Slack notification failed:', e);
+    }
+  }
+
+  // Discord notification
+  if (discordUrl) {
+    try {
+      await fetch(discordUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: data.type === 'new_order' ? '🌮 New Taco Order!' : '📋 Order Status Update',
+            color: data.type === 'new_order' ? 0x10B981 : 0x3B82F6,
+            fields: [
+              { name: 'Order ID', value: `#${data.orderId.slice(0, 8)}`, inline: true },
+              { name: 'Customer', value: data.customerName, inline: true },
+              { name: 'Phone', value: data.customerPhone, inline: true },
+              { name: 'Total', value: `$${(data.totalCents / 100).toFixed(2)}`, inline: true },
+              { name: 'Items', value: `${data.itemCount}`, inline: true },
+              { name: 'Pickup', value: new Date(data.pickupAt).toLocaleString(), inline: true }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        })
+      });
+    } catch (e) {
+      console.error('Discord notification failed:', e);
+    }
+  }
+}
+
 // Client Intake Notifications
 type IntakeNotification = {
   fullName: string;
