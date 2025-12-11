@@ -178,8 +178,7 @@ export default function ItalianOrder() {
 
   if (orderSuccess && orderId) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 py-12 px-4">
-        <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl border-4 border-green-800 p-8">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl border-4 border-green-800 p-8 my-12">
           <div className="text-center">
             <CheckCircle2 className="w-20 h-20 text-green-700 mx-auto mb-4" />
             <h2 className="text-4xl font-bold text-green-900 mb-3" style={{ fontFamily: 'Georgia, serif' }}>Grazie Mille!</h2>
@@ -195,30 +194,12 @@ export default function ItalianOrder() {
             </button>
           </div>
         </div>
-      </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold text-green-900 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-            🍝 Bella Cucina
-          </h1>
-          <p className="text-green-800 italic text-lg">Authentic Italian Trattoria • Est. 1987</p>
-          <div className="mt-2 flex justify-center gap-2 text-sm text-green-700">
-            <span className="inline-flex items-center gap-1">
-              <Leaf className="w-4 h-4" /> Fresh Ingredients
-            </span>
-            <span>•</span>
-            <span>Family Recipes</span>
-            <span>•</span>
-            <span>Made with Love</span>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
+    <div className="max-w-7xl mx-auto px-4">
+      <div className="grid lg:grid-cols-3 gap-6">
           {/* Menu Section */}
           <div className="lg:col-span-2 space-y-6">
             {menu.map(category => (
@@ -401,7 +382,6 @@ export default function ItalianOrder() {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   )

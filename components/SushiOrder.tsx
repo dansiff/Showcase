@@ -167,38 +167,28 @@ export default function SushiOrder() {
 
   if (orderSuccess && orderId) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-950 to-slate-900 py-12 px-4">
-        <div className="max-w-2xl mx-auto bg-black/40 backdrop-blur-sm border border-red-900/30 rounded-2xl shadow-2xl p-8">
-          <div className="text-center">
-            <CheckCircle2 className="w-20 h-20 text-red-400 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-red-300 to-amber-300 bg-clip-text text-transparent mb-3">Order Confirmed!</h2>
-            <p className="text-gray-300 mb-2">Order #{orderId}</p>
-            <p className="text-gray-400 mb-2">We'll have your sushi ready for pickup at:</p>
-            <p className="text-2xl font-semibold text-red-200 mb-8">{new Date(pickupAt).toLocaleString()}</p>
-            <p className="text-sm text-gray-400 mb-8">You'll receive a confirmation text shortly.</p>
-            <button 
-              onClick={() => { setOrderSuccess(false); setOrderId(null); }}
-              className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-lg hover:from-red-500 hover:to-red-700 transition shadow-lg shadow-red-900/50"
-            >
-              Place Another Order
-            </button>
-          </div>
+      <div className="max-w-2xl mx-auto bg-black/40 backdrop-blur-sm border border-red-900/30 rounded-2xl shadow-2xl p-8 my-12">
+        <div className="text-center">
+          <CheckCircle2 className="w-20 h-20 text-red-400 mx-auto mb-4" />
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-red-300 to-amber-300 bg-clip-text text-transparent mb-3">Order Confirmed!</h2>
+          <p className="text-gray-300 mb-2">Order #{orderId}</p>
+          <p className="text-gray-400 mb-2">We'll have your sushi ready for pickup at:</p>
+          <p className="text-2xl font-semibold text-red-200 mb-8">{new Date(pickupAt).toLocaleString()}</p>
+          <p className="text-sm text-gray-400 mb-8">You'll receive a confirmation text shortly.</p>
+          <button 
+            onClick={() => { setOrderSuccess(false); setOrderId(null); }}
+            className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-lg hover:from-red-500 hover:to-red-700 transition shadow-lg shadow-red-900/50"
+          >
+            Place Another Order
+          </button>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-950 to-slate-900 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-red-300 via-amber-300 to-red-300 bg-clip-text text-transparent mb-2 font-serif">
-            🍣 Sakura Sushi
-          </h1>
-          <p className="text-gray-400">Authentic Japanese Cuisine • Online Ordering</p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
+    <div className="max-w-7xl mx-auto px-4">
+      <div className="grid lg:grid-cols-3 gap-6">
           {/* Menu Section */}
           <div className="lg:col-span-2 space-y-6">
             {menu.map(category => (
@@ -381,7 +371,6 @@ export default function SushiOrder() {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   )
