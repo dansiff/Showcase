@@ -199,31 +199,31 @@ export default function TacoOrderEnhanced() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Menu Section */}
         <div className="lg:col-span-2 space-y-6">
-          <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+          <h2 className="text-3xl font-bold text-amber-300 flex items-center gap-2">
             🌮 Our Menu
           </h2>
           
           {menu.map(category => (
-            <div key={category.id} className="bg-white rounded-lg shadow border border-gray-200 p-4">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{category.name}</h3>
-              {category.description && <p className="text-sm text-gray-600 mb-4">{category.description}</p>}
+            <div key={category.id} className="bg-amber-950/50 rounded-lg shadow border border-amber-800/50 p-4 backdrop-blur-sm">
+              <h3 className="text-xl font-semibold text-amber-200 mb-2">{category.name}</h3>
+              {category.description && <p className="text-sm text-amber-100 mb-4">{category.description}</p>}
               
               <div className="space-y-3">
                 {category.items.map(item => (
-                  <div key={item.id} className="border border-gray-200 rounded-lg p-4 hover:border-emerald-400 transition">
+                  <div key={item.id} className="border border-amber-800 rounded-lg p-4 hover:border-amber-600 hover:bg-amber-900/30 transition bg-amber-900/20">
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-900">{item.name}</h4>
-                        {item.description && <p className="text-sm text-gray-600">{item.description}</p>}
+                        <h4 className="font-semibold text-amber-100 text-lg">{item.name}</h4>
+                        {item.description && <p className="text-sm text-amber-50 mt-1">{item.description}</p>}
                         {item.allergens && (
-                          <p className="text-xs text-amber-600 mt-1">⚠️ Contains: {item.allergens}</p>
+                          <p className="text-xs text-orange-400 mt-2 font-semibold">⚠️ Contains: {item.allergens}</p>
                         )}
                       </div>
                       <div className="text-right ml-4">
-                        <div className="font-semibold text-gray-900">${(item.priceCents / 100).toFixed(2)}</div>
+                        <div className="font-semibold text-amber-200 text-lg">${(item.priceCents / 100).toFixed(2)}</div>
                         <button
                           onClick={() => addToCart(item)}
-                          className="mt-2 bg-emerald-600 text-white px-4 py-1.5 rounded hover:bg-emerald-700 text-sm transition"
+                          className="mt-2 bg-amber-600 text-amber-50 px-4 py-1.5 rounded hover:bg-amber-700 text-sm transition font-medium"
                         >
                           Add
                         </button>
@@ -244,7 +244,7 @@ export default function TacoOrderEnhanced() {
           ))}
           
           {menu.length === 0 && (
-            <div className="bg-white rounded-lg shadow border border-gray-200 p-8 text-center text-gray-500">
+            <div className="bg-amber-950/50 rounded-lg shadow border border-amber-800/50 p-8 text-center text-amber-300">
               Loading menu...
             </div>
           )}
@@ -252,23 +252,23 @@ export default function TacoOrderEnhanced() {
 
         {/* Cart & Checkout Section */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-4 sticky top-4">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <div className="bg-amber-950/60 rounded-lg shadow-lg border border-amber-800/50 p-4 sticky top-32 backdrop-blur-sm">
+            <h3 className="text-xl font-semibold text-amber-300 mb-4 flex items-center gap-2">
               <ShoppingCart className="w-5 h-5" />
               Your Order
             </h3>
 
             {cart.length === 0 ? (
-              <p className="text-gray-500 text-center py-8">Cart is empty</p>
+              <p className="text-amber-100 text-center py-8">Cart is empty</p>
             ) : (
               <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
                 {cart.map((item, index) => (
-                  <div key={index} className="border-b border-gray-200 pb-3">
+                  <div key={index} className="border-b border-amber-800 pb-3">
                     <div className="flex justify-between items-start mb-1">
                       <div className="flex-1">
-                        <div className="font-medium text-gray-900">{item.menuItem.name}</div>
+                        <div className="font-medium text-amber-100">{item.menuItem.name}</div>
                         {item.selectedCustomizations.length > 0 && (
-                          <div className="text-xs text-gray-600 mt-1">
+                          <div className="text-xs text-amber-200 mt-1">
                             {item.selectedCustomizations.map(cId => {
                               const c = item.menuItem.customizations.find(opt => opt.id === cId)
                               return c ? `+ ${c.name}` : null
@@ -276,13 +276,13 @@ export default function TacoOrderEnhanced() {
                           </div>
                         )}
                         {item.specialRequest && (
-                          <div className="text-xs text-gray-500 italic mt-1">{item.specialRequest}</div>
+                          <div className="text-xs text-amber-100 italic mt-1">{item.specialRequest}</div>
                         )}
                       </div>
                       <div className="flex items-center gap-2 ml-2">
-                        <button onClick={() => updateQty(index, -1)} className="w-6 h-6 border rounded flex items-center justify-center hover:bg-gray-100">-</button>
-                        <span className="w-8 text-center font-medium">{item.qty}</span>
-                        <button onClick={() => updateQty(index, 1)} className="w-6 h-6 border rounded flex items-center justify-center hover:bg-gray-100">+</button>
+                        <button onClick={() => updateQty(index, -1)} className="w-6 h-6 border border-amber-600 rounded flex items-center justify-center hover:bg-amber-700 text-amber-100">-</button>
+                        <span className="w-8 text-center font-medium text-amber-100">{item.qty}</span>
+                        <button onClick={() => updateQty(index, 1)} className="w-6 h-6 border border-amber-600 rounded flex items-center justify-center hover:bg-amber-700 text-amber-100">+</button>
                       </div>
                     </div>
                   </div>
@@ -290,9 +290,9 @@ export default function TacoOrderEnhanced() {
               </div>
             )}
 
-            <div className="space-y-3 border-t border-gray-200 pt-4">
+            <div className="space-y-3 border-t border-amber-800 pt-4">
               <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-amber-200">
                   <Phone className="w-4 h-4 inline mr-1" />
                   Name *
                 </label>
@@ -300,13 +300,13 @@ export default function TacoOrderEnhanced() {
                   type="text"
                   value={customerName}
                   onChange={e => setCustomerName(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  className="w-full border border-amber-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 bg-amber-900/30 text-amber-50 placeholder-amber-400"
                   placeholder="Your name"
                 />
               </div>
 
               <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-amber-200">
                   <Phone className="w-4 h-4 inline mr-1" />
                   Phone *
                 </label>
@@ -314,13 +314,13 @@ export default function TacoOrderEnhanced() {
                   type="tel"
                   value={customerPhone}
                   onChange={e => setCustomerPhone(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  className="w-full border border-amber-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 bg-amber-900/30 text-amber-50 placeholder-amber-400"
                   placeholder="(555) 123-4567"
                 />
               </div>
 
               <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-amber-200">
                   <Mail className="w-4 h-4 inline mr-1" />
                   Email (optional)
                 </label>
@@ -328,13 +328,13 @@ export default function TacoOrderEnhanced() {
                   type="email"
                   value={customerEmail}
                   onChange={e => setCustomerEmail(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  className="w-full border border-amber-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 bg-amber-900/30 text-amber-50 placeholder-amber-400"
                   placeholder="your@email.com"
                 />
               </div>
 
               <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-amber-200">
                   <Clock className="w-4 h-4 inline mr-1" />
                   Pickup Time
                 </label>
@@ -342,32 +342,32 @@ export default function TacoOrderEnhanced() {
                   type="datetime-local"
                   value={pickupAt}
                   onChange={e => setPickupAt(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  className="w-full border border-amber-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 bg-amber-900/30 text-amber-50"
                 />
               </div>
 
               <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700">Special Instructions</label>
+                <label className="block text-sm font-medium text-amber-200">Special Instructions</label>
                 <textarea
                   value={specialInstructions}
                   onChange={e => setSpecialInstructions(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  className="w-full border border-amber-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 bg-amber-900/30 text-amber-50 placeholder-amber-400"
                   rows={2}
                   placeholder="Any special requests..."
                 />
               </div>
 
               <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700">Tip</label>
+                <label className="block text-sm font-medium text-amber-200">Tip</label>
                 <div className="flex gap-2">
                   {[0, 10, 15, 20].map(pct => (
                     <button
                       key={pct}
                       onClick={() => setTipPercent(pct)}
-                      className={`flex-1 py-2 rounded border ${
+                      className={`flex-1 py-2 rounded border transition font-medium ${
                         tipPercent === pct 
-                          ? 'bg-emerald-600 text-white border-emerald-600' 
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-emerald-400'
+                          ? 'bg-amber-600 text-amber-50 border-amber-600' 
+                          : 'bg-amber-900/30 text-amber-100 border-amber-700 hover:border-amber-600'
                       }`}
                     >
                       {pct}%
@@ -377,26 +377,26 @@ export default function TacoOrderEnhanced() {
               </div>
 
               <div className="space-y-1 text-sm">
-                <div className="flex justify-between text-gray-700">
+                <div className="flex justify-between text-amber-100">
                   <span>Subtotal</span>
                   <span>${(calculateSubtotal() / 100).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-gray-700">
+                <div className="flex justify-between text-amber-100">
                   <span>Tax</span>
                   <span>${(calculateTax() / 100).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-gray-700">
+                <div className="flex justify-between text-amber-100">
                   <span>Tip ({tipPercent}%)</span>
                   <span>${(calculateTip() / 100).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
+                <div className="flex justify-between text-lg font-bold text-amber-300 pt-2 border-t border-amber-800">
                   <span>Total</span>
                   <span>${(calculateTotal() / 100).toFixed(2)}</span>
                 </div>
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-300 rounded-lg p-3 flex items-start gap-2 text-sm text-red-800">
+                <div className="bg-red-950/50 border border-red-800 rounded-lg p-3 flex items-start gap-2 text-sm text-red-200">
                   <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                   <span>{error}</span>
                 </div>
@@ -405,7 +405,7 @@ export default function TacoOrderEnhanced() {
               <button
                 onClick={placeOrder}
                 disabled={loading || cart.length === 0}
-                className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+                className="w-full bg-amber-600 text-amber-50 py-3 rounded-lg font-semibold hover:bg-amber-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition"
               >
                 {loading ? 'Placing Order...' : 'Place Order'}
               </button>
@@ -436,10 +436,10 @@ function CustomizationPanel({
   }
 
   return (
-    <div className="mt-3 p-3 bg-gray-50 rounded border border-gray-200">
+    <div className="mt-3 p-3 bg-amber-50 rounded border border-amber-400">
       {item.customizations.length > 0 && (
         <div className="mb-3">
-          <p className="text-sm font-medium text-gray-700 mb-2">Customizations</p>
+          <p className="text-sm font-medium text-amber-900 mb-2">Customizations</p>
           <div className="space-y-2">
             {item.customizations.map(c => (
               <label key={c.id} className="flex items-center gap-2 cursor-pointer">
@@ -447,9 +447,9 @@ function CustomizationPanel({
                   type="checkbox"
                   checked={selectedCustomizations.includes(c.id)}
                   onChange={() => toggleCustomization(c.id)}
-                  className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                  className="rounded border-amber-400 text-amber-600 focus:ring-amber-500"
                 />
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-amber-900">
                   {c.name} {c.priceCents > 0 && `(+$${(c.priceCents / 100).toFixed(2)})`}
                 </span>
               </label>
@@ -459,12 +459,12 @@ function CustomizationPanel({
       )}
       
       <div className="mb-3">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Special request (optional)</label>
+        <label className="block text-sm font-medium text-amber-900 mb-1">Special request (optional)</label>
         <input
           type="text"
           value={specialRequest}
           onChange={e => setSpecialRequest(e.target.value)}
-          className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+          className="w-full border border-amber-400 rounded px-2 py-1 text-sm bg-white text-amber-900 placeholder-amber-600"
           placeholder="e.g., extra hot, on the side..."
         />
       </div>
@@ -472,13 +472,13 @@ function CustomizationPanel({
       <div className="flex gap-2">
         <button
           onClick={() => onConfirm(item, selectedCustomizations, specialRequest)}
-          className="flex-1 bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 text-sm"
+          className="flex-1 bg-amber-600 text-amber-50 px-4 py-2 rounded hover:bg-amber-700 text-sm font-medium transition"
         >
           Add to Cart
         </button>
         <button
           onClick={onCancel}
-          className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 text-sm"
+          className="px-4 py-2 border border-amber-400 rounded hover:bg-amber-200 text-amber-900 text-sm font-medium transition bg-white"
         >
           Cancel
         </button>

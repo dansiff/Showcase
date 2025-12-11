@@ -1,22 +1,27 @@
 "use client";
 
+import { PageHeader, PageFooter } from "@/components/PageHeaderFooter";
 import Hero from "@/components/TacoHero";
 import MenuCta from "@/components/Menu-Tacos";
 import dynamic from 'next/dynamic';
 
-const TacoOrder = dynamic(() => import('@/components/TacoOrder'), { ssr: false });
+const TacoOrderEnhanced = dynamic(() => import('@/components/TacoOrderEnhanced'), { ssr: false });
 
  
 export default function Home() {
     return (
         <>
+            <PageHeader theme="taco" title="🌮 Querrepario Tacos" subtitle="Fresh • Fast • Delicious" />
             <Hero />
             <MenuCta />
-            <div className="max-w-3xl mx-auto mt-10 px-4">
-                <h2 className="text-2xl font-semibold mb-4 text-amber-300">Place a Pickup Order</h2>
-                <p className="text-sm text-gray-400 mb-4">Build your taco box and choose a pickup time. No account needed — quick and delicious.</p>
-                <TacoOrder />
+            <div className="max-w-4xl mx-auto mt-16 px-4 pb-12">
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold mb-3 text-amber-300">Place Your Order</h2>
+                    <p className="text-amber-100 max-w-2xl mx-auto">Build your perfect taco box with fresh ingredients. Choose your pickup time and we'll have it ready for you!</p>
+                </div>
+                <TacoOrderEnhanced />
             </div>
+            <PageFooter theme="taco" />
         </>
     );
 }
