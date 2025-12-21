@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 // PATCH /api/taco/orders/[id] - update order status
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params
+    const { id } = await params
     const body = await req.json()
     const { status, note } = body
 
@@ -41,9 +41,9 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 }
 
 // GET /api/taco/orders/[id] - get single order
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params
+    const { id } = await params
     const order = await (prisma as any)["order"].findUnique({
       where: { id },
       include: { 

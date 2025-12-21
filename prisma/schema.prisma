@@ -423,3 +423,32 @@ model Admin {
 
   @@index([email])
 }
+
+// =========================
+// Website Generator
+// =========================
+
+// Generated website configurations and tracking
+model GeneratedSite {
+  id            String   @id @default(cuid())
+  businessName  String
+  tagline       String?
+  industry      String?
+  siteType      String[] // Array of site types: business, ecommerce, portfolio, etc.
+  colorScheme   String   @default("modern")
+  layoutStyle   String   @default("modern")
+  config        Json     // Full configuration object from the form
+  status        String   @default("generating") // generating, completed, failed, deployed
+  deployUrl     String?  // URL where the site is deployed
+  previewUrl    String?  // Preview URL
+  sourceCode    String?  // Path or reference to generated source code
+  userId        String?  // Optional: link to user who created it
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deployedAt    DateTime?
+  
+  @@index([status])
+  @@index([userId])
+  @@index([createdAt])
+}
+
