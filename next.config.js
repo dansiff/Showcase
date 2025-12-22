@@ -1,9 +1,8 @@
+const path = require('path')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	eslint: {
-		// Avoid failing the production build on ESLint issues
-		ignoreDuringBuilds: true,
-	},
+  // Silence workspace root inference warning by explicitly setting root
+  outputFileTracingRoot: path.join(__dirname),
 	async headers() {
 		const securityHeaders = [
 			// Prevent MIME type sniffing
