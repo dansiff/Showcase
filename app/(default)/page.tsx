@@ -12,6 +12,8 @@ import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
 import ClientsShowcase from "@/components/ClientsShowcase";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/Skeleton";
 import Link from 'next/link';
 
 export default function Home() {
@@ -45,7 +47,7 @@ export default function Home() {
       <Hero />
       {/* Quick internal experience CTAs */}
       <section className="max-w-6xl mx-auto mt-8 px-4 grid gap-4 md:grid-cols-3">
-        <Link href="/generator" className="group relative rounded-xl p-6 bg-gradient-to-br from-purple-800/70 to-pink-800/70 border border-purple-600/40 hover:border-amber-400/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
+        <Link href="/generator" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-purple-800/40 to-pink-800/40 border border-purple-600/30 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
           <div className="relative">
             <div className="flex items-center gap-2 mb-2">
@@ -59,7 +61,7 @@ export default function Home() {
             </div>
           </div>
         </Link>
-        <Link href="/game" className="group relative rounded-xl p-6 bg-gradient-to-br from-indigo-800/70 to-purple-800/70 border border-indigo-600/40 hover:border-pink-400/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/20">
+        <Link href="/game" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-indigo-800/40 to-purple-800/40 border border-indigo-600/30 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4),transparent_60%)]" />
           <div className="relative">
             <div className="flex items-center gap-2 mb-2">
@@ -73,7 +75,7 @@ export default function Home() {
             </div>
           </div>
         </Link>
-        <Link href="/taco" className="group relative rounded-xl p-6 bg-gradient-to-br from-amber-800/40 to-red-800/50 border border-amber-600/40 hover:border-red-400/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20">
+        <Link href="/taco" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-amber-800/30 to-red-800/40 border border-amber-600/30 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute inset-0 opacity-0 group-hover:opacity-25 bg-[radial-gradient(circle_at_70%_70%,rgba(255,255,255,0.4),transparent_60%)]" />
           <div className="relative">
             <div className="flex items-center gap-2 mb-2">
@@ -90,7 +92,22 @@ export default function Home() {
       </section>
       <Workflows />
       <Features />
-      <ClientsShowcase />
+      <Suspense
+        fallback={
+          <section className="max-w-6xl mx-auto mt-12 px-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="aurora-card p-4">
+                  <Skeleton className="h-24 w-full rounded-xl mb-3" />
+                  <Skeleton className="h-4 w-2/3" />
+                </div>
+              ))}
+            </div>
+          </section>
+        }
+      >
+        <ClientsShowcase />
+      </Suspense>
       <Testimonials />
       <Cta />
     </>

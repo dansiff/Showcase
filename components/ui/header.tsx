@@ -83,8 +83,8 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
 
   return (
     <header className={`sticky top-0 z-40 w-full ${className}`}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2">
-        <div className={`relative flex h-16 items-center justify-between gap-4 rounded-2xl px-6 transition-all ${styles.container}`}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3">
+        <div className={`relative flex h-14 items-center justify-between gap-4 rounded-xl px-6 transition-all ${styles.container}`}>
           {/* Branding */}
           <div className="flex items-center gap-3">
             <Link href="/" aria-label="Homepage" className="inline-flex items-center gap-2 transition-transform hover:scale-105">
@@ -100,7 +100,7 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-lg px-4 py-2 text-sm ${styles.link} ${
+                  className={`aurora-ring rounded-lg px-3 py-2 text-sm transition-colors ${styles.link} ${
                     active ? styles.active ?? "" : ""
                   }`}
                 >
@@ -136,7 +136,7 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
 
           {/* Mobile menu button */}
           <button
-            className={`inline-flex items-center justify-center rounded-lg p-2 md:hidden hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${styles.link}`}
+            className={`aurora-ring inline-flex items-center justify-center rounded-lg p-2 md:hidden transition-colors ${styles.link}`}
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle navigation menu"
           >
@@ -148,8 +148,8 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
       {/* Mobile sheet */}
       {mobileOpen && (
         <div className="md:hidden">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-4">
-            <div className={`rounded-2xl px-4 py-3 ${styles.container}`}>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-3 pt-2">
+            <div className={`rounded-xl px-4 py-3 ${styles.container}`}>
               <nav className="grid gap-2">
                 {links.map((link) => {
                   const active = pathname === link.href;
@@ -157,7 +157,7 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
                     <Link 
                       key={link.href} 
                       href={link.href} 
-                      className={`rounded-lg px-4 py-2.5 text-sm transition-colors ${styles.link} ${
+                      className={`aurora-ring rounded-lg px-4 py-2.5 text-sm transition-colors ${styles.link} ${
                         active ? styles.active ?? "" : ""
                       }`}
                       onClick={() => setMobileOpen(false)}

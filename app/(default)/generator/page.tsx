@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import { PageHeader, PageFooter } from '@/components/PageHeaderFooter'
-import WebsiteGeneratorForm from '@/components/generator/WebsiteGeneratorForm'
-import LivePreview from '@/components/generator/LivePreview'
-import TemplateGallery from '@/components/generator/TemplateGallery'
+import { Skeleton } from '@/components/ui/Skeleton'
 import { Sparkles, Zap, Rocket, Layout, X } from 'lucide-react'
 
 type ColorScheme = 'modern' | 'professional' | 'vibrant' | 'minimal' | 'dark' | 'elegant' | 'playful' | 'custom'
@@ -49,6 +48,66 @@ export default function GeneratorPage() {
     }))
     setShowTemplates(false)
   }
+
+  const WebsiteGeneratorFormLazy = dynamic(
+    () => import('@/components/generator/WebsiteGeneratorForm'),
+    {
+      ssr: false,
+      loading: () => (
+        <div className="relative bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl p-6">
+          <Skeleton className="h-6 w-48 mb-4" />
+          <Skeleton className="h-4 w-full mb-3" />
+          <Skeleton className="h-4 w-5/6 mb-3" />
+          <Skeleton className="h-10 w-full mb-4" />
+          <div className="grid grid-cols-2 gap-3">
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <Skeleton className="h-9 w-full" />
+            <Skeleton className="h-9 w-full" />
+            <Skeleton className="h-9 w-full" />
+          </div>
+        </div>
+      ),
+    }
+  )
+
+  const LivePreviewLazy = dynamic(
+    () => import('@/components/generator/LivePreview'),
+    {
+      ssr: false,
+      loading: () => (
+        <div className="relative xl:sticky xl:top-24 h-fit">
+          <div className="rounded-2xl border border-white/10 bg-slate-900/50 backdrop-blur-xl p-4">
+            <Skeleton className="h-64 w-full rounded-xl" />
+            <div className="mt-4 space-y-2">
+              <Skeleton className="h-4 w-1/2" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
+          </div>
+        </div>
+      ),
+    }
+  )
+
+  const TemplateGalleryLazy = dynamic(
+    () => import('@/components/generator/TemplateGallery'),
+    {
+      ssr: false,
+      loading: () => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="aurora-card p-4">
+              <Skeleton className="h-32 w-full rounded-xl mb-3" />
+              <Skeleton className="h-4 w-2/3" />
+              <Skeleton className="h-4 w-1/2 mt-2" />
+            </div>
+          ))}
+        </div>
+      ),
+    }
+  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 relative overflow-hidden">
@@ -110,7 +169,7 @@ export default function GeneratorPage() {
               <div className="relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 rounded-2xl blur-xl opacity-20" />
                 <div className="relative bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl">
-                  <WebsiteGeneratorForm 
+                  <WebsiteGeneratorFormLazy 
                     initialData={formData}
                     onChange={handleFormChange}
                   />
@@ -119,9 +178,7 @@ export default function GeneratorPage() {
 
               {/* Live Preview Container */}
               {showPreview && (
-                <div className="relative xl:sticky xl:top-24 h-fit">
-                  <LivePreview formData={formData} />
-                </div>
+                <LivePreviewLazy formData={formData} />
               )}
             </div>
           </div>
@@ -143,7 +200,7 @@ export default function GeneratorPage() {
               </button>
             </div>
             <div className="p-6">
-              <TemplateGallery onSelectTemplate={handleSelectTemplate} />
+              <TemplateGalleryLazy onSelectTemplate={handleSelectTemplate} />
             </div>
           </div>
         </div>

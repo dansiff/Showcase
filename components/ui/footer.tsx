@@ -4,7 +4,7 @@ import FooterIllustration from "@/public/images/footer-illustration.svg";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="py-12 sm:py-16">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         {/* Footer illustration */}
         <div
@@ -19,14 +19,14 @@ export default function Footer() {
             alt="Footer illustration"
           />
         </div>
-        <div className="grid grid-cols-2 justify-between gap-12 py-8 sm:grid-rows-[auto_auto] md:grid-cols-4 md:grid-rows-[auto_auto] md:py-12 lg:grid-cols-[repeat(4,minmax(0,140px))_1fr] lg:grid-rows-1 xl:gap-20">
+        <div className="grid grid-cols-2 justify-between gap-12 py-8 sm:grid-rows-[auto_auto] md:grid-cols-4 md:grid-rows-[auto_auto] md:py-0 lg:grid-cols-[repeat(4,minmax(0,140px))_1fr] lg:grid-rows-1 xl:gap-20">
           {/* 1st block */}
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-gray-200">Product</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/features"
                 >
                   Features
@@ -34,7 +34,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/integrations"
                 >
                   Integrations
@@ -42,7 +42,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/pricing"
                 >
                   Pricing &amp; Plans
@@ -50,7 +50,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/changelog"
                 >
                   Changelog
@@ -58,7 +58,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/method"
                 >
                   Our method
@@ -66,7 +66,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/privacy"
                 >
                   User policy
@@ -74,7 +74,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/terms/revenue-share"
                 >
                   Revenue share policy
@@ -88,7 +88,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/About"
                 >
                   About us
@@ -96,7 +96,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/contact"
                 >
                   Contact
@@ -104,7 +104,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/blog"
                 >
                   Blog
@@ -112,7 +112,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/careers"
                 >
                   Careers
@@ -120,7 +120,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/financials"
                 >
                   Financial statements
@@ -134,7 +134,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/community"
                 >
                   Community
@@ -142,7 +142,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/terms"
                 >
                   Terms of service
@@ -150,7 +150,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/terms/revenue-share"
                 >
                   Revenue share policy
@@ -158,7 +158,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/security"
                 >
                   Report a vulnerability
@@ -174,7 +174,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="#0"
                 >
                   Templates
@@ -182,7 +182,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="#0"
                 >
                   Tutorials
@@ -190,7 +190,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="#0"
                 >
                   Knowledge base
@@ -198,7 +198,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="#0"
                 >
                   Learn
@@ -206,7 +206,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/cookies"
                 >
                   Cookie manager
@@ -224,7 +224,7 @@ export default function Footer() {
                 The Fusion Space Inc
                 <span className="text-gray-700"> · </span>
                 <a
-                  className="text-indigo-200/65 transition hover:text-indigo-500"
+                  className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
                   href="/terms"
                 >
                   Terms
@@ -233,7 +233,7 @@ export default function Footer() {
               <ul className="inline-flex gap-1">
                 <li>
                   <a
-                    className="flex items-center justify-center text-indigo-500 transition hover:text-indigo-400"
+                    className="flex items-center justify-center text-indigo-500 hover:text-indigo-300 transition-colors duration-150"
                     href="#0"
                     aria-label="Twitter"
                   >
@@ -248,7 +248,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    className="flex items-center justify-center text-indigo-500 transition hover:text-indigo-400"
+                    className="flex items-center justify-center text-indigo-500 hover:text-indigo-300 transition-colors duration-150"
                     href="#0"
                     aria-label="Medium"
                   >
@@ -263,7 +263,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    className="flex items-center justify-center text-indigo-500 transition hover:text-indigo-400"
+                    className="flex items-center justify-center text-indigo-500 hover:text-indigo-300 transition-colors duration-150"
                     href="#0"
                     aria-label="Github"
                   >
