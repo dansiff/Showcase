@@ -217,7 +217,7 @@ export default function Footer() {
           {/* 5th block */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1 lg:text-right">
             <div className="mb-3">
-              <Logo />
+              <Logo showWordmark={false} />
             </div>
             <div className="text-sm">
               <p className="mb-3 text-indigo-200/65">

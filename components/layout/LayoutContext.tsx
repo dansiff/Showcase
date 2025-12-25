@@ -4,7 +4,7 @@ import { createContext, useState, ReactNode, useContext } from "react";
 
 export type HeaderLink = { href: string; label: string };
 export type HeaderCTA = { href: string; label: string };
-export type HeaderVariant = "light" | "dark" | "transparent" | "taco";
+export type HeaderVariant = "light" | "dark" | "transparent" | "taco" | "default" | "aurora";
 
 export type HeaderConfig = {
   show?: boolean;

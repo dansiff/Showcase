@@ -10,7 +10,7 @@ import { useHeader } from "@/components/layout/LayoutContext";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { SignOutButton } from "@/components/SignOutButton";
 
-type HeaderVariant = "default" | "taco" | "transparent" | "light";
+type HeaderVariant = "default" | "taco" | "transparent" | "light" | "aurora";
 
 interface HeaderProps {
   logo?: React.ReactNode;
@@ -24,18 +24,29 @@ function resolveHeaderStyles(variant: HeaderVariant = "light") {
         container: "bg-yellow-900/90 text-yellow-100 border-b-2 border-yellow-700 shadow-md backdrop-blur-sm",
         link: "text-yellow-100 hover:text-white transition-all duration-200",
         button: "bg-red-600 hover:bg-red-500 text-white font-semibold shadow-lg",
+        active: "bg-yellow-800/60 text-white border border-yellow-600/50",
       };
     case "transparent":
       return {
         container: "bg-transparent text-white shadow-none",
         link: "text-white/90 hover:text-white transition-colors duration-200",
         button: "bg-white text-gray-900 hover:bg-gray-100 shadow-lg",
+        active: "bg-white/20 text-white",
       };
     case "light":
       return {
         container: "bg-white/80 backdrop-blur-md text-gray-900 border-b border-gray-200/50 shadow-sm",
         link: "text-gray-700 hover:text-indigo-600 transition-colors duration-200 font-medium",
         button: "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 shadow-lg hover:shadow-indigo-500/50 font-semibold",
+        active: "bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-sm",
+      };
+    case "aurora":
+      return {
+        container:
+          "relative z-0 overflow-hidden bg-slate-950/90 backdrop-blur-xl text-slate-50 border border-indigo-500/20 shadow-[0_12px_50px_-28px_rgba(99,102,241,0.9)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:content-[''] after:bg-[radial-gradient(circle_at_12%_20%,rgba(99,102,241,0.18),transparent_36%),radial-gradient(circle_at_82%_10%,rgba(236,72,153,0.16),transparent_34%),radial-gradient(circle_at_20%_90%,rgba(14,165,233,0.12),transparent_42%)]",
+        link: "text-slate-200 hover:text-white transition-colors duration-200 font-medium",
+        button: "bg-gradient-to-r from-sky-400 via-indigo-500 to-fuchsia-500 text-slate-900 hover:from-sky-300 hover:via-indigo-400 hover:to-fuchsia-400 shadow-[0_10px_30px_-12px_rgba(59,130,246,0.75)]",
+        active: "bg-white/10 text-white border border-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.06)]",
       };
     case "default":
     default:
@@ -43,6 +54,7 @@ function resolveHeaderStyles(variant: HeaderVariant = "light") {
         container: "bg-gray-900/95 backdrop-blur-md text-white shadow-lg border-b border-gray-800",
         link: "text-gray-300 hover:text-white transition-colors duration-200 font-medium",
         button: "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold shadow-lg hover:shadow-indigo-500/50",
+        active: "bg-white/10 text-white border border-white/10",
       };
   }
 }
@@ -89,7 +101,7 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
                   key={link.href}
                   href={link.href}
                   className={`rounded-lg px-4 py-2 text-sm ${styles.link} ${
-                    active ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50" : ""
+                    active ? styles.active ?? "" : ""
                   }`}
                 >
                   {link.label}
@@ -139,16 +151,21 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
           <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-4">
             <div className={`rounded-2xl px-4 py-3 ${styles.container}`}>
               <nav className="grid gap-2">
-                {links.map((link) => (
-                  <Link 
-                    key={link.href} 
-                    href={link.href} 
-                    className={`rounded-lg px-4 py-2.5 text-sm transition-colors ${styles.link}`}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {links.map((link) => {
+                  const active = pathname === link.href;
+                  return (
+                    <Link 
+                      key={link.href} 
+                      href={link.href} 
+                      className={`rounded-lg px-4 py-2.5 text-sm transition-colors ${styles.link} ${
+                        active ? styles.active ?? "" : ""
+                      }`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
                 {isSignedIn ? (
                   <>
                     <Link 

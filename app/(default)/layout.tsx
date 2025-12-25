@@ -8,7 +8,7 @@ export default function DefaultLayout({ children }: { children: ReactNode }) {
     <HeaderProvider
       initial={{
         show: true,
-        variant: "light",
+        variant: "aurora",
         links: [
           { href: "/", label: "Home" },
           { href: "/About", label: "About" },
