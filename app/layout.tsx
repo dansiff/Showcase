@@ -35,6 +35,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 h-12" aria-label="Primary">
               <Link href="/" className="text-sm font-semibold tracking-wide text-indigo-300 hover:text-indigo-200">Fusion Space</Link>
               <div className="flex items-center gap-5 text-xs">
+                <Link href="/media-showcase" className="text-gray-300 hover:text-indigo-300 transition-colors" aria-label="Go to media showcase gallery">Gallery</Link>
                 <Link href="/game" className="text-gray-300 hover:text-pink-300 transition-colors" aria-label="Go to Snack Arcade games page">Arcade</Link>
                 <Link href="/taco" className="text-gray-300 hover:text-amber-300 transition-colors" aria-label="Go to Taco ordering page">Tacos</Link>
                 <Link href="/portal" className="text-gray-400 hover:text-gray-200" aria-label="Go to user portal hub">Portal</Link>
