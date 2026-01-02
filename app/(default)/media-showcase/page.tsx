@@ -172,7 +172,7 @@ export default function MediaShowcasePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
-      <PageHeader />
+      <PageHeader title="Media Showcase" subtitle="Browse our professional content" />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24">
