@@ -1,5 +1,11 @@
 import Stripe from 'stripe'
 import { prisma } from '@/lib/prisma'
+import { 
+  sendWelcomeEmail, 
+  sendTrialStartedEmail,
+  sendSubscriptionActiveEmail,
+  sendSubscriptionCancelledEmail
+} from '@/lib/email/service'
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing STRIPE_SECRET_KEY')
@@ -148,6 +154,16 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
             userId: user.id,
             planId: proPlan.id,
           })
+
+          // Send trial started email
+          await sendTrialStartedEmail({
+            email: customerEmail,
+            name: user.name || undefined,
+            plan: 'Pro',
+            trialDays: 14,
+          }).catch(err => {
+            console.error('[GENERATOR-WEBHOOK] Failed to send trial email:', err)
+          })
         }
 
         return { handled: true }
@@ -172,7 +188,7 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
           ? new Date(subscription.current_period_end * 1000)
           : undefined
 
-        await prisma.generatorSubscription.updateMany({
+        const updated = await prisma.generatorSubscription.updateMany({
           where: { stripeSubId },
           data: {
             status,
@@ -182,6 +198,27 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
         })
 
         console.log('[GENERATOR-WEBHOOK] Subscription updated:', { stripeSubId, status })
+
+        // If subscription just became active (trial ended, first payment), send confirmation
+        if (status === 'active' && updated.count > 0) {
+          const sub = await prisma.generatorSubscription.findFirst({
+            where: { stripeSubId },
+            include: { user: true, plan: true },
+          })
+
+          if (sub?.user?.email) {
+            await sendSubscriptionActiveEmail({
+              email: sub.user.email,
+              name: sub.user.name || undefined,
+              plan: sub.plan.name,
+              nextBillingDate: sub.currentPeriodEnd || new Date(),
+              amount: sub.plan.price?.toNumber() || 0,
+            }).catch(err => {
+              console.error('[GENERATOR-WEBHOOK] Failed to send subscription active email:', err)
+            })
+          }
+        }
+
         return { handled: true }
       } catch (error) {
         console.error('[GENERATOR-WEBHOOK] Error updating subscription:', error)
@@ -193,6 +230,12 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
       const subscription = event.data.object as Stripe.Subscription
 
       try {
+        // Find subscription before marking as canceled
+        const sub = await prisma.generatorSubscription.findFirst({
+          where: { stripeSubId: subscription.id },
+          include: { user: true, plan: true },
+        })
+
         // Mark subscription as canceled
         await prisma.generatorSubscription.updateMany({
           where: { stripeSubId: subscription.id },
@@ -200,6 +243,19 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
         })
 
         console.log('[GENERATOR-WEBHOOK] Subscription canceled:', { stripeSubId: subscription.id })
+
+        // Send cancellation email
+        if (sub?.user?.email) {
+          await sendSubscriptionCancelledEmail({
+            email: sub.user.email,
+            name: sub.user.name || undefined,
+            plan: sub.plan.name,
+            cancellationDate: new Date(),
+          }).catch(err => {
+            console.error('[GENERATOR-WEBHOOK] Failed to send cancellation email:', err)
+          })
+        }
+
         return { handled: true }
       } catch (error) {
         console.error('[GENERATOR-WEBHOOK] Error canceling subscription:', error)

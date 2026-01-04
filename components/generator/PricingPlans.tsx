@@ -4,6 +4,7 @@ import { CheckCircle2, Zap, Star, X, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { trackUpgradeClick } from '@/lib/analytics'
 
 interface PricingPlan {
   id: string
@@ -156,6 +157,7 @@ export default function PricingPlans({ isAuthenticated = false }: PricingPlansPr
                 {/* CTA Button */}
                 <Link href={plan.cta.href} className="w-full">
                   <Button
+                    onClick={() => trackUpgradeClick(plan.name)}
                     className={cn(
                       'w-full gap-2 py-6 text-base font-semibold transition-all',
                       plan.cta.isPrimary
