@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { sendEmail, sendToKitchenWebhook } from '@/lib/notifications';
 import { prisma } from '@/lib/prisma';
+import { handleGeneratorWebhookEvent } from './generator';
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required env var STRIPE_SECRET_KEY. Set this in Vercel or .env for local dev.');
@@ -11,6 +12,20 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export async function handleStripeWebhook(event: Stripe.Event) {
+  // ========== Website Generator Events ==========
+  // Handle generator subscriptions via webhook
+  if (
+    event.type === 'checkout.session.completed' ||
+    event.type === 'customer.subscription.updated' ||
+    event.type === 'customer.subscription.deleted'
+  ) {
+    const generatorResult = await handleGeneratorWebhookEvent(event);
+    if (generatorResult.handled) {
+      return generatorResult;
+    }
+  }
+
+  // ========== Other Events ==========
   if (event.type !== 'checkout.session.completed') {
     // return gracefully for other events; extend as needed
     return { handled: false };

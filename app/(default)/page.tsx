@@ -53,11 +53,17 @@ export default function Home() {
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">🚀</span>
               <h3 className="text-xl font-semibold text-amber-200">AI Website Generator</h3>
+              <span className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full border border-green-400/30">FREE</span>
             </div>
-            <p className="text-sm text-slate-300 leading-relaxed">Create professional websites in minutes. AI-powered builder with themes, features, and instant deployment.</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-purple-500/30 text-purple-200 border border-purple-400/40 group-hover:bg-purple-400/40 transition-colors">
-              <span>Build Now</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <p className="text-sm text-slate-300 leading-relaxed">Create professional websites in minutes. Start free, upgrade for advanced features. AI-powered builder with instant deployment.</p>
+            <div className="mt-4 flex items-center gap-2">
+              <div className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-purple-500/30 text-purple-200 border border-purple-400/40 group-hover:bg-purple-400/40 transition-colors">
+                <span>Build Now</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <Link href="/generator/pricing" onClick={(e) => e.stopPropagation()} className="text-xs text-purple-300 hover:text-purple-200 underline">
+                View Pricing
+              </Link>
             </div>
           </div>
         </Link>

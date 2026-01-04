@@ -12,21 +12,24 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  name          String?
-  image         String?
-  role          UserRole       @default(USER)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  profile       Profile?
-  creator       Creator?
-  subscriptions Subscription[]
-  payments      Payment[]
-  posts         Post[]
+  id                       String                    @id @default(cuid())
+  email                    String                    @unique
+  name                     String?
+  image                    String?
+  role                     UserRole                  @default(USER)
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  profile                  Profile?
+  creator                  Creator?
+  subscriptions            Subscription[]
+  payments                 Payment[]
+  posts                    Post[]
   // Affiliates & referrals
-  affiliates    Affiliate[]
-  referrals     Referral[]     @relation("UserReferrals")
+  affiliates               Affiliate[]
+  referrals                Referral[]                @relation("UserReferrals")
+  // Website Generator
+  generatorSubscriptions   GeneratorSubscription[]   @relation("generatorSubscriptions")
+  generatedSites           GeneratedSite[]           @relation("generatedSites")
 }
 
 model Profile {
@@ -425,12 +428,72 @@ model Admin {
 }
 
 // =========================
-// Website Generator
+// Website Generator Plans & Subscriptions
 // =========================
+
+enum GeneratorPlanType {
+  STANDARD  // Free plan
+  PRO       // Paid plan with advanced features
+}
+
+// Website Generator Plan Definitions
+model GeneratorPlan {
+  id                String            @id @default(cuid())
+  planType          GeneratorPlanType @unique
+  name              String            // "Standard" or "Pro"
+  description       String?
+  priceCents        Int?              // null for free plan, price in cents for pro
+  stripePriceId     String?           // Stripe Price ID for recurring
+  currency          String            @default("usd")
+  billingPeriod     String            @default("month")
+  maxSites          Int               // Number of sites user can create
+  maxPages          Int               // Pages per site
+  customDomain      Boolean           @default(false)
+  advancedSEO       Boolean           @default(false)
+  analyticsIntegration Boolean       @default(false)
+  ecommerceFeatures Boolean           @default(false)
+  bookingFeatures   Boolean           @default(false)
+  apiAccess         Boolean           @default(false)
+  prioritySupport   Boolean           @default(false)
+  customCodes       Boolean           @default(false) // JS/CSS injection
+  advancedTemplates Boolean           @default(false) // More templates
+  formSubmissions   Int               // Max form submissions per month
+  storageGb         Int               // Storage in GB
+  bandwidthGb       Int               // Monthly bandwidth in GB
+  isActive          Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  subscriptions     GeneratorSubscription[]
+}
+
+// User's subscription to a generator plan
+model GeneratorSubscription {
+  id                String            @id @default(cuid())
+  user              User              @relation("generatorSubscriptions", fields: [userId], references: [id])
+  userId            String
+  plan              GeneratorPlan     @relation(fields: [planId], references: [id])
+  planId            String
+  stripeSubId       String?           @unique  // null for free plan
+  stripeCustomerId  String?
+  status            String            @default("active") // active, past_due, canceled, unpaid
+  currentPeriodStart DateTime?
+  currentPeriodEnd  DateTime?
+  cancelAtPeriodEnd Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  sites             GeneratedSite[]
+  
+  @@unique([userId, planId])
+  @@index([status])
+}
 
 // Generated website configurations and tracking
 model GeneratedSite {
-  id            String   @id @default(cuid())
+  id            String                  @id @default(cuid())
+  user          User                    @relation("generatedSites", fields: [userId], references: [id])
+  userId        String
+  subscription  GeneratorSubscription   @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String
   businessName  String
   tagline       String?
   industry      String?
@@ -442,7 +505,6 @@ model GeneratedSite {
   deployUrl     String?  // URL where the site is deployed
   previewUrl    String?  // Preview URL
   sourceCode    String?  // Path or reference to generated source code
-  userId        String?  // Optional: link to user who created it
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   deployedAt    DateTime?
