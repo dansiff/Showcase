@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createSupabaseBrowserClient } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 import { PageHeader, PageFooter } from '@/components/PageHeaderFooter'
 import { Loader2 } from 'lucide-react'
 
@@ -14,7 +14,7 @@ export default function ProCheckoutPage() {
   useEffect(() => {
     const initiateCheckout = async () => {
       try {
-        const supabase = createSupabaseBrowserClient()
+        const supabase = getSupabaseBrowserClient()
         const {
           data: { user },
         } = await supabase.auth.getUser()
