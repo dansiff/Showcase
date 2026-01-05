@@ -258,11 +258,15 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
 
         // Send cancellation email
         if (sub?.user?.email) {
+          const endDate = (sub.currentPeriodEnd || new Date())
+            .toISOString()
+            .split('T')[0]
+
           await sendSubscriptionCancelledEmail({
             email: sub.user.email,
             name: sub.user.name || undefined,
             plan: sub.plan.name,
-            cancellationDate: new Date(),
+            endDate,
           }).catch(err => {
             console.error('[GENERATOR-WEBHOOK] Failed to send cancellation email:', err)
           })
