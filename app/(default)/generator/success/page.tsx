@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function SuccessPage() {
   return (
     <>
-      <PageHeader />
+      <PageHeader title="Upgrade Successful" subtitle="Your Pro plan is active" />
       <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 flex items-center justify-center py-12">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
           {/* Success Icon */}
