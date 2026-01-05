@@ -156,11 +156,15 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
           })
 
           // Send trial started email
+          const trialEndDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split('T')[0]
+
           await sendTrialStartedEmail({
             email: customerEmail,
             name: user.name || undefined,
             plan: 'Pro',
-            trialDays: 14,
+            trialEndDate,
           }).catch(err => {
             console.error('[GENERATOR-WEBHOOK] Failed to send trial email:', err)
           })
