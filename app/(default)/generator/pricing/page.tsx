@@ -17,7 +17,7 @@ export default async function PricingPage() {
 
   return (
     <>
-      <PageHeader />
+      <PageHeader title="Website Generator Pricing" subtitle="Choose the perfect plan for your website" />
       <main className="min-h-screen bg-white dark:bg-slate-900">
         <PricingPlans isAuthenticated={!!user} />
         <ComparisonTable />
