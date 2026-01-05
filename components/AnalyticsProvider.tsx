@@ -1,13 +1,14 @@
 'use client'
 
 // components/AnalyticsProvider.tsx
-// Client component to initialize analytics
+// Client component to initialize analytics with Suspense boundary
 
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import { initGA, trackPageView } from '@/lib/analytics'
 
-export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
+function AnalyticsTrackerInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -25,4 +26,12 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   }, [pathname, searchParams])
 
   return <>{children}</>
+}
+
+export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<>{children}</>}>
+      <AnalyticsTrackerInner>{children}</AnalyticsTrackerInner>
+    </Suspense>
+  )
 }
