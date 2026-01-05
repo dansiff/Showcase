@@ -215,11 +215,15 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
           })
 
           if (sub?.user?.email) {
+            const nextBillingDate = (sub.currentPeriodEnd || new Date())
+              .toISOString()
+              .split('T')[0]
+
             await sendSubscriptionActiveEmail({
               email: sub.user.email,
               name: sub.user.name || undefined,
               plan: sub.plan.name,
-              nextBillingDate: sub.currentPeriodEnd || new Date(),
+              nextBillingDate,
               amount: sub.plan.price?.toNumber() || 0,
             }).catch(err => {
               console.error('[GENERATOR-WEBHOOK] Failed to send subscription active email:', err)
