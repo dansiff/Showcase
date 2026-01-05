@@ -46,7 +46,7 @@ export default function Home() {
       <PageIllustration />
       <Hero />
       {/* Quick internal experience CTAs */}
-      <section className="max-w-6xl mx-auto mt-8 px-4 grid gap-4 md:grid-cols-3">
+      <section className="max-w-6xl mx-auto mt-8 px-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Link href="/generator" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-purple-800/40 to-pink-800/40 border border-purple-600/30 transition-all duration-300 hover:scale-[1.02]">
           <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
           <div className="relative">
@@ -64,6 +64,21 @@ export default function Home() {
               <Link href="/generator/pricing" onClick={(e) => e.stopPropagation()} className="text-xs text-purple-300 hover:text-purple-200 underline">
                 View Pricing
               </Link>
+            </div>
+          </div>
+        </Link>
+        <Link href="/asset-management" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-cyan-800/40 to-teal-800/40 border border-cyan-600/30 transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_60%_40%,rgba(255,255,255,0.45),transparent_55%)]" />
+          <div className="relative">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🏡</span>
+              <h3 className="text-xl font-semibold text-emerald-100">Asset Manager Offer</h3>
+              <span className="text-xs bg-white/15 text-white px-2 py-0.5 rounded-full border border-white/20">NEW</span>
+            </div>
+            <p className="text-sm text-slate-100/90 leading-relaxed">Airbnb and rental asset management — pricing, guest ops, and reporting handled by The Fusion Space Inc.</p>
+            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-cyan-500/30 text-cyan-50 border border-cyan-400/40 group-hover:bg-cyan-400/40 transition-colors">
+              <span>See offer</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
             </div>
           </div>
         </Link>
