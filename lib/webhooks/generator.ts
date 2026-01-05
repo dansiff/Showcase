@@ -224,7 +224,7 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
               name: sub.user.name || undefined,
               plan: sub.plan.name,
               nextBillingDate,
-              amount: sub.plan.price?.toNumber() || 0,
+              amount: `$${(((sub.plan.priceCents ?? 0) / 100).toFixed(2))}`,
             }).catch(err => {
               console.error('[GENERATOR-WEBHOOK] Failed to send subscription active email:', err)
             })
