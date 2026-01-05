@@ -61,7 +61,7 @@ export default function Home() {
                 <span>Build Now</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
-              <Link href="/generator/pricing" onClick={(e) => e.stopPropagation()} className="text-xs text-purple-300 hover:text-purple-200 underline">
+              <Link href="/generator/pricing" className="text-xs text-purple-300 hover:text-purple-200 underline">
                 View Pricing
               </Link>
             </div>
