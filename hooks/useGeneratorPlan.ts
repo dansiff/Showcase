@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createSupabaseBrowserClient } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 
 export interface UserPlan {
   planType: 'STANDARD' | 'PRO'
@@ -59,7 +59,7 @@ export function useGeneratorPlan(): UseGeneratorPlanReturn {
       setError(null)
 
       // Check if user is authenticated
-      const supabase = createSupabaseBrowserClient()
+      const supabase = getSupabaseBrowserClient()
       const { data: { user } } = await supabase.auth.getUser()
 
       if (!user) {
