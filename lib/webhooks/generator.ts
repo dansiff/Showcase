@@ -185,11 +185,15 @@ export async function handleGeneratorWebhookEvent(event: Stripe.Event) {
 
       try {
         // Find and update the subscription
-        const currentPeriodStart = subscription.current_period_start
-          ? new Date(subscription.current_period_start * 1000)
+        // Some Stripe typings omit current_period_* in this pinned API version; access defensively.
+        const currentPeriodStartRaw = (subscription as any).current_period_start as number | undefined
+        const currentPeriodEndRaw = (subscription as any).current_period_end as number | undefined
+
+        const currentPeriodStart = currentPeriodStartRaw
+          ? new Date(currentPeriodStartRaw * 1000)
           : undefined
-        const currentPeriodEnd = subscription.current_period_end
-          ? new Date(subscription.current_period_end * 1000)
+        const currentPeriodEnd = currentPeriodEndRaw
+          ? new Date(currentPeriodEndRaw * 1000)
           : undefined
 
         const updated = await prisma.generatorSubscription.updateMany({
