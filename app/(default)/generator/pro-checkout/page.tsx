@@ -58,7 +58,7 @@ export default function ProCheckoutPage() {
 
   return (
     <>
-      <PageHeader />
+      <PageHeader title="Pro Checkout" subtitle="Finalizing your secure payment" />
       <main className="min-h-screen flex items-center justify-center">
         {loading && (
           <div className="text-center">
