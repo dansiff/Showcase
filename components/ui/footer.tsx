@@ -175,7 +175,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
-                  href="#0"
+                  href="/templates"
                 >
                   Templates
                 </a>
@@ -183,7 +183,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
-                  href="#0"
+                  href="/tutorials"
                 >
                   Tutorials
                 </a>
@@ -191,7 +191,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
-                  href="#0"
+                  href="/knowledge-base"
                 >
                   Knowledge base
                 </a>
@@ -199,7 +199,7 @@ export default function Footer() {
               <li>
                 <a
                   className="text-indigo-200/65 hover:text-indigo-300 transition-colors duration-150"
-                  href="#0"
+                  href="/learn"
                 >
                   Learn
                 </a>
