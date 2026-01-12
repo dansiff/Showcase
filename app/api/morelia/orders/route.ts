@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { sendNotification } from '@/lib/notifications'
+import { sendOrderNotification } from '@/lib/notifications'
 
 const TAX_RATE = 0.085 // 8.5% tax
 
@@ -79,16 +79,14 @@ export async function POST(req: NextRequest) {
 
     // Send notifications (email, Slack, Discord)
     try {
-      await sendNotification({
+      await sendOrderNotification({
         type: 'new_order',
-        order: {
-          id: order.id,
-          customerName: order.customerName,
-          customerPhone: order.customerPhone,
-          totalCents: order.totalCents,
-          itemCount: items.length,
-          pickupAt: estimatedReadyAt.toISOString()
-        }
+        orderId: order.id,
+        customerName: order.customerName,
+        customerPhone: order.customerPhone,
+        totalCents: order.totalCents,
+        itemCount: items.length,
+        pickupAt: estimatedReadyAt.toISOString()
       })
     } catch (notifErr) {
       console.error('Notification error (non-blocking):', notifErr)
