@@ -58,10 +58,11 @@ export async function POST(req: NextRequest) {
         specialInstructions: specialInstructions?.trim() || null,
         items: {
           create: items.map((item: any) => ({
+            sku: item.sku || '',
             name: item.name,
             qty: item.qty || 1,
             unitCents: item.unitCents || 0,
-            customizations: item.customizations || [],
+            customizations: item.customizations ? JSON.stringify(item.customizations) : null,
             specialRequest: item.specialRequest || null
           }))
         },
