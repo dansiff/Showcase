@@ -30,7 +30,11 @@ export async function GET(
   }
 }
 
-// PATCH /api/morelia/orders/[id] - Update order statusPromise<{ id: string }> }) {
+// PATCH /api/morelia/orders/[id] - Update order status
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const { id } = await params
     const { status, notes } = await req.json()
@@ -40,8 +44,7 @@ export async function GET(
     }
 
     const order = await prisma.order.update({
-      where: { isma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         status,
         statusHistory: {
@@ -64,4 +67,6 @@ export async function GET(
     console.error('Order update error:', err)
     return NextResponse.json({ error: err.message || 'Failed to update order' }, { status: 500 })
   }
+}
+
 }
