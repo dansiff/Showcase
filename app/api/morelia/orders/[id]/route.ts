@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { sendNotification } from '@/lib/notifications'
+import { sendOrderNotification } from '@/lib/notifications'
 
 // GET /api/morelia/orders/[id] - Get single order
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const order = await prisma.order.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         items: true,
         statusHistory: {
@@ -29,9 +30,9 @@ export async function GET(
   }
 }
 
-// PATCH /api/morelia/orders/[id] - Update order status
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+// PATCH /api/morelia/orders/[id] - Update order statusPromise<{ id: string }> }) {
   try {
+    const { id } = await params
     const { status, notes } = await req.json()
 
     if (!['pending', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'].includes(status)) {
@@ -39,6 +40,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     }
 
     const order = await prisma.order.update({
+      where: { isma.order.update({
       where: { id: params.id },
       data: {
         status,
