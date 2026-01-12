@@ -37,7 +37,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params
-    const { status, notes } = await req.json()
+    const { status, note } = await req.json()
 
     if (!['pending', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'].includes(status)) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
@@ -50,7 +50,7 @@ export async function PATCH(
         statusHistory: {
           create: {
             status,
-            notes: notes || null
+            note: note || null
           }
         }
       },
