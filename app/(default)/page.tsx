@@ -110,6 +110,21 @@ export default function Home() {
             </div>
           </div>
         </Link>
+        <Link href="/morelia" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-red-900/50 to-amber-800/40 border border-red-600/30 transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
+          <div className="relative">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🔥</span>
+              <h3 className="text-xl font-semibold text-amber-200">Morelia Restaurant</h3>
+              <span className="text-xs bg-amber-500/30 text-amber-100 px-2 py-0.5 rounded-full border border-amber-400/30">NEW</span>
+            </div>
+            <p className="text-sm text-red-100/90 leading-relaxed">Professional restaurant site with online ordering, admin dashboard, and order tracking. Full birria menu!</p>
+            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-red-500/30 text-red-100 border border-red-400/40 group-hover:bg-red-400/40 transition-colors">
+              <span>View Site</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </Link>
       </section>
       <Workflows />
       <Features />
