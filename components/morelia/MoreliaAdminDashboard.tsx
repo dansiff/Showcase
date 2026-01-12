@@ -27,7 +27,7 @@ type Order = {
   statusHistory: Array<{
     id: string
     status: string
-    notes?: string | null
+    note?: string | null
     createdAt: string
   }>
 }
@@ -344,7 +344,7 @@ export default function MoreliaAdminDashboard() {
                           <div key={history.id} className="text-sm flex items-start gap-2 p-2 bg-gray-50 rounded">
                             <div className="flex-1">
                               <span className="font-medium">{history.status}</span>
-                              {history.notes && <span className="text-gray-600"> - {history.notes}</span>}
+                              {history.note && <span className="text-gray-600"> - {history.note}</span>}
                             </div>
                             <span className="text-gray-500 text-xs whitespace-nowrap">
                               {new Date(history.createdAt).toLocaleTimeString()}

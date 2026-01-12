@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
         statusHistory: {
           create: {
             status: 'pending',
-            notes: 'Order placed online'
+            note: 'Order placed online'
           }
         }
       },
