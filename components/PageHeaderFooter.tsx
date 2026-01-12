@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 
-type Theme = 'taco' | 'sushi' | 'italian' | 'game' | 'default'
+type Theme = 'taco' | 'sushi' | 'italian' | 'game' | 'morelia' | 'default'
 
 const themes: Record<Theme, { bg: string; text: string; accent: string; border: string }> = {
   taco: {
@@ -31,6 +31,12 @@ const themes: Record<Theme, { bg: string; text: string; accent: string; border: 
     accent: 'text-pink-300 hover:text-pink-200',
     border: 'border-purple-800'
   },
+  morelia: {
+    bg: 'bg-red-900/40 border-red-800/50',
+    text: 'text-red-100',
+    accent: 'text-yellow-400 hover:text-yellow-300',
+    border: 'border-red-800'
+  },
   default: {
     bg: 'bg-gray-900/80 border-gray-800',
     text: 'text-gray-100',
@@ -56,6 +62,7 @@ export function PageHeader({ theme = 'default', title, subtitle }: { theme?: The
             {theme === 'sushi' && '🍣 Sakura'}
             {theme === 'italian' && '🍝 Bella Cucina'}
             {theme === 'game' && '🎮 Snack Arcade'}
+            {theme === 'morelia' && '🌮 Morelia'}
             {theme === 'default' && 'Fusion Space'}
           </Link>
           
@@ -112,6 +119,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && '🍣 Sakura Sushi'}
               {theme === 'italian' && '🍝 Bella Cucina'}
               {theme === 'game' && '🎮 Snack Arcade'}
+              {theme === 'morelia' && '🌮 Taqueria Morelia #2'}
               {theme === 'default' && 'Fusion Space'}
             </h3>
             <p className={`text-sm ${t.text} opacity-75`}>
@@ -119,6 +127,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && 'Premium Japanese sushi with the finest ingredients.'}
               {theme === 'italian' && 'Traditional Italian cuisine made with love.'}
               {theme === 'game' && 'Classic arcade games to enjoy while you wait.'}
+              {theme === 'morelia' && 'Authentic Mexican birria and tacos made with family recipes.'}
               {theme === 'default' && 'Modern web solutions for your business.'}
             </p>
           </div>
@@ -142,6 +151,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && 'Phone: (555) 123-SUSHI'}
               {theme === 'italian' && 'Phone: (555) 123-PIZZA'}
               {theme === 'game' && 'Hours: 10am - 10pm Daily'}
+              {theme === 'morelia' && 'Phone: (555) MORELIA'}
               {theme === 'default' && 'Email: hello@fusionspace.com'}
             </p>
             <p className={`text-sm ${t.text} opacity-75`}>
@@ -149,6 +159,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && 'Open: 5pm - 11pm Daily'}
               {theme === 'italian' && 'Open: 5pm - 11pm Daily'}
               {theme === 'game' && 'Free wifi • Cash & Card'}
+              {theme === 'morelia' && 'Open: 9am - 9pm Daily'}
               {theme === 'default' && 'https://fusionspace.com'}
             </p>
           </div>
