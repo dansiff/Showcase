@@ -166,7 +166,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
         </div>
 
         <div className={`border-t ${t.border} pt-4 flex justify-between items-center text-xs ${t.text} opacity-50`}>
-          <p>&copy; 2025 {theme === 'default' ? 'Fusion Space Inc' : (theme === 'taco' ? 'Querrepario' : theme === 'sushi' ? 'Sakura' : theme === 'italian' ? 'Bella Cucina' : 'Snack Arcade')}. All rights reserved.</p>
+          <p>&copy; 2026 {theme === 'default' ? 'Fusion Space Inc' : (theme === 'taco' ? 'Querrepario' : theme === 'sushi' ? 'Sakura' : theme === 'italian' ? 'Bella Cucina' : theme === 'game' ? 'Fusion Space Inc' : theme === 'morelia' ? 'Taqueria Morelia #2' : 'Fusion Space Inc')}. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:opacity-100 transition-opacity">Privacy</Link>
             <Link href="/terms" className="hover:opacity-100 transition-opacity">Terms</Link>

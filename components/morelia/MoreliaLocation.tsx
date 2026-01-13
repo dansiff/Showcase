@@ -3,18 +3,17 @@
 import { MapPin, Phone, Clock, Navigation, Mail } from 'lucide-react';
 
 export default function MoreliaLocation() {
-    // TODO: Replace with actual restaurant address and details
     const restaurantInfo = {
         name: "Taqueria Y Birriera Morelia #2",
-        address: "[Enter Street Address]",
-        city: "[City, State ZIP]",
-        phone: "[Phone Number]",
-        email: "info@moreliataqueria.com", // Optional
+        address: "2900 S Keeler Ave",
+        city: "Chicago, IL 60623",
+        phone: "(872) 281-7114",
+        email: "info@moreliataqueria.com",
         hours: {
-            weekday: "Monday - Friday: 9:00 AM - 9:00 PM",
-            weekend: "Saturday - Sunday: 9:00 AM - 10:00 PM",
+            weekday: "Monday - Sunday: Open Daily",
+            weekend: "Closes 8:30 PM",
         },
-        googleMapsLink: "#", // TODO: Add Google Maps link
+        googleMapsLink: "https://maps.app.goo.gl/WUsYAkn5e95a1crJ9",
     };
 
     return (
@@ -90,30 +89,16 @@ export default function MoreliaLocation() {
                     {/* Right: Map */}
                     <div>
                         <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-xl h-[500px] relative">
-                            {/* TODO: Replace with actual Google Maps embed */}
-                            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-red-100 to-amber-100">
-                                <div className="text-center p-8">
-                                    <MapPin className="w-16 h-16 text-red-900 mx-auto mb-4" />
-                                    <div className="text-xl font-bold text-red-900 mb-2">Google Maps Here</div>
-                                    <div className="text-gray-600 text-sm max-w-sm">
-                                        Add your Google Maps embed code here to show your exact location
-                                    </div>
-                                    <div className="mt-4 text-xs text-gray-500">
-                                        Get embed code from: maps.google.com → Share → Embed map
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Uncomment and add your Google Maps embed:
                             <iframe
-                                src="YOUR_GOOGLE_MAPS_EMBED_URL"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2973.206771180721!2d-87.70418219999999!3d41.8238455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e3300016fb693%3A0xfae17feed52eb006!2sTaqueria%20Y%20Birriera%20Morelia%20%232!5e0!3m2!1sen!2sus!4v1768259261905!5m2!1sen!2sus"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}
                                 allowFullScreen
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
+                                title="Taqueria Y Birriera Morelia #2 Location"
                             ></iframe>
-                            */}
                         </div>
 
                         {/* Social Media Links (Optional) */}
