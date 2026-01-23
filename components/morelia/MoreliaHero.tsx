@@ -55,7 +55,7 @@ export default function MoreliaHero() {
                                 <Phone className="w-5 h-5 text-amber-300 flex-shrink-0" />
                                 <div className="text-left">
                                     <div className="font-semibold text-amber-300">Call Us</div>
-                                    <div className="text-red-100">(Add Phone #)</div>
+                                    <a href="tel:8722817114" className="text-red-100 hover:text-amber-300 transition-colors">(872) 281-7114</a>
                                 </div>
                             </div>
                         </div>

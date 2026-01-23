@@ -76,11 +76,24 @@ export function PageHeader({ theme = 'default', title, subtitle }: { theme?: The
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm" aria-label="Primary">
-            <Link href="/taco" className={`${t.accent} transition-colors`}>Tacos</Link>
-            <Link href="/sushi" className={`${t.accent} transition-colors`}>Sushi</Link>
-            <Link href="/italian" className={`${t.accent} transition-colors`}>Italian</Link>
-            <Link href="/game" className={`${t.accent} transition-colors`}>Arcade</Link>
-            <Link href="/portal" className={`${t.accent} transition-colors`}>Portal</Link>
+            {theme === 'morelia' ? (
+              <a 
+                href="https://maps.app.goo.gl/DYoBScKNPvyT3SKg7" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`${t.accent} transition-colors flex items-center gap-1`}
+              >
+                📍 View on Google Maps
+              </a>
+            ) : (
+              <>
+                <Link href="/taco" className={`${t.accent} transition-colors`}>Tacos</Link>
+                <Link href="/sushi" className={`${t.accent} transition-colors`}>Sushi</Link>
+                <Link href="/italian" className={`${t.accent} transition-colors`}>Italian</Link>
+                <Link href="/game" className={`${t.accent} transition-colors`}>Arcade</Link>
+                <Link href="/portal" className={`${t.accent} transition-colors`}>Portal</Link>
+              </>
+            )}
           </nav>
         </div>
 
@@ -93,11 +106,24 @@ export function PageHeader({ theme = 'default', title, subtitle }: { theme?: The
         {/* Mobile nav */}
         {mobileMenuOpen && (
           <nav className="md:hidden flex flex-col gap-2 mt-4 pt-4 border-t" aria-label="Mobile menu">
-            <Link href="/taco" className={`${t.accent} py-2 transition-colors`}>🌮 Tacos</Link>
-            <Link href="/sushi" className={`${t.accent} py-2 transition-colors`}>🍣 Sushi</Link>
-            <Link href="/italian" className={`${t.accent} py-2 transition-colors`}>🍝 Italian</Link>
-            <Link href="/game" className={`${t.accent} py-2 transition-colors`}>🎮 Arcade</Link>
-            <Link href="/portal" className={`${t.accent} py-2 transition-colors`}>Portal</Link>
+            {theme === 'morelia' ? (
+              <a 
+                href="https://maps.app.goo.gl/DYoBScKNPvyT3SKg7" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`${t.accent} py-2 transition-colors`}
+              >
+                📍 View on Google Maps
+              </a>
+            ) : (
+              <>
+                <Link href="/taco" className={`${t.accent} py-2 transition-colors`}>🌮 Tacos</Link>
+                <Link href="/sushi" className={`${t.accent} py-2 transition-colors`}>🍣 Sushi</Link>
+                <Link href="/italian" className={`${t.accent} py-2 transition-colors`}>🍝 Italian</Link>
+                <Link href="/game" className={`${t.accent} py-2 transition-colors`}>🎮 Arcade</Link>
+                <Link href="/portal" className={`${t.accent} py-2 transition-colors`}>Portal</Link>
+              </>
+            )}
           </nav>
         )}
       </div>
@@ -151,7 +177,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && 'Phone: (555) 123-SUSHI'}
               {theme === 'italian' && 'Phone: (555) 123-PIZZA'}
               {theme === 'game' && 'Hours: 10am - 10pm Daily'}
-              {theme === 'morelia' && 'Phone: (555) MORELIA'}
+              {theme === 'morelia' && 'Phone: (872) 281-7114'}
               {theme === 'default' && 'Email: hello@fusionspace.com'}
             </p>
             <p className={`text-sm ${t.text} opacity-75`}>
