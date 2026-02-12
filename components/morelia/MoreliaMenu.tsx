@@ -3,50 +3,68 @@
 export default function MoreliaMenu() {
     const menuCategories = [
         {
-            name: "🔥 Birria Specialties",
-            description: "Our famous slow-cooked birria",
+            name: "By the Pound",
+            name_es: "Por Libra",
+            description: "",
             items: [
-                { name: "Birria Tacos", price: "$3.50", desc: "Traditional birria on corn tortillas with cilantro & onions" },
-                { name: "Quesabirria", price: "$4.00", desc: "Crispy cheese-crusted tacos with birria & melted cheese" },
-                { name: "Birria Plate", price: "$13.99", desc: "Full plate with rice, beans, tortillas & consomé" },
-                { name: "Consomé (Cup)", price: "$3.00", desc: "Rich birria broth for dipping" },
-                { name: "Mulitas de Birria", price: "$8.99", desc: "Two tortillas with birria, cheese & toppings" },
+                { name: "1 Lb Birria", name_es: "1 Lb Birria", price: "$21.00", desc: "", desc_es: "" },
+                { name: "1 Lb Montalayo", name_es: "1 Lb Montalayo", price: "$22.00", desc: "", desc_es: "" }
             ]
         },
         {
-            name: "🌮 Street Tacos",
-            description: "Authentic Mexican street-style tacos",
+            name: "Drinks",
+            name_es: "Bebidas",
+            description: "",
             items: [
-                { name: "Carne Asada", price: "$3.00", desc: "Grilled steak with cilantro & onions" },
-                { name: "Al Pastor", price: "$3.00", desc: "Marinated pork with pineapple" },
-                { name: "Pollo Asado", price: "$2.75", desc: "Grilled chicken with fresh toppings" },
-                { name: "Carnitas", price: "$3.00", desc: "Slow-cooked pulled pork" },
-                { name: "Lengua", price: "$3.50", desc: "Beef tongue, tender and flavorful" },
-                { name: "Cabeza", price: "$3.50", desc: "Beef head meat, traditional style" },
+                { name: "Small Horchata", name_es: "Horchata Chica", price: "$3.50", desc: "", desc_es: "" },
+                { name: "Large Horchata", name_es: "Horchata Grande", price: "$4.50", desc: "", desc_es: "" },
+                { name: "Large Orange Juice", name_es: "Jugo de Naranja Grande", price: "$9.75", desc: "", desc_es: "" },
+                { name: "Small Orange Juice", name_es: "Jugo de Naranja Chico", price: "$8.75", desc: "", desc_es: "" },
+                { name: "Large Carrot Juice", name_es: "Jugo de Zanahoria Grande", price: "$9.75", desc: "", desc_es: "" },
+                { name: "Small Carrot Juice", name_es: "Jugo de Zanahoria Chico", price: "$8.75", desc: "", desc_es: "" },
+                { name: "Coffee", name_es: "Café", price: "$2.00", desc: "", desc_es: "" },
+                { name: "Small Smoothie", name_es: "Licuado Chico", price: "$4.50", desc: "", desc_es: "" },
+                { name: "Large Smoothie", name_es: "Licuado Grande", price: "$5.00", desc: "", desc_es: "" }
             ]
         },
         {
-            name: "🍴 Plates & Combos",
-            description: "Complete meals with sides",
+            name: "Main Dishes",
+            name_es: "Platillos",
+            description: "",
             items: [
-                { name: "3 Taco Combo", price: "$10.99", desc: "Choice of 3 tacos with rice & beans" },
-                { name: "Quesadilla Plate", price: "$11.99", desc: "Large quesadilla with meat, rice & beans" },
-                { name: "Burrito Supreme", price: "$10.99", desc: "Loaded burrito with choice of meat" },
-                { name: "Torta", price: "$9.99", desc: "Mexican sandwich with choice of meat" },
-                { name: "Sopes (3)", price: "$10.99", desc: "Thick tortillas with meat, beans & toppings" },
+                { name: "Stuffed Peppers", name_es: "Chiles Rellenos", price: "$16.00", desc: "", desc_es: "" },
+                { name: "Grilled Steak", name_es: "Carne Asada", price: "$22.00", desc: "", desc_es: "" },
+                { name: "Tampiqueña Style Steak", name_es: "Tampiqueña", price: "$22.00", desc: "", desc_es: "" },
+                { name: "Pork Loin in Chile de Árbol Sauce", name_es: "Lomo en Salsa de Árbol", price: "$19.50", desc: "", desc_es: "" }
             ]
         },
         {
-            name: "🥤 Drinks & Sides",
-            description: "Complete your meal",
+            name: "Seafood",
+            name_es: "Mariscos",
+            description: "",
             items: [
-                { name: "Horchata", price: "$3.00", desc: "Fresh rice cinnamon drink" },
-                { name: "Jamaica", price: "$3.00", desc: "Hibiscus flower water" },
-                { name: "Tamarindo", price: "$3.00", desc: "Sweet tamarind drink" },
-                { name: "Mexican Coke", price: "$2.50", desc: "Glass bottle" },
-                { name: "Rice & Beans", price: "$3.50", desc: "Side of Mexican rice and beans" },
-                { name: "Chips & Guacamole", price: "$5.99", desc: "Fresh made daily" },
-                { name: "Chips & Salsa", price: "$3.99", desc: "House-made salsa" },
+                { name: "Mojarra Cooked to Your Taste", name_es: "Mojarra al Gusto", price: "$22.00", desc: "", desc_es: "" },
+                { name: "Deviled Shrimp", name_es: "Camarones a la Diabla", price: "$18.00", desc: "", desc_es: "" },
+                { name: "Shrimp Cocktail", name_es: "Cóctel de Camarón", price: "$18.00", desc: "", desc_es: "" },
+                { name: "Shrimp Ceviche", name_es: "Ceviche de Camarón", price: "$16.00", desc: "", desc_es: "" },
+                { name: "Shrimp Soup", name_es: "Caldo de Camarón", price: "$18.00", desc: "", desc_es: "" },
+                { name: "Octopus Soup", name_es: "Caldo de Pulpo", price: "$19.00", desc: "", desc_es: "" },
+                { name: "Fish Soup", name_es: "Caldo de Pescado", price: "$17.00", desc: "", desc_es: "" }
+            ]
+        },
+        {
+            name: "Breakfast",
+            name_es: "Desayunos",
+            description: "",
+            notes_en: "Coffee included",
+            notes_es: "Café incluido",
+            items: [
+                { name: "Fried Eggs", name_es: "Huevos Estrellados", price: "$10.00", desc: "", desc_es: "" },
+                { name: "Mexican Style Eggs", name_es: "Huevos a la Mexicana", price: "$10.00", desc: "", desc_es: "" },
+                { name: "Eggs with Ham", name_es: "Huevos con Jamón", price: "$10.00", desc: "", desc_es: "" },
+                { name: "Eggs with Chorizo", name_es: "Huevos con Chorizo", price: "$10.00", desc: "", desc_es: "" },
+                { name: "Red Chilaquiles (with meat or eggs)", name_es: "Chilaquiles Rojos (con carne o huevo)", price: "$15.00", desc: "", desc_es: "" },
+                { name: "Green Chilaquiles", name_es: "Chilaquiles Verdes", price: "$15.00", desc: "", desc_es: "" }
             ]
         }
     ];
@@ -70,13 +88,22 @@ export default function MoreliaMenu() {
                     {menuCategories.map((category, idx) => (
                         <div key={idx} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
                             <h3 className="text-2xl font-bold mb-2 text-red-900">{category.name}</h3>
-                            <p className="text-gray-600 mb-6 text-sm">{category.description}</p>
+                            <p className="text-gray-700 mb-1 text-sm italic">{category.name_es}</p>
+                            {category.description ? <p className="text-gray-600 mb-6 text-sm">{category.description}</p> : null}
+                            {category.notes_en || category.notes_es ? (
+                                <p className="text-xs text-gray-600 mb-4">
+                                    {category.notes_en}
+                                    {category.notes_es ? (<><br/><span className="italic">{category.notes_es}</span></>) : null}
+                                </p>
+                            ) : null}
                             <div className="space-y-4">
                                 {category.items.map((item, itemIdx) => (
                                     <div key={itemIdx} className="flex justify-between items-start gap-4 pb-4 border-b border-gray-100 last:border-0">
                                         <div className="flex-1">
                                             <div className="font-semibold text-gray-900">{item.name}</div>
+                                            <div className="text-sm text-gray-700 mt-1 italic">{item.name_es}</div>
                                             <div className="text-sm text-gray-600 mt-1">{item.desc}</div>
+                                            <div className="text-sm text-gray-600 mt-1 italic">{item.desc_es}</div>
                                         </div>
                                         <div className="font-bold text-red-900 whitespace-nowrap">{item.price}</div>
                                     </div>
@@ -90,6 +117,11 @@ export default function MoreliaMenu() {
                     <a href="#order-online" className="inline-flex items-center px-8 py-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg">
                         Order Online Now 🛒
                     </a>
+                </div>
+                
+                <div className="mt-6 text-center text-xs text-gray-600 max-w-2xl mx-auto">
+                    <p className="mb-1">Final prices are determined by the establishment at the time of purchase.</p>
+                    <p className="italic">El precio final será determinado por el establecimiento al momento de la compra.</p>
                 </div>
             </div>
         </section>

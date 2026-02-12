@@ -10,3 +10,13 @@
 html, body {
 	overflow-x: hidden;
 }
+
+/* Improve rendering in in-app browsers (Facebook/Instagram webviews)
+   - prevent iOS/Android automatic text-size adjustments
+   - ensure images are responsive to container widths */
+html, body {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+img { max-width: 100%; height: auto; display: block; }
