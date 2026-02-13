@@ -79,7 +79,7 @@ export default function MoreliaMenu() {
                     </p>
                     <div className="mt-6 inline-block bg-amber-100 border-2 border-amber-500 rounded-lg px-6 py-3">
                         <p className="text-red-900 font-semibold">
-                            💡 All tacos served on fresh corn tortillas • Customize your order online!
+                            💡 All tacos served on fresh corn tortillas
                         </p>
                     </div>
                 </div>
@@ -113,11 +113,7 @@ export default function MoreliaMenu() {
                     ))}
                 </div>
 
-                <div className="mt-12 text-center">
-                    <a href="#order-online" className="inline-flex items-center px-8 py-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg">
-                        🛒
-                    </a>
-                </div>
+           
                 
                 <div className="mt-6 text-center text-xs text-gray-600 max-w-2xl mx-auto">
                     <p className="mb-1">Final prices are determined by the establishment at the time of purchase.</p>

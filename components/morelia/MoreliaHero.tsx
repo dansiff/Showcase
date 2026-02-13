@@ -29,18 +29,12 @@ export default function MoreliaHero() {
                         
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-8">
-                            <a href="#order-online" className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 hover:bg-amber-400 text-red-900 font-bold rounded-lg text-lg transition-all transform hover:scale-105 shadow-xl">
-                                Order Online 🌮
-                            </a>
+                           
                             <a href="#menu" className="inline-flex items-center justify-center px-8 py-4 bg-white/10 hover:bg-white/20 border-2 border-white text-white font-bold rounded-lg text-lg transition-all backdrop-blur-sm">
                                 View Menu
                             </a>
                         </div>
-                        <div className="flex justify-center md:justify-start mb-12">
-                            <a href="/morelia/track" className="text-amber-300 hover:text-amber-200 font-semibold underline text-sm flex items-center gap-2">
-                                📦 Track Your Order
-                            </a>
-                        </div>
+                      
 
                         {/* Quick Info */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
