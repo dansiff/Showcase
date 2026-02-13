@@ -29,7 +29,7 @@ export default function MoreliaPage() {
                             Build your perfect meal with our authentic Mexican flavors. Choose pickup time and we'll have it ready!
                         </p>
                     </div>
-                    <MoreliaOrder />
+                    
                 </div>
             </div>
             

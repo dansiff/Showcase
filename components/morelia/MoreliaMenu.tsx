@@ -115,7 +115,7 @@ export default function MoreliaMenu() {
 
                 <div className="mt-12 text-center">
                     <a href="#order-online" className="inline-flex items-center px-8 py-4 bg-red-900 hover:bg-red-800 text-white font-bold rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg">
-                        Order Online Now 🛒
+                        🛒
                     </a>
                 </div>
                 
