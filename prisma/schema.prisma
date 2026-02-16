@@ -198,17 +198,26 @@ model ClientIntake {
   phone               String?
   company             String
   website             String?
-  projectType         String   // website, ecommerce, landing-page, web-app, other
-  projectDescription  String
-  goals               String
-  targetAudience      String
+  projectType         String   // website, ecommerce, landing-page, web-app, b2b-lead, other
+  projectDescription  String?
+  goals               String?
+  targetAudience      String?
+  
+  // B2B Lead specific fields
+  businessType        String?  // restaurant, retail, services, saas, other
+  revenueModel        String?  // subscription, commission, one-time, hybrid
+  paymentProcessorStatus String? // has-processor, looking-for-processor, unsure
+  monthlyRevenueEstimate String? // under-1k, 1k-5k, 5k-10k, 10k-50k, 50k-plus
+  commissionInterested Boolean? // interested in commission-based partnership
+  referralSource      String?  // website, referral, linkedin, coldemail, local, other
+  
   features            String[] // Array of selected features
   designPreferences   String?
   brandGuidelines     String?
-  contentReady        String   // ready, partial, need-help, none
-  timeline            String   // asap, 1-month, 2-3-months, flexible
+  contentReady        String?  // ready, partial, need-help, none
+  timeline            String?  // asap, 1-month, 2-3-months, flexible
   launchDate          DateTime?
-  budget              String   // under-5k, 5k-10k, 10k-25k, 25k-50k, 50k-plus
+  budget              String?  // under-5k, 5k-10k, 10k-25k, 25k-50k, 50k-plus, commission-only
   competitors         String?
   inspiration         String?
   additionalNotes     String?
