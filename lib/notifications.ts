@@ -195,7 +195,7 @@ export async function sendSlackNotification(intake: IntakeNotification) {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `*Project Description:*\n${intake.projectDescription.substring(0, 200)}${intake.projectDescription.length > 200 ? "..." : ""}`
+            text: `*Project Description:*\n${intake.projectDescription ? intake.projectDescription.substring(0, 200) + (intake.projectDescription.length > 200 ? "..." : "") : "Not provided"}`
           }
         }
       ]
@@ -272,7 +272,7 @@ export async function sendDiscordNotification(intake: IntakeNotification) {
         { name: "Timeline", value: intake.timeline, inline: true },
         {
           name: "Description",
-          value: intake.projectDescription.substring(0, 200) + (intake.projectDescription.length > 200 ? "..." : ""),
+          value: intake.projectDescription ? intake.projectDescription.substring(0, 200) + (intake.projectDescription.length > 200 ? "..." : "") : "Not provided",
           inline: false
         }
       ],
