@@ -134,6 +134,37 @@ export function PageHeader({ theme = 'default', title, subtitle }: { theme?: The
 export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
   const t = themes[theme] || themes.default
 
+  const socialLinks: Record<Theme, { instagram?: string; facebook?: string; yelp?: string } | undefined> = {
+    morelia: {
+      facebook: 'https://www.facebook.com/profile.php?id=100082637193220#',
+      yelp: 'https://www.yelp.com/biz/taqueria-y-birreria-morelia-chicago',
+      instagram: 'https://www.instagram.com/explore/locations/1026582861/taqueria-y-birreria-morelia/'
+    },
+    taco: undefined,
+    sushi: undefined,
+    italian: undefined,
+    game: undefined,
+    default: undefined
+  }
+
+  const InstagramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 2a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm4.75-.75a1 1 0 100 2 1 1 0 000-2z" />
+    </svg>
+  )
+
+  const FacebookIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M22 12a10 10 0 10-11.5 9.9v-7h-2.2V12h2.2V9.8c0-2.2 1.3-3.4 3.3-3.4.95 0 1.94.17 1.94.17v2.1h-1.07c-1.05 0-1.37.65-1.37 1.32V12h2.34l-.37 2.9h-1.97v7A10 10 0 0022 12z" />
+    </svg>
+  )
+
+  const YelpIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M12 2c1.1 0 2 .9 2 2 0 .1-.01.21-.03.31l1.7.7c.9.36 1.47 1.23 1.47 2.16 0 .19-.02.38-.07.56l-.5 1.7c.36.85.36 1.8 0 2.65l.5 1.7c.05.18.07.37.07.56 0 .93-.57 1.8-1.47 2.16l-1.7.7c.02.1.03.2.03.31 0 1.1-.9 2-2 2-1.1 0-2-.9-2-2 0-.11.01-.21.03-.31l-1.7-.7C6.98 19.8 6.41 18.93 6.41 18c0-.19.02-.38.07-.56l.5-1.7c-.36-.85-.36-1.8 0-2.65l-.5-1.7c-.05-.18-.07-.37-.07-.56 0-.93.57-1.8 1.47-2.16l1.7-.7C10.01 4.21 10 4.11 10 4c0-1.1.9-2 2-2z" />
+    </svg>
+  )
+
   return (
     <footer className={`${t.bg} border-t ${t.border} mt-16 py-8`} role="contentinfo">
       <div className="max-w-7xl mx-auto px-4">
@@ -161,12 +192,38 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
           {/* Column 2: Quick Links */}
           <div>
             <h4 className={`font-bold mb-3 ${t.accent}`}>Quick Links</h4>
-            <nav className="flex flex-col gap-2 text-sm" aria-label="Footer links">
-              <Link href="/taco" className={`${t.text} hover:${t.accent} transition-colors`}>Order Tacos</Link>
-              <Link href="/track-order" className={`${t.text} hover:${t.accent} transition-colors`}>Track Order</Link>
-              <Link href="/game" className={`${t.text} hover:${t.accent} transition-colors`}>Play Games</Link>
-              <Link href="/portal" className={`${t.text} hover:${t.accent} transition-colors`}>Portal</Link>
-            </nav>
+            {theme === 'morelia' ? (
+              <div className="flex flex-col gap-3 text-sm">
+                <Link href="/game" className={`${t.text} hover:${t.accent} transition-colors`}>Play Games</Link>
+
+                <div className="flex items-center gap-3">
+                  {socialLinks.morelia?.facebook && (
+                    <a href={socialLinks.morelia.facebook} target="_blank" rel="noopener noreferrer" aria-label="Morelia on Facebook" className={`${t.text} hover:${t.accent} transition-colors`}>
+                      <FacebookIcon className="w-5 h-5" />
+                    </a>
+                  )}
+
+                  {socialLinks.morelia?.yelp && (
+                    <a href={socialLinks.morelia.yelp} target="_blank" rel="noopener noreferrer" aria-label="Morelia on Yelp" className={`${t.text} hover:${t.accent} transition-colors`}>
+                      <YelpIcon className="w-5 h-5" />
+                    </a>
+                  )}
+
+                  {socialLinks.morelia?.instagram && (
+                    <a href={socialLinks.morelia.instagram} target="_blank" rel="noopener noreferrer" aria-label="Morelia on Instagram" className={`${t.text} hover:${t.accent} transition-colors`}>
+                      <InstagramIcon className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <nav className="flex flex-col gap-2 text-sm" aria-label="Footer links">
+                <Link href="/taco" className={`${t.text} hover:${t.accent} transition-colors`}>Order Tacos</Link>
+                <Link href="/track-order" className={`${t.text} hover:${t.accent} transition-colors`}>Track Order</Link>
+                <Link href="/game" className={`${t.text} hover:${t.accent} transition-colors`}>Play Games</Link>
+                <Link href="/portal" className={`${t.text} hover:${t.accent} transition-colors`}>Portal</Link>
+              </nav>
+            )}
           </div>
 
           {/* Column 3: Contact */}
