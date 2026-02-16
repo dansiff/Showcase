@@ -86,7 +86,7 @@ export default async function LeadsDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {leads.map((lead) => (
+                {leads.map((lead: any) => (
                   <tr key={lead.id} className="hover:bg-gray-50 transition">
                     <td className="px-6 py-4">
                       <div className="cursor-pointer">
@@ -137,19 +137,19 @@ export default async function LeadsDashboard() {
             <div>
               <p className="text-xs text-gray-600 uppercase tracking-wide">Pending Review</p>
               <p className="text-2xl font-bold text-yellow-600">
-                {leads.filter(l => l.status === "pending").length}
+                {leads.filter((l: any) => l.status === "pending").length}
               </p>
             </div>
             <div>
               <p className="text-xs text-gray-600 uppercase tracking-wide">Commission Interest</p>
               <p className="text-2xl font-bold text-blue-600">
-                {leads.filter(l => l.commissionInterested).length}
+                {leads.filter((l: any) => l.commissionInterested).length}
               </p>
             </div>
             <div>
               <p className="text-xs text-gray-600 uppercase tracking-wide">This Month</p>
               <p className="text-2xl font-bold text-gray-900">
-                {leads.filter(l => {
+                {leads.filter((l: any) => {
                   const leadDate = new Date(l.createdAt);
                   const thisMonth = new Date();
                   return leadDate.getMonth() === thisMonth.getMonth() &&

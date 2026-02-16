@@ -142,13 +142,13 @@ type IntakeNotification = {
   phone?: string;
   company: string;
   projectType: string;
-  budget: string;
-  timeline: string;
+  budget?: string | null;
+  timeline?: string | null;
   preferredCallDate?: string;
   preferredCallTime?: string;
-  projectDescription: string;
-  goals: string;
-  features: string[];
+  projectDescription?: string | null;
+  goals?: string | null;
+  features?: string[];
   uploadedFiles?: string[];
   intakeId: string;
 };

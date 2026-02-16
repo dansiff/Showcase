@@ -106,21 +106,18 @@ export async function POST(req: Request) {
 }
 
 async function sendNotifications(lead: any) {
-  const notificationPayload = {
-    title: `🔥 New B2B Lead: ${lead.company}`,
-    company: lead.company,
-    contactName: lead.fullName,
+  const notificationPayload: any = {
+    fullName: lead.fullName,
     email: lead.email,
-    phone: lead.phone || "N/A",
-    businessType: lead.businessType || "Not specified",
-    revenueEstimate: lead.monthlyRevenueEstimate || "Not specified",
-    timeline: lead.timeline || "Not specified",
-    budget: lead.budget || "Not specified",
-    commissionInterested: lead.commissionInterested ? "Yes" : "No",
-    paymentProcessor: lead.paymentProcessorStatus || "Not specified",
-    referralSource: lead.referralSource || "Unknown",
-    additionalNotes: lead.additionalNotes || "None",
-    leadLink: `${process.env.NEXT_PUBLIC_APP_URL}/admin/leads/${lead.id}`,
+    phone: lead.phone || undefined,
+    company: lead.company,
+    projectType: lead.projectType,
+    budget: lead.budget || undefined,
+    timeline: lead.timeline || undefined,
+    projectDescription: lead.additionalNotes || undefined,
+    goals: undefined,
+    features: [],
+    intakeId: lead.id,
   };
 
   // Send to Slack
