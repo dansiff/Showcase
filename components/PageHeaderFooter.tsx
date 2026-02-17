@@ -234,7 +234,12 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && 'Phone: (555) 123-SUSHI'}
               {theme === 'italian' && 'Phone: (555) 123-PIZZA'}
               {theme === 'game' && 'Hours: 10am - 10pm Daily'}
-              {theme === 'morelia' && 'Phone: (872) 281-7114'}
+              {theme === 'morelia' && (
+                <>
+                  Phone: (872) 281-7114<br />
+                  3817 S Kedzie Ave, Chicago, IL 60632
+                </>
+              )}
               {theme === 'default' && 'Email: hello@fusionspace.com'}
             </p>
             <p className={`text-sm ${t.text} opacity-75`}>
@@ -242,7 +247,7 @@ export function PageFooter({ theme = 'default' }: { theme?: Theme }) {
               {theme === 'sushi' && 'Open: 5pm - 11pm Daily'}
               {theme === 'italian' && 'Open: 5pm - 11pm Daily'}
               {theme === 'game' && 'Free wifi • Cash & Card'}
-              {theme === 'morelia' && 'Open: 9am - 9pm Daily'}
+              {theme === 'morelia' && 'Open: 9am - 8:30pm Daily'}
               {theme === 'default' && 'https://fusionspace.com'}
             </p>
           </div>
