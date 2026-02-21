@@ -1,10 +1,8 @@
 
-export const metadata = {
   title: "Privacy Policy | Website Generator",
   description: "Read our privacy policy to understand how we handle your data.",
 };
 
-export default function PrivacyPage() {
   return (
     <>
       <PageHeader title="Privacy Policy" subtitle="Your privacy is important to us." />
@@ -26,6 +24,8 @@ export default function PrivacyPage() {
     </>
   );
 }
+
+
 
 import { PageHeader, PageFooter } from "@/components/PageHeaderFooter";
 import { Metadata } from 'next';
@@ -57,6 +57,10 @@ export default function PrivacyPage() {
         <h2 className="text-2xl font-bold mb-6">6. Changes to This Policy</h2>
         <p className="mb-4">We may update this Privacy Policy from time to time. We encourage you to review it regularly.</p>
       </main>
+      <PageFooter />
+    </>
+  );
+}
       <PageFooter />
     </>
   );

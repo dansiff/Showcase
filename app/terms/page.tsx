@@ -1,10 +1,8 @@
 
-export const metadata = {
   title: "Terms of Service | Website Generator",
   description: "Read the terms of service for using our website generator platform.",
 };
 
-export default function TermsPage() {
   return (
     <>
       <PageHeader title="Terms of Service" subtitle="Please review our terms before using the platform." />
