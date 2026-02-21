@@ -131,7 +131,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             placeholder="Full Name *"
             value={formData.fullName}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
             required
           />
           <input
@@ -140,7 +140,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             placeholder="Email Address *"
             value={formData.email}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
             required
           />
         </div>
@@ -152,7 +152,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             placeholder="Phone Number"
             value={formData.phone}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           />
           <input
             type="text"
@@ -160,7 +160,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             placeholder="Company Name *"
             value={formData.company}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
             required
           />
         </div>
@@ -171,7 +171,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
           placeholder="Website (optional)"
           value={formData.website}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
         />
       </fieldset>
 
@@ -184,7 +184,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="businessType"
             value={formData.businessType}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           >
             <option value="">Select Business Type</option>
             <option value="restaurant">Restaurant / Food Service</option>
@@ -199,7 +199,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="revenueModel"
             value={formData.revenueModel}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           >
             <option value="">Select Revenue Model</option>
             <option value="subscription">Subscription</option>
@@ -215,7 +215,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="monthlyRevenueEstimate"
             value={formData.monthlyRevenueEstimate}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           >
             <option value="">Monthly Revenue Estimate</option>
             <option value="under-1k">Under $1,000</option>
@@ -229,7 +229,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="paymentProcessorStatus"
             value={formData.paymentProcessorStatus}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           >
             <option value="">Payment Processor Status</option>
             <option value="has-processor">Already using a processor</option>
@@ -244,9 +244,9 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="commissionInterested"
             checked={formData.commissionInterested}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+            className="w-4 h-4 accent-blue-600 bg-white border border-gray-400 rounded focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
           />
-          <span className="text-gray-700">Interested in commission-only partnership</span>
+          <span className="text-gray-900 font-medium">Interested in commission-only partnership</span>
         </label>
       </fieldset>
 
@@ -259,7 +259,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="timeline"
             value={formData.timeline}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           >
             <option value="">When do you need this?</option>
             <option value="asap">ASAP</option>
@@ -272,7 +272,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
             name="budget"
             value={formData.budget}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
           >
             <option value="">Budget Range</option>
             <option value="under-5k">Under $5,000</option>
@@ -295,7 +295,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
           value={formData.additionalNotes}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-400 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 shadow-sm transition-all"
         />
       </fieldset>
 
@@ -306,10 +306,10 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
           name="termsAccepted"
           checked={formData.termsAccepted}
           onChange={handleChange}
-          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 mt-1"
+          className="w-4 h-4 accent-blue-600 bg-white border border-gray-400 rounded focus:ring-2 focus:ring-blue-600 focus:border-blue-600 mt-1"
           required
         />
-        <span className="text-sm text-gray-700">
+        <span className="text-sm text-gray-900 font-medium">
           I agree to be contacted about my inquiry and accept the terms and conditions *
         </span>
       </label>
@@ -319,7 +319,7 @@ export default function LeadIntakeForm({ sourceType = "public", onSuccess }: Lea
         type="submit"
         disabled={loading}
         className={cn(
-          "w-full py-3 px-4 rounded-lg font-semibold text-white transition",
+          "w-full py-3 px-4 rounded-lg font-semibold text-white transition shadow-md text-lg",
           loading
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"

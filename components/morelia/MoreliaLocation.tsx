@@ -5,8 +5,8 @@ import { MapPin, Phone, Clock, Navigation, Mail } from 'lucide-react';
 export default function MoreliaLocation() {
     const restaurantInfo = {
         name: "Taqueria Y Birriera Morelia #2",
-        address: "2900 S Keeler Ave",
-        city: "Chicago, IL 60623",
+        address: "3817 S Kedzie Ave",
+        city: "Chicago, IL 60632",
         phone: "(872) 281-7114",
         email: "info@moreliataqueria.com",
         hours: {
