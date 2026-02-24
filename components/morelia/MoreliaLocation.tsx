@@ -22,25 +22,19 @@ export default function MoreliaLocation() {
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 text-red-900">Visit Us</h2>
                     <p className="text-lg text-gray-700">Come taste the authentic flavors of Morelia</p>
-                    {/* Embedded YouTube Short */}
+                    {/* Embedded YouTube Short - styled */}
                     <div className="my-8 flex justify-center">
-                        <iframe
-                            width="320"
-                            height="568"
-                            src="https://www.youtube.com/embed/Zox3eqsN12g"
-                            title="Morelia Short Video"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                        ></iframe>
-                    </div>
-                    {/* Featured Photo */}
-                    <div className="my-8 flex justify-center">
-                        <img
-                            src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg"
-                            alt="Morelia Restaurant Featured"
-                            className="rounded-2xl shadow-lg max-h-[400px] object-cover"
-                        />
+                        <div className="rounded-2xl shadow-xl overflow-hidden w-full max-w-[350px] aspect-[9/16] bg-black">
+                            <iframe
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/Zox3eqsN12g"
+                                title="Morelia Short Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                                style={{ width: '100%', height: '100%' }}
+                            ></iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -106,8 +100,16 @@ export default function MoreliaLocation() {
                         </div>
                     </div>
 
-                    {/* Right: Map */}
+                    {/* Right: Photo and Map */}
                     <div>
+                        {/* Featured Photo */}
+                        <div className="mb-8 flex justify-center">
+                            <img
+                                src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg"
+                                alt="Morelia Restaurant Featured"
+                                className="rounded-2xl shadow-lg max-h-[300px] object-cover w-full"
+                            />
+                        </div>
                         <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-xl h-[500px] relative">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2973.206771180721!2d-87.70418219999999!3d41.8238455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e3300016fb693%3A0xfae17feed52eb006!2sTaqueria%20Y%20Birriera%20Morelia%20%232!5e0!3m2!1sen!2sus!4v1768259261905!5m2!1sen!2sus"
