@@ -42,7 +42,7 @@ export default function MoreliaHero() {
                                 <Clock className="w-5 h-5 text-amber-300 flex-shrink-0" />
                                 <div className="text-left">
                                     <div className="font-semibold text-amber-300">Hours</div>
-                                    <div className="text-red-100">Mon-Sun: 9AM - 9PM</div>
+                                    <div className="text-red-100">Mon-Sun: 9AM - 8:30PM</div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">

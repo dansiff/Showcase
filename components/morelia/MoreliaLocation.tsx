@@ -22,6 +22,26 @@ export default function MoreliaLocation() {
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 text-red-900">Visit Us</h2>
                     <p className="text-lg text-gray-700">Come taste the authentic flavors of Morelia</p>
+                    {/* Embedded YouTube Short */}
+                    <div className="my-8 flex justify-center">
+                        <iframe
+                            width="320"
+                            height="568"
+                            src="https://www.youtube.com/embed/Zox3eqsN12g"
+                            title="Morelia Short Video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
+                    {/* Featured Photo */}
+                    <div className="my-8 flex justify-center">
+                        <img
+                            src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg"
+                            alt="Morelia Restaurant Featured"
+                            className="rounded-2xl shadow-lg max-h-[400px] object-cover"
+                        />
+                    </div>
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-12 items-start">

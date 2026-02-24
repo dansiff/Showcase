@@ -5,9 +5,9 @@ export default function MoreliaMenu() {
         {
             name: "By the Pound",
             name_es: "Por Libra",
-            description: "",
+            description: "Our birria is made with goat (chivo), not beef.",
             items: [
-                { name: "1 Lb Birria", name_es: "1 Lb Birria", price: "$21.00", desc: "", desc_es: "" },
+                { name: "1 Lb Birria de Chivo", name_es: "1 Libra de Birria de Chivo", price: "$21.00", desc: "Traditional goat birria (not beef)", desc_es: "Birria tradicional de chivo (no res)" },
                 { name: "1 Lb Montalayo", name_es: "1 Lb Montalayo", price: "$22.00", desc: "", desc_es: "" }
             ]
         },
