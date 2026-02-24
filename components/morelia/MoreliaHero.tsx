@@ -57,15 +57,12 @@ export default function MoreliaHero() {
 
                     {/* Right: Image/Visual */}
                     <div className="relative">
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                            {/* Placeholder for hero image - replace with actual restaurant photo */}
-                            <div className="aspect-square bg-gradient-to-br from-amber-400 to-red-600 flex items-center justify-center">
-                                <div className="text-center p-8">
-                                    <div className="text-8xl mb-4">🌮</div>
-                                    <div className="text-2xl font-bold">Add Your Photo Here</div>
-                                    <div className="text-sm opacity-75">Replace with actual birria/restaurant image</div>
-                                </div>
-                            </div>
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300 aspect-square bg-gradient-to-br from-amber-400 to-red-600">
+                            <img
+                                src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg"
+                                alt="Morelia Restaurant Featured"
+                                className="w-full h-full object-cover"
+                            />
                         </div>
                         
                         {/* Floating badge */}

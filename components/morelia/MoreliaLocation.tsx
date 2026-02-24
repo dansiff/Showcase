@@ -102,14 +102,7 @@ export default function MoreliaLocation() {
 
                     {/* Right: Photo and Map */}
                     <div>
-                        {/* Featured Photo */}
-                        <div className="mb-8 flex justify-center">
-                            <img
-                                src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg"
-                                alt="Morelia Restaurant Featured"
-                                className="rounded-2xl shadow-lg max-h-[300px] object-cover w-full"
-                            />
-                        </div>
+                       
                         <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-xl h-[500px] relative">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2973.206771180721!2d-87.70418219999999!3d41.8238455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e3300016fb693%3A0xfae17feed52eb006!2sTaqueria%20Y%20Birriera%20Morelia%20%232!5e0!3m2!1sen!2sus!4v1768259261905!5m2!1sen!2sus"
