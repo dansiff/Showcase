@@ -60,7 +60,7 @@ export default function MoreliaHero() {
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300 aspect-square bg-gradient-to-br from-amber-400 to-red-600">
                             <img
                                 src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg"
-                                alt="Morelia Restaurant Featured"
+                                alt="Birria de Chivo and Tacos at Taqueria Y Birriera Morelia #2, Chicago – Authentic Mexican Restaurant Interior"
                                 className="w-full h-full object-cover"
                             />
                         </div>

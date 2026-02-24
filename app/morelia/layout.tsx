@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Taqueria Y Birriera Morelia #2 | Authentic Mexican Birria & Tacos',
-  description: 'Experience authentic Mexican birria, tacos, and traditional recipes. Order online for pickup. Family-owned taqueria serving the community with love.',
+  title: 'Taqueria Y Birriera Morelia #2 – Authentic Mexican Birria in Chicago | Tacos, Quesabirria, Family Recipes',
+  description: 'Discover Taqueria Y Birriera Morelia #2 in Chicago for authentic Mexican birria de chivo (goat), tacos, quesabirria, and traditional family recipes. Dine in, order online, or visit us for the best birria in Chicago. Family-owned and operated.',
   keywords: ['birria', 'tacos', 'mexican food', 'taqueria', 'morelia', 'authentic mexican', 'quesabirria', 'consomé'],
   openGraph: {
     title: 'Taqueria Y Birriera Morelia #2',
