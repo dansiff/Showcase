@@ -14,6 +14,10 @@ export default function MoreliaLocation() {
             weekend: "Closes 8:30 PM",
         },
         googleMapsLink: "https://maps.app.goo.gl/WUsYAkn5e95a1crJ9",
+        parking: {
+            en: "Parking available at 3811 S Kedzie Ave. Enter through the alley.",
+            es: "Estacionamiento en 3811 S Kedzie Ave. Entrada por el callejón."
+        }
     };
 
     return (
@@ -51,6 +55,10 @@ export default function MoreliaLocation() {
                                         <div className="font-semibold text-amber-300 mb-1">Address</div>
                                         <div>{restaurantInfo.address}</div>
                                         <div>{restaurantInfo.city}</div>
+                                        <div className="mt-2 text-xs text-amber-100 bg-amber-700/80 rounded px-2 py-1 inline-block">
+                                            <span className="font-semibold">{restaurantInfo.parking.en}</span><br />
+                                            <span className="italic">{restaurantInfo.parking.es}</span>
+                                        </div>
                                     </div>
                                 </div>
 

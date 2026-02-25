@@ -69,6 +69,14 @@ export default function MoreliaMenu() {
         }
     ];
 
+    // Map categories to food photos (example mapping, adjust as needed)
+    const categoryPhotos = [
+        "/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg", // By the Pound
+        "/morelia/photos/46143928-e298-4808-a16d-cdd8c09b1761.jpg", // Drinks
+        "/morelia/photos/96c32bc7-6f13-4cc5-8ed9-950df1c72310.jpg", // Main Dishes
+        "/morelia/photos/9faa1536-fae8-4e4b-973e-83ea3450a902.jpg", // Seafood
+        "/images/morelia/8112ee87-d71d-405b-abfc-328bdc65e71d.jpg", // Breakfast
+    ];
     return (
         <section className="py-20 bg-gradient-to-b from-white to-red-50" id="menu">
             <div className="max-w-7xl mx-auto px-4">
@@ -79,7 +87,10 @@ export default function MoreliaMenu() {
                     </p>
                     <div className="mt-6 inline-block bg-amber-100 border-2 border-amber-500 rounded-lg px-6 py-3">
                         <p className="text-red-900 font-semibold">
-                            💡 All tacos served on fresh corn tortillas
+                            <span className="inline-block align-middle mr-2">
+                                <img src="/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg" alt="Birria" className="w-8 h-8 rounded-full object-cover inline" />
+                            </span>
+                            All tacos served on fresh corn tortillas
                         </p>
                     </div>
                 </div>
@@ -87,8 +98,13 @@ export default function MoreliaMenu() {
                 <div className="grid lg:grid-cols-2 gap-8">
                     {menuCategories.map((category, idx) => (
                         <div key={idx} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-                            <h3 className="text-2xl font-bold mb-2 text-red-900">{category.name}</h3>
-                            <p className="text-gray-700 mb-1 text-sm italic">{category.name_es}</p>
+                            <div className="flex items-center gap-4 mb-4">
+                                <img src={categoryPhotos[idx % categoryPhotos.length]} alt={category.name} className="w-20 h-20 rounded-xl object-cover border-2 border-amber-200" />
+                                <div>
+                                    <h3 className="text-2xl font-bold text-red-900">{category.name}</h3>
+                                    <p className="text-gray-700 text-sm italic">{category.name_es}</p>
+                                </div>
+                            </div>
                             {category.description ? <p className="text-gray-600 mb-6 text-sm">{category.description}</p> : null}
                             {category.notes_en || category.notes_es ? (
                                 <p className="text-xs text-gray-600 mb-4">
@@ -113,8 +129,6 @@ export default function MoreliaMenu() {
                     ))}
                 </div>
 
-           
-                
                 <div className="mt-6 text-center text-xs text-gray-600 max-w-2xl mx-auto">
                     <p className="mb-1">Final prices are determined by the establishment at the time of purchase.</p>
                     <p className="italic">El precio final será determinado por el establecimiento al momento de la compra.</p>

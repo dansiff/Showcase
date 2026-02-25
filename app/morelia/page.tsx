@@ -12,6 +12,10 @@ const MoreliaOrder = dynamic(() => import('@/components/morelia/MoreliaOrder'), 
 export default function MoreliaPage() {
     return (
         <>
+            {/* Parking Banner */}
+            <div className="w-full bg-amber-500 text-red-900 text-center py-2 text-base font-bold border-b-2 border-amber-700 z-50 relative">
+                🚗 Parking available at <span className="underline">3811 S Kedzie Ave</span>. Enter through the alley. <span className="ml-2 italic text-sm text-red-800">Estacionamiento en 3811 S Kedzie Ave. Entrada por el callejón.</span>
+            </div>
             <PageHeader 
                 theme="morelia" 
                 title="Taqueria Y Birriera Morelia #2" 
@@ -20,8 +24,6 @@ export default function MoreliaPage() {
             <MoreliaHero />
             <MoreliaAbout />
             <MoreliaMenu />
-            
-            
             <MoreliaLocation />
             <PageFooter theme="morelia" />
         </>
