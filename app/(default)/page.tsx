@@ -21,6 +21,12 @@ export default function Home() {
   const isProd = process.env.NODE_ENV === "production";
   return (
     <>
+      {/* Main business site subtext */}
+      <div className="w-full bg-indigo-900/90 text-indigo-100 text-center py-2 text-sm font-medium border-b border-indigo-700">
+        <span>
+          <strong>The Fusion Space Inc</strong> — This is our main business site. All other portals, demos, and client experiences are separate and linked below.
+        </span>
+      </div>
       {/* Google Tag Manager – only on homepage and only in production */}
       {isProd && (
         <>
