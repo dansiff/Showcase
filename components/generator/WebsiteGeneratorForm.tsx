@@ -327,7 +327,47 @@ export default function WebsiteGeneratorForm({ initialData, onChange }: WebsiteG
   return (
     <form onSubmit={handleSubmit} className="max-w-5xl mx-auto">
       <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 space-y-6">
-        
+
+        {/* Pricing & Plans Messaging */}
+        <div className="mb-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-violet-300 mb-1">Website Generator Plans</h2>
+              <p className="text-slate-300 max-w-2xl">
+                Launch a beautiful, modern website in minutes for less than the price of lunch. All-in-one: design, SEO, analytics, and deployment—no hidden fees.
+              </p>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="bg-slate-900/70 border border-violet-700 rounded-xl p-4 min-w-[220px]">
+                <div className="text-lg font-semibold text-violet-200 mb-1">Standard</div>
+                <div className="text-2xl font-bold text-white mb-2">$9/mo</div>
+                <ul className="text-slate-300 text-sm space-y-1 mb-2">
+                  <li>✓ All core features</li>
+                  <li>✓ Unlimited edits</li>
+                  <li>✓ Export & deploy</li>
+                  <li>✓ Email/chat support</li>
+                </ul>
+                <div className="text-xs text-slate-400">Or $90/year (save 17%)</div>
+              </div>
+              <div className="bg-slate-900/70 border border-amber-600 rounded-xl p-4 min-w-[220px]">
+                <div className="text-lg font-semibold text-amber-300 mb-1">Reseller / Sales</div>
+                <div className="text-2xl font-bold text-white mb-2">$39/mo</div>
+                <ul className="text-slate-300 text-sm space-y-1 mb-2">
+                  <li>✓ All Standard features</li>
+                  <li>✓ White-label branding</li>
+                  <li>✓ Bulk site management</li>
+                  <li>✓ Commission dashboard</li>
+                  <li>✓ Priority support</li>
+                </ul>
+                <div className="text-xs text-slate-400">Includes 10 sites, $3 per extra site</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 text-center text-slate-400 text-sm">
+            Perfect for freelancers, agencies, and sales pros: resell or manage dozens of sites with your own branding. <span className="text-violet-400 font-semibold">Earn 20–30% recurring commission</span> as a sales partner.
+          </div>
+        </div>
+
         {/* Undo/Redo Controls */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-700">
           <div className="flex items-center gap-2">
@@ -366,6 +406,48 @@ export default function WebsiteGeneratorForm({ initialData, onChange }: WebsiteG
           </div>
         </div>
         
+          {/* Reseller/Sales Info & Onboarding */}
+          <div className="mb-8">
+            <div className="bg-amber-900/40 border border-amber-600 rounded-2xl p-6">
+              <h3 className="text-xl font-bold text-amber-300 mb-2">Become a Reseller or Sales Partner</h3>
+              <p className="text-slate-200 mb-3">
+                Sell websites and design services on our behalf, earn recurring commissions, and manage your clients with ease. Perfect for agencies, freelancers, and sales professionals.
+              </p>
+              <ul className="list-disc pl-6 text-slate-300 mb-4">
+                <li>White-label branding (your logo, custom domain)</li>
+                <li>Bulk site creation and management dashboard</li>
+                <li>Commission tracking and payout dashboard</li>
+                <li>Priority support and marketing kit</li>
+              </ul>
+              <div className="bg-slate-900/60 rounded-xl p-4 mb-3">
+                <h4 className="text-lg font-semibold text-amber-200 mb-2">How to Get Started</h4>
+                <ol className="list-decimal pl-6 text-slate-300 space-y-1">
+                  <li>Sign up for a Reseller account</li>
+                  <li>Access your Reseller Dashboard</li>
+                  <li>Customize branding and onboarding materials</li>
+                  <li>Start selling and managing client sites</li>
+                  <li>Track commissions and payouts</li>
+                </ol>
+              </div>
+              <div className="flex flex-col md:flex-row gap-3 mt-2">
+                <button
+                  type="button"
+                  className="w-full md:w-auto py-3 px-6 bg-amber-500 text-amber-900 font-bold rounded-lg hover:bg-amber-600 transition text-lg"
+                  onClick={() => window.location.href = '/generator/reseller-onboarding'}
+                >
+                  Start Reseller Onboarding
+                </button>
+                <button
+                  type="button"
+                  className="w-full md:w-auto py-3 px-6 bg-violet-500 text-violet-900 font-bold rounded-lg hover:bg-violet-600 transition text-lg"
+                  onClick={() => window.location.href = '/generator/commission-dashboard'}
+                >
+                  View Commission Dashboard
+                </button>
+              </div>
+            </div>
+          </div>
+
         {/* Basic Information */}
         <div className="space-y-4">
           <SectionHeader title="Basic Information" section="basic" icon={Globe} />
