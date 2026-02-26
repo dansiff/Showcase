@@ -66,7 +66,7 @@ export default function MoreliaAbout() {
                         <h3 className="text-3xl md:text-4xl font-bold mb-4">Our Specialties</h3>
                         <div className="grid md:grid-cols-3 gap-6 mt-8">
                             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-                                <div className="text-4xl mb-3">🍖</div>
+                                <div className="text-4xl mb-3"></div>
                                 <h4 className="font-bold text-xl mb-2">Birria Tacos</h4>
                                 <p className="text-red-100 text-sm">Slow-cooked beef in rich consomé, topped with cilantro and onions</p>
                             </div>
