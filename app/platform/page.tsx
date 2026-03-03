@@ -28,6 +28,8 @@ export default async function PlatformHome() {
       <CreatorShowcase />
       <PlatformFeatures />
       <PlatformCTA isAuthenticated={!!user} />
+      {/* HelloSkip Agent Script */}
+      <script src="https://helloskip.com/agent.js" data-agent-id="oMX3vtSl50rRM0nDumOk"></script>
     </>
   );
 }

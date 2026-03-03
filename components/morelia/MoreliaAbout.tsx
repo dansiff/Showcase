@@ -68,7 +68,7 @@ export default function MoreliaAbout() {
                             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                                 <div className="text-4xl mb-3"></div>
                                 <h4 className="font-bold text-xl mb-2">Birria Tacos</h4>
-                                <p className="text-red-100 text-sm">Slow-cooked beef in rich consomé, topped with cilantro and onions</p>
+                                <p className="text-red-100 text-sm">Slow-cooked Goat in rich caldo, topped with cilantro and onions</p>
                             </div>
                             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                                 <div className="text-4xl mb-3">🧀</div>
@@ -77,7 +77,7 @@ export default function MoreliaAbout() {
                             </div>
                             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                                 <div className="text-4xl mb-3">🍲</div>
-                                <h4 className="font-bold text-xl mb-2">Consomé</h4>
+                                <h4 className="font-bold text-xl mb-2">caldo </h4>
                                 <p className="text-red-100 text-sm">Rich, flavorful broth perfect for dipping</p>
                             </div>
                         </div>
