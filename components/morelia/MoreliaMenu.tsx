@@ -72,7 +72,7 @@ export default function MoreliaMenu() {
     // Map categories to food photos (example mapping, adjust as needed)
     const categoryPhotos = [
         "/morelia/photos/4864a1e4-ee2a-4a2e-b500-87383de214cc.jpg", // By the Pound
-        "/morelia/photos/46143928-e298-4808-a16d-cdd8c09b1761.jpg", // Drinks
+         // Drinks
         "/morelia/photos/96c32bc7-6f13-4cc5-8ed9-950df1c72310.jpg", // Main Dishes
         "/morelia/photos/9faa1536-fae8-4e4b-973e-83ea3450a902.jpg", // Seafood
         "/images/morelia/8112ee87-d71d-405b-abfc-328bdc65e71d.jpg", // Breakfast
