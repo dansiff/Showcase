@@ -75,7 +75,7 @@ export default function MoreliaMenu() {
          // Drinks
         "/morelia/photos/96c32bc7-6f13-4cc5-8ed9-950df1c72310.jpg", // Main Dishes
         "/morelia/photos/9faa1536-fae8-4e4b-973e-83ea3450a902.jpg", // Seafood
-        "/images/morelia/8112ee87-d71d-405b-abfc-328bdc65e71d.jpg", // Breakfast
+    // Breakfast
     ];
     return (
         <section className="py-20 bg-gradient-to-b from-white to-red-50" id="menu">
