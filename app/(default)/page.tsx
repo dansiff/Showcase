@@ -15,6 +15,7 @@ import ClientsShowcase from "@/components/ClientsShowcase";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/Skeleton";
 import Link from 'next/link';
+import PaymentDemo from '@/components/morelia/PaymentDemo';
 
 export default function Home() {
   const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-5KDKFXLS";
@@ -152,6 +153,10 @@ export default function Home() {
       </Suspense>
       <Testimonials />
       <Cta />
+      {/* Payment/Subscription Demo Showcase */}
+      <div className="max-w-xl mx-auto my-16">
+        <PaymentDemo />
+      </div>
     </>
   );
 }
