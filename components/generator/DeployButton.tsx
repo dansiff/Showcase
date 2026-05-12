@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Rocket, Loader2, CheckCircle2, ExternalLink, X } from 'lucide-react'
 
 interface DeployButtonProps {
-  formData: any
+  formData: { businessName?: string }
   disabled?: boolean
 }
 

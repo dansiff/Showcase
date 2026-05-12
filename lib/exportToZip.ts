@@ -8,8 +8,8 @@ interface FormData {
   primaryColor: string
   secondaryColor: string
   layoutStyle: string
-  siteType: any[]
-  features: any
+  siteType: string[]
+  features: Record<string, boolean>
   pages: string[]
   aboutText: string
   targetAudience: string

@@ -5,7 +5,7 @@ import { Download, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
 import { exportToZip } from '@/lib/exportToZip'
 
 interface ExportButtonProps {
-  formData: any
+  formData: { businessName?: string }
   disabled?: boolean
 }
 
