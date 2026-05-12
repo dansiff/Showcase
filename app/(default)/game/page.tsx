@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState, useEffect, useRef } from "react";
 
-type GameKey = "tictactoe" | "memory" | "embed" | "snake" | "space";
+type GameKey = "tictactoe" | "memory" | "embed" | "snake" | "space" | "bible";
 
 export default function Page() {
 	const [active, setActive] = useState<GameKey | null>(null);
@@ -52,6 +52,14 @@ export default function Page() {
 				/>
 
 				<GameCard
+					icon={<BibleIcon />}
+					title="Bible Wisdom"
+					subtitle="Christ's mindset experiments"
+					description="Biblical scenarios with Jesus' advice, modern applications & half-measure humility."
+					onOpen={() => setActive("bible")}
+				/>
+
+				<GameCard
 					icon={<EmbedIcon />}
 					title="Embed Play"
 					subtitle="Portable build host"
@@ -78,6 +86,7 @@ export default function Page() {
 				{active === "embed" && <EmbedGame />}
 				{active === "snake" && <SnakeGame />}
 				{active === "space" && <SpaceInvaders />}
+				{active === "bible" && <BibleWisdom />}
 			</main>
 		</div>
 	);
@@ -349,6 +358,14 @@ function RocketIcon() {
 	return (
 		<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-indigo-500">
 			<path d="M12 2s4 1 6 3c2 2 3 6 3 6s-4 .6-6 2c-2 1.4-4 3-6 3-2 0-3-2-3-2s1-4 3-6c2-2 6-6 6-6z" fill="currentColor" opacity="0.95" />
+		</svg>
+	);
+}
+
+function BibleIcon() {
+	return (
+		<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-amber-600">
+			<path d="M6 2h12v2H6V2zM4 6h16v12H4V6zm2 2v8h12V8H6zm4 2h4v4H10v-4z" fill="currentColor" opacity="0.95" />
 		</svg>
 	);
 }
@@ -822,4 +839,174 @@ const GameNotes = () => (
 		</ul>
 	</div>
 );
+
+/* ----------------- Bible Wisdom Thought Experiment ----------------- */
+
+function BibleWisdom() {
+	const [currentScenario, setCurrentScenario] = useState(0);
+	const [showAdvice, setShowAdvice] = useState(false);
+	const [showApplication, setShowApplication] = useState(false);
+	const [reflection, setReflection] = useState('');
+
+	const scenarios = [
+		{
+			situation: "A wealthy young man approaches Jesus and asks, 'What must I do to inherit eternal life?' Jesus tells him to sell everything and follow Him. The man walks away sorrowful because he has great wealth.",
+			whatHappened: "The rich young ruler couldn't let go of his possessions and chose wealth over following Jesus completely.",
+			jesusAdvice: "Jesus said, 'It is easier for a camel to go through the eye of a needle than for someone who is rich to enter the kingdom of God.' But He also said, 'With man this is impossible, but with God all things are possible.'",
+			modernApplication: "In our materialistic society, we often find security in possessions, status, and achievements. Jesus challenges us to find our true security in Him, not in what we own or accomplish.",
+			halfMeasure: "If complete detachment feels impossible, start with generous giving and gratitude for what you have. Practice contentment and remember that true wealth is found in relationships and spiritual growth.",
+			humility: "Humble yourself by recognizing that all you have is a gift from God, not something you earned. Chase the light by seeking God's kingdom first, trusting Him to provide what you truly need."
+		},
+		{
+			situation: "Jesus teaches about loving your enemies. He says, 'If someone slaps you on one cheek, turn to them the other also. If someone takes your shirt, hand over your coat as well.'",
+			whatHappened: "Jesus was teaching radical love and non-retaliation, even in the face of injustice and personal offense.",
+			jesusAdvice: "Love your enemies and pray for those who persecute you, that you may be children of your Father in heaven. Be perfect, therefore, as your heavenly Father is perfect.",
+			modernApplication: "In our culture of 'getting even' and social media outrage, Jesus calls us to respond with love instead of retaliation. This transforms conflicts and breaks cycles of violence.",
+			halfMeasure: "If loving your enemies feels too difficult, start by not responding with anger. Practice forgiveness and seek understanding before reacting. Small acts of kindness can be your starting point.",
+			humility: "Humble yourself by admitting when you're wrong and asking forgiveness. Chase the light by choosing compassion over being right, remembering that God shows mercy to all, including you."
+		},
+		{
+			situation: "Jesus encounters a woman caught in adultery. The religious leaders want to stone her according to the law. Jesus responds, 'Let any one of you who is without sin be the first to throw a stone at her.'",
+			whatHappened: "One by one, the accusers left, convicted by their own consciences. Jesus then told the woman, 'Neither do I condemn you. Go now and leave your life of sin.'",
+			jesusAdvice: "Jesus showed mercy while calling for repentance. He didn't ignore sin but addressed it with compassion rather than condemnation.",
+			modernApplication: "We live in a culture quick to judge and cancel others. Jesus shows us how to confront sin with love, offering grace while calling for change.",
+			halfMeasure: "If showing mercy to others feels impossible, start by being merciful to yourself. Recognize your own failures and need for grace, then extend that same understanding to others.",
+			humility: "Humble yourself by remembering your own sins and failures. Chase the light by choosing restoration over punishment, knowing that God desires to redeem, not destroy."
+		},
+		{
+			situation: "Jesus washes His disciples' feet, an act typically done by servants. Peter objects, saying Jesus shouldn't serve him. Jesus responds that unless He washes Peter's feet, Peter can have no part with Him.",
+			whatHappened: "Jesus demonstrated servant leadership by performing the lowest task, teaching that true greatness comes through serving others, not being served.",
+			jesusAdvice: "Whoever wants to become great among you must be your servant, and whoever wants to be first must be your slave—just as the Son of Man did not come to be served, but to serve.",
+			modernApplication: "In our achievement-oriented society, we often seek positions of power and recognition. Jesus flips this by showing that leadership means serving others sacrificially.",
+			halfMeasure: "If radical servanthood feels overwhelming, start with small acts of service in your daily life. Hold doors, help with tasks, listen without judgment. These small steps build the habit of serving.",
+			humility: "Humble yourself by taking on tasks others avoid. Chase the light by putting others' needs before your own comfort, remembering that Jesus came to serve, not to be served."
+		},
+		{
+			situation: "Jesus tells the parable of the Good Samaritan. A man is beaten and left for dead. A priest and Levite pass by, but a Samaritan (considered an enemy) stops to help, using his own resources.",
+			whatHappened: "The Samaritan showed mercy to someone outside his ethnic and religious group, demonstrating that 'neighbor' means anyone in need, not just those like us.",
+			jesusAdvice: "Love your neighbor as yourself. Go and do likewise.",
+			modernApplication: "We often limit our compassion to those within our social circles. Jesus challenges us to love across divides of race, politics, religion, and social status.",
+			halfMeasure: "If loving everyone equally feels impossible, start by showing kindness to one person outside your usual circle. A small act of help can expand your capacity for love.",
+			humility: "Humble yourself by recognizing that everyone, including your 'enemies,' is made in God's image. Chase the light by crossing social boundaries to show Christ's love to all people."
+		}
+	];
+
+	const nextScenario = () => {
+		setCurrentScenario((prev) => (prev + 1) % scenarios.length);
+		setShowAdvice(false);
+		setShowApplication(false);
+		setReflection('');
+	};
+
+	const prevScenario = () => {
+		setCurrentScenario((prev) => (prev - 1 + scenarios.length) % scenarios.length);
+		setShowAdvice(false);
+		setShowApplication(false);
+		setReflection('');
+	};
+
+	const scenario = scenarios[currentScenario];
+
+	return (
+		<div className="animate-fade-in max-w-4xl mx-auto">
+			<div className="flex items-center justify-between mb-6">
+				<h2 className="text-xl font-semibold text-amber-300" id="bible-title">Bible Wisdom</h2>
+				<div className="flex items-center gap-2 text-sm">
+					<span className="text-slate-400">Scenario {currentScenario + 1} of {scenarios.length}</span>
+					<button onClick={prevScenario} className="px-3 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label="Previous scenario">←</button>
+					<button onClick={nextScenario} className="px-3 py-1 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100" aria-label="Next scenario">→</button>
+				</div>
+			</div>
+
+			<div className="space-y-6">
+				{/* Biblical Situation */}
+				<div className="bg-amber-900/20 border border-amber-600/30 rounded-lg p-6">
+					<h3 className="text-lg font-semibold text-amber-200 mb-3">📖 Biblical Situation</h3>
+					<p className="text-slate-200 leading-relaxed">{scenario.situation}</p>
+				</div>
+
+				{/* What Actually Happened */}
+				<div className="bg-slate-800/40 border border-slate-600/30 rounded-lg p-6">
+					<h3 className="text-lg font-semibold text-slate-200 mb-3">❓ What Actually Happened</h3>
+					<p className="text-slate-300 leading-relaxed">{scenario.whatHappened}</p>
+				</div>
+
+				{/* Jesus' Advice */}
+				<div className="bg-blue-900/20 border border-blue-600/30 rounded-lg p-6">
+					<div className="flex items-center justify-between mb-3">
+						<h3 className="text-lg font-semibold text-blue-200">✨ Jesus' Advice</h3>
+						<button
+							onClick={() => setShowAdvice(!showAdvice)}
+							className="px-4 py-2 rounded bg-blue-600/30 hover:bg-blue-500/40 text-blue-200 text-sm"
+						>
+							{showAdvice ? 'Hide' : 'Reveal'} Wisdom
+						</button>
+					</div>
+					{showAdvice && (
+						<div className="animate-fade-in">
+							<p className="text-blue-100 leading-relaxed italic">"{scenario.jesusAdvice}"</p>
+						</div>
+					)}
+				</div>
+
+				{/* Modern Application */}
+				<div className="bg-green-900/20 border border-green-600/30 rounded-lg p-6">
+					<div className="flex items-center justify-between mb-3">
+						<h3 className="text-lg font-semibold text-green-200">🌍 Modern Application</h3>
+						<button
+							onClick={() => setShowApplication(!showApplication)}
+							className="px-4 py-2 rounded bg-green-600/30 hover:bg-green-500/40 text-green-200 text-sm"
+						>
+							{showApplication ? 'Hide' : 'Show'} Application
+						</button>
+					</div>
+					{showApplication && (
+						<div className="animate-fade-in space-y-4">
+							<p className="text-green-100 leading-relaxed">{scenario.modernApplication}</p>
+
+							{/* Half Measures */}
+							<div className="bg-green-800/20 border border-green-500/30 rounded p-4">
+								<h4 className="font-semibold text-green-200 mb-2">⚖️ Half Measures (When Perfection Feels Impossible)</h4>
+								<p className="text-green-100 text-sm leading-relaxed">{scenario.halfMeasure}</p>
+							</div>
+
+							{/* Humility */}
+							<div className="bg-purple-800/20 border border-purple-500/30 rounded p-4">
+								<h4 className="font-semibold text-purple-200 mb-2">🙇 Humility & Chasing the Light</h4>
+								<p className="text-purple-100 text-sm leading-relaxed">{scenario.humility}</p>
+							</div>
+						</div>
+					)}
+				</div>
+
+				{/* Personal Reflection */}
+				<div className="bg-indigo-900/20 border border-indigo-600/30 rounded-lg p-6">
+					<h3 className="text-lg font-semibold text-indigo-200 mb-3">💭 Personal Reflection</h3>
+					<p className="text-indigo-100 text-sm mb-3">How might Christ's mindset apply to a challenge you're facing today?</p>
+					<textarea
+						value={reflection}
+						onChange={(e) => setReflection(e.target.value)}
+						placeholder="Write your thoughts here..."
+						className="w-full h-24 px-3 py-2 rounded bg-slate-800/70 border border-slate-600 text-slate-100 text-sm resize-none"
+						maxLength={500}
+					/>
+					{reflection && (
+						<p className="text-xs text-slate-400 mt-2">{reflection.length}/500 characters</p>
+					)}
+				</div>
+
+				{/* Navigation */}
+				<div className="flex justify-between items-center pt-4 border-t border-slate-700">
+					<div className="text-sm text-slate-400">
+						"Even if it's too difficult to follow perfectly, we can bargain for half measures but humble ourselves as we chase the light."
+					</div>
+					<div className="flex gap-2">
+						<button onClick={prevScenario} className="px-4 py-2 rounded bg-slate-700/70 hover:bg-slate-600 text-slate-100 text-sm">Previous</button>
+						<button onClick={nextScenario} className="px-4 py-2 rounded bg-amber-600 hover:bg-amber-500 text-white text-sm">Next Scenario</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
 
