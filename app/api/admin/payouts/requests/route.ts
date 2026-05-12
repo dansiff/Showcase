@@ -14,10 +14,10 @@ export async function GET(req: Request) {
   const dbUser = await prisma.user.findUnique({ where: { email: user.email! } })
     if (!dbUser || dbUser.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
-    const where: any = {}
+    const where: { status?: string } = {}
     if (status) where.status = status
 
-  const rows = await (prisma as any).payoutRequest.findMany({
+  const rows = await prisma.payoutRequest.findMany({
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -26,8 +26,9 @@ export async function GET(req: Request) {
     })
 
     return NextResponse.json({ requests: rows })
-  } catch (err: any) {
-    console.error('Admin payouts list error', err)
-    return NextResponse.json({ error: err?.message ?? String(err) }, { status: 500 })
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.error('Admin payouts list error', message)
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

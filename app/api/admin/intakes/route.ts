@@ -41,10 +41,11 @@ export async function GET() {
     });
 
     return NextResponse.json({ intakes }, { status: 200 });
-  } catch (err: any) {
-    console.error("Admin intakes API error:", err);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("Admin intakes API error:", message);
     return NextResponse.json(
-      { error: err?.message ?? "Internal server error" },
+      { error: message ?? "Internal server error" },
       { status: 500 }
     );
   }

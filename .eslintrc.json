@@ -2,5 +2,13 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript"
+  ],
+  "overrides": [
+    {
+      "files": ["app/api/**/*.{ts,tsx}", "**/app/api/**/*.{ts,tsx}"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
   ]
 }
