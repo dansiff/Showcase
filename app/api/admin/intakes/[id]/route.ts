@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+type RouteParams = { params: Promise<{ id: string }> };
+
+export async function GET(req: Request, { params }: RouteParams) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     // Verify admin access
     const supabase = await createSupabaseServerClient();
@@ -44,7 +46,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     const { id } = await params;

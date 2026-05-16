@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { Download, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
-import { exportToZip } from '@/lib/exportToZip'
+import { exportToZip, type ExportFormData } from '@/lib/exportToZip'
 
 interface ExportButtonProps {
-  formData: { businessName?: string }
+  formData: ExportFormData
   disabled?: boolean
 }
 

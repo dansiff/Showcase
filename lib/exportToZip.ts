@@ -1,24 +1,28 @@
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
 
-interface FormData {
+export interface ExportFormData {
   businessName: string
-  tagline: string
-  colorScheme: string
-  primaryColor: string
-  secondaryColor: string
-  layoutStyle: string
-  siteType: string[]
-  features: Record<string, boolean>
-  pages: string[]
-  aboutText: string
-  targetAudience: string
-  seoKeywords: string[]
-  metaDescription: string
+  tagline?: string
+  colorScheme?: string
+  primaryColor?: string
+  secondaryColor?: string
+  layoutStyle?: string
+  siteType?: string[]
+  features?: Record<string, boolean>
+  pages?: string[]
+  aboutText?: string
+  targetAudience?: string
+  seoKeywords?: string[]
+  metaDescription?: string
 }
 
-export async function exportToZip(formData: FormData) {
+export async function exportToZip(formData: ExportFormData) {
   const zip = new JSZip()
+  const primaryColor = formData.primaryColor || '#3B82F6'
+  const secondaryColor = formData.secondaryColor || '#8B5CF6'
+  const pages = formData.pages?.length ? formData.pages : ['Home', 'About', 'Contact']
+  const features = formData.features || {}
 
   // Generate package.json
   const packageJson = {
@@ -84,8 +88,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '${formData.primaryColor}',
-        secondary: '${formData.secondaryColor}',
+        primary: '${primaryColor}',
+        secondary: '${secondaryColor}',
       },
     },
   },
@@ -133,7 +137,7 @@ npm run dev
 
 ## Features
 
-${Object.entries(formData.features || {})
+${Object.entries(features)
   .filter(([_, enabled]) => enabled)
   .map(([feature]) => `- ${feature.charAt(0).toUpperCase() + feature.slice(1)}`)
   .join('\n')}
@@ -147,7 +151,7 @@ ${Object.entries(formData.features || {})
 
 ## Pages
 
-${formData.pages.map(page => `- ${page}`).join('\n')}
+${pages.map(page => `- ${page}`).join('\n')}
 
 ## Customization
 
@@ -210,8 +214,8 @@ next-env.d.ts
 @tailwind utilities;
 
 :root {
-  --primary-color: ${formData.primaryColor};
-  --secondary-color: ${formData.secondaryColor};
+  --primary-color: ${primaryColor};
+  --secondary-color: ${secondaryColor};
 }
 
 body {
@@ -256,7 +260,7 @@ export default function RootLayout({
         <nav className="container mx-auto px-4 flex justify-between items-center">
           <div className="text-2xl font-bold">${formData.businessName || 'Your Brand'}</div>
           <ul className="flex gap-6">
-            ${formData.pages.map(page => `<li><a href="#${page.toLowerCase()}" className="hover:underline">${page}</a></li>`).join('\n            ')}
+            ${pages.map(page => `<li><a href="#${page.toLowerCase()}" className="hover:underline">${page}</a></li>`).join('\n            ')}
           </ul>
         </nav>
       </header>
