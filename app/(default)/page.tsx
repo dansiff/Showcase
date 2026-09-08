@@ -1,198 +1,41 @@
-  
+import Image from "next/image";
+import Link from "next/link";
+import Script from "next/script";
+import { ArrowRight, Check, CircleCheck, Cloud, Code2, Globe2, Headphones, LockKeyhole, Menu, Server, ShieldCheck, Sparkles, Wrench } from "lucide-react";
+
 export const metadata = {
-  title: "The Fusion Space Inc — Website As A Service",
-  description: "Professional websites tailored to your business needs",
+  title: "The Fusion Space Inc | Professional Websites for $200",
+  description: "Get a professional website with hosting, domain management, SSL, and support for $200 for your first three years.",
 };
 
-import PageIllustration from "@/components/page-illustration";
-import Script from "next/script";
-import Hero from "@/components/hero-home";
-import Workflows from "@/components/workflows";
-import Features from "@/components/features";
-import Testimonials from "@/components/testimonials";
-import Cta from "@/components/cta";
-import ClientsShowcase from "@/components/ClientsShowcase";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/Skeleton";
-import Link from 'next/link';
-import PaymentDemo from '@/components/morelia/PaymentDemo';
-import TacoOrderEnhanced from '@/components/TacoOrderEnhanced';
+const included = ["Custom website design", "Responsive mobile design", "Hosting", "Domain setup and management", "SSL certificate", "Website deployment", "Basic maintenance", "Support", "3 years included"];
+const businesses = ["Restaurants", "Contractors", "Cleaning companies", "Realtors", "Landscapers", "Salons and barbers", "Professional services", "Local shops", "Consultants", "Startups", "Personal businesses"];
+const steps = [
+  ["01", "Tell us about your business", "Share your services, contact details, branding, photos, and what your customers need to know.", Globe2],
+  ["02", "We build your website", "We design and develop a professional site around your business, not a one-size-fits-all template.", Code2],
+  ["03", "We get you online", "We handle hosting, domain setup, SSL, deployment, and the technical details behind the scenes.", Cloud],
+  ["04", "You run your business", "Your website stays online while you focus on customers. We stay available for basic support and maintenance.", Headphones],
+] as const;
+const technicalDetails = [[ShieldCheck, "SSL and security", "Your site is secured and served over HTTPS."], [Server, "Hosting included", "No separate hosting account or setup for you to manage."], [Globe2, "Domain management", "We help connect and manage the address customers use to find you."], [Wrench, "Basic maintenance", "Small updates and practical support keep your site useful."]] as const;
 
 export default function Home() {
-  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-5KDKFXLS";
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "GTM-5KDKFXLS";
   const isProd = process.env.NODE_ENV === "production";
-  return (
-    <>
-      {/* Main business site subtext */}
-      <div className="w-full bg-indigo-900/90 text-indigo-100 text-center py-2 text-sm font-medium border-b border-indigo-700">
-        <span>
-          <strong>The Fusion Space Inc</strong> — This is our main business site. All other portals, demos, and client experiences are separate and linked below.
-        </span>
-      </div>
-      {/* Google Tag Manager – only on homepage and only in production */}
-      {isProd && (
-        <>
-          <Script id="gtm-base" strategy="afterInteractive">
-            {`
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');
-            `}
-          </Script>
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-              height="0"
-              width="0"
-              style={{ display: "none", visibility: "hidden" }}
-            />
-          </noscript>
-        </>
-      )}
-      <PageIllustration />
-      <Hero />
-      {/* Quick internal experience CTAs */}
-      <section className="max-w-6xl mx-auto mt-8 px-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Link href="/generator" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-purple-800/40 to-pink-800/40 border border-purple-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🚀</span>
-              <h3 className="text-xl font-semibold text-amber-200">AI Website Generator</h3>
-              <span className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full border border-green-400/30">FREE</span>
-            </div>
-            <p className="text-sm text-slate-300 leading-relaxed">Create professional websites in minutes. Start free, upgrade for advanced features. AI-powered builder with instant deployment.</p>
-            <div className="mt-4 flex items-center gap-2">
-              <div className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-purple-500/30 text-purple-200 border border-purple-400/40 group-hover:bg-purple-400/40 transition-colors">
-                <span>Build Now</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-              <Link href="/generator/pricing" className="text-xs text-purple-300 hover:text-purple-200 underline">
-                View Pricing
-              </Link>
-            </div>
-          </div>
-        </Link>
-        <Link href="/asset-management" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-cyan-800/40 to-teal-800/40 border border-cyan-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_60%_40%,rgba(255,255,255,0.45),transparent_55%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🏡</span>
-              <h3 className="text-xl font-semibold text-emerald-100">Asset Manager Offer</h3>
-              <span className="text-xs bg-white/15 text-white px-2 py-0.5 rounded-full border border-white/20">NEW</span>
-            </div>
-            <p className="text-sm text-slate-100/90 leading-relaxed">Airbnb and rental asset management — pricing, guest ops, and reporting handled by The Fusion Space Inc.</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-cyan-500/30 text-cyan-50 border border-cyan-400/40 group-hover:bg-cyan-400/40 transition-colors">
-              <span>See offer</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </Link>
-        <Link href="/game" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-indigo-800/40 to-purple-800/40 border border-indigo-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4),transparent_60%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🎮</span>
-              <h3 className="text-xl font-semibold text-amber-200">Snack Arcade</h3>
-            </div>
-            <p className="text-sm text-slate-300 leading-relaxed">Explore mini canvas & logic demos (Snake, Invaders, Tic Tac Taco) — showcases interaction, animation & state.</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 group-hover:bg-indigo-400/40 transition-colors">
-              <span>Enter Arcade</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </Link>
-        <Link href="/taco" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-amber-800/30 to-red-800/40 border border-amber-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-25 bg-[radial-gradient(circle_at_70%_70%,rgba(255,255,255,0.4),transparent_60%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🌮</span>
-              <h3 className="text-xl font-semibold text-amber-300">Order Tacos</h3>
-            </div>
-            <p className="text-sm text-amber-100/90 leading-relaxed">Live prototype ordering flow — build a cart, set pickup time, server-side persistence via Prisma.</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-amber-500/30 text-amber-100 border border-amber-300/40 group-hover:bg-amber-400/40 transition-colors">
-              <span>Start Order</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </Link>
-        <Link href="/morelia" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-red-900/50 to-amber-800/40 border border-red-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🔥</span>
-              <h3 className="text-xl font-semibold text-amber-200">Morelia Restaurant</h3>
-              <span className="text-xs bg-amber-500/30 text-amber-100 px-2 py-0.5 rounded-full border border-amber-400/30">NEW</span>
-            </div>
-            <p className="text-sm text-red-100/90 leading-relaxed">Professional restaurant site with online ordering, admin dashboard, and order tracking. Full birria menu!</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-red-500/30 text-red-100 border border-red-400/40 group-hover:bg-red-400/40 transition-colors">
-              <span>View Site</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </Link>
-        <Link href="/bible" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-amber-900/50 to-yellow-800/40 border border-amber-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">📖</span>
-              <h3 className="text-xl font-semibold text-amber-200">Bible Insights</h3>
-              <span className="text-xs bg-amber-500/30 text-amber-100 px-2 py-0.5 rounded-full border border-amber-400/30">NEW</span>
-            </div>
-            <p className="text-sm text-amber-100/90 leading-relaxed">Explore the New Testament with popular insights, key verses, and study guides for your spiritual journey.</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-amber-500/30 text-amber-100 border border-amber-400/40 group-hover:bg-amber-400/40 transition-colors">
-              <span>Explore</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </Link>
-        <Link href="/speechtherapy/application" className="group relative rounded-xl p-6 aurora-card bg-gradient-to-br from-violet-800/40 to-purple-800/40 border border-violet-600/30 transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_60%)]" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🎓</span>
-              <h3 className="text-xl font-semibold text-violet-200">Speech Pathology Application</h3>
-              <span className="text-xs bg-violet-500/30 text-violet-200 px-2 py-0.5 rounded-full border border-violet-400/30">COMING SOON</span>
-            </div>
-            <p className="text-sm text-slate-300 leading-relaxed">Streamlined speech pathology application portal with intake forms and case management. Launching soon!</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs px-3 py-1 rounded bg-violet-500/30 text-violet-200 border border-violet-400/40 group-hover:bg-violet-400/40 transition-colors">
-              <span>Learn More</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </Link>
-      </section>
-      <Workflows />
-      <Features />
-      <Suspense
-        fallback={
-          <section className="max-w-6xl mx-auto mt-12 px-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="aurora-card p-4">
-                  <Skeleton className="h-24 w-full rounded-xl mb-3" />
-                  <Skeleton className="h-4 w-2/3" />
-                </div>
-              ))}
-            </div>
-          </section>
-        }
-      >
-        <ClientsShowcase />
-      </Suspense>
-      <Testimonials />
-      <Cta />
-      {/* Payment/Subscription Demo Showcase */}
-      <div className="max-w-xl mx-auto my-16">
-        <PaymentDemo />
-            <PaymentDemo />
-            {/* Interactive Order Form Demo */}
-            <div className="max-w-4xl mx-auto my-16">
-              <TacoOrderEnhanced />
-            </div>
-      </div>
-    </>
-  );
-}
+
+  return <>
+    <div className="border-b border-amber-200/20 bg-[#18261e] px-4 py-2.5 text-center text-sm font-medium text-amber-100">Professional website + hosting + domain management — <strong>$200 for 3 years.</strong></div>
+    {isProd && <Script id="gtm-base" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}</Script>}
+    <header className="absolute inset-x-0 top-10 z-10 border-b border-white/10 bg-[#101915]/70 backdrop-blur-md"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8"><Link href="/" className="font-nacelle text-xl font-semibold tracking-wide text-white">The Fusion Space<span className="text-amber-400">.</span></Link><nav className="hidden items-center gap-7 text-sm text-emerald-100/75 md:flex" aria-label="Main navigation"><a href="#offer" className="hover:text-white">The offer</a><a href="#work" className="hover:text-white">Our work</a><a href="#process" className="hover:text-white">How it works</a><Link href="/contact" className="rounded-full bg-amber-400 px-4 py-2 font-semibold text-[#18261e] hover:bg-amber-300">Get started</Link></nav><Link href="/contact" className="md:hidden" aria-label="Get started"><Menu className="h-6 w-6 text-white" /></Link></div></header>
+    <section className="relative overflow-hidden bg-[#101915] pt-36 text-white sm:pt-44"><div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(197,159,76,0.18),transparent_28%),radial-gradient(circle_at_10%_60%,rgba(39,91,69,0.6),transparent_34%)]" /><div className="relative mx-auto grid max-w-6xl gap-14 px-5 pb-20 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:px-8 lg:pb-28"><div><p className="mb-6 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-amber-300"><Sparkles className="h-4 w-4" /> Built for local business</p><h1 className="max-w-3xl font-nacelle text-5xl font-semibold leading-[1.02] sm:text-7xl">Your business deserves a website that works.</h1><p className="mt-7 max-w-xl text-lg leading-8 text-emerald-50/70 sm:text-xl">Professional websites designed, hosted, and managed for one simple price. We handle the website. You run your business.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-400 px-6 py-3.5 font-semibold text-[#18261e] hover:bg-amber-300">Get My Website <ArrowRight className="h-4 w-4" /></Link><a href="#work" className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3.5 font-semibold text-white hover:bg-white/10">See examples</a></div><div className="mt-10 grid max-w-lg grid-cols-2 gap-4 border-t border-white/15 pt-6 text-sm text-emerald-50/70 sm:grid-cols-4">{["No setup headaches", "Domain handled", "Mobile-friendly", "3 years included"].map((item) => <span key={item} className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />{item}</span>)}</div></div><div className="relative mx-auto w-full max-w-md"><div className="absolute -inset-4 rounded-[2rem] border border-amber-300/20 rotate-3" /><div className="relative rounded-[1.5rem] bg-[#f6f1e7] p-7 text-[#18261e] shadow-2xl shadow-black/30 sm:p-9"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#537460]">The complete website package</p><p className="mt-5 font-nacelle text-8xl font-semibold leading-none">$200</p><p className="mt-2 font-semibold text-[#537460]">one-time payment</p><div className="my-7 border-y border-[#18261e]/15 py-5"><p className="font-nacelle text-3xl font-semibold">3 years included.</p><p className="mt-1 text-[#537460]">Then just $25/year to keep it online.</p></div><p className="text-sm font-medium leading-6 text-[#365342]">Design + hosting + domain + SSL + deployment + support</p><Link href="/contact" className="mt-7 flex items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3.5 text-center font-semibold text-white hover:bg-[#174932]">Get started — $200 <ArrowRight className="h-4 w-4" /></Link></div></div></div></section>
+    <main className="bg-[#f6f1e7] text-[#18261e]">
+      <section id="offer" className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28"><div className="grid gap-14 lg:grid-cols-[.8fr_1.2fr] lg:items-start"><div><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">One clear package</p><h2 className="mt-3 font-nacelle text-4xl font-semibold leading-tight sm:text-5xl">Everything you need. One simple price.</h2><p className="mt-5 max-w-md text-lg leading-8 text-[#537460]">A professional online home for your business without the usual complexity, expensive contracts, or technical headaches.</p></div><div className="rounded-2xl bg-white p-7 shadow-xl shadow-[#234b3814] ring-1 ring-[#234b3814] sm:p-10"><div className="flex flex-col justify-between gap-5 border-b border-[#18261e]/10 pb-7 sm:flex-row sm:items-end"><div><h3 className="font-nacelle text-2xl font-semibold">Website package</h3><p className="mt-1 text-[#537460]">for your first 3 years</p></div><div className="text-left sm:text-right"><p className="font-nacelle text-6xl font-semibold text-[#1f5c43]">$200</p><p className="text-sm font-semibold text-[#b07b22]">$25/year after that</p></div></div><div className="grid gap-x-8 gap-y-3 py-7 sm:grid-cols-2">{included.map((item) => <div key={item} className="flex gap-3 text-[#365342]"><CircleCheck className="h-5 w-5 shrink-0 text-[#c58d2e]" />{item}</div>)}</div><Link href="/contact" className="flex items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3.5 font-semibold text-white hover:bg-[#174932]">Get started — $200 <ArrowRight className="h-4 w-4" /></Link></div></div></section>
+      <section className="border-y border-[#234b3814] bg-[#e9e2d3] px-5 py-20 lg:px-8 lg:py-24"><div className="mx-auto max-w-6xl"><div className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">Less to worry about</p><h2 className="mt-3 font-nacelle text-4xl font-semibold sm:text-5xl">Stop paying for five different things.</h2><p className="mt-5 text-lg leading-8 text-[#537460]">Buying a domain, finding hosting, figuring out SSL, managing renewals, and coordinating a designer adds up fast. We bundle the important pieces together.</p></div><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[[Globe2,"Domain","A clear address for your business."],[Server,"Hosting","A reliable home for your website."],[LockKeyhole,"SSL security","A safer experience for customers."],[Headphones,"Support","A real person when you need help."]].map(([Icon,title,copy]) => { const IconComponent = Icon as typeof Globe2; return <div key={title as string} className="rounded-xl bg-[#f6f1e7] p-6"><IconComponent className="h-7 w-7 text-[#b07b22]" /><h3 className="mt-5 font-semibold">{title as string}</h3><p className="mt-2 text-sm leading-6 text-[#537460]">{copy as string}</p></div>})}</div><p className="mt-10 font-nacelle text-2xl font-semibold text-[#1f5c43]">You run your business. We handle the website.</p></div></section>
+      <section id="process" className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28"><div className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">No technical background required</p><h2 className="mt-3 font-nacelle text-4xl font-semibold sm:text-5xl">From idea to online in four easy steps.</h2></div><div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">{steps.map(([number,title,copy,Icon]) => { const IconComponent = Icon as typeof Globe2; return <div key={number} className="border-t-2 border-[#c58d2e] pt-5"><div className="flex items-center justify-between"><span className="font-nacelle text-2xl font-semibold text-[#b07b22]">{number}</span><IconComponent className="h-6 w-6 text-[#1f5c43]" /></div><h3 className="mt-7 font-nacelle text-xl font-semibold">{title}</h3><p className="mt-3 text-sm leading-6 text-[#537460]">{copy}</p></div>})}</div></section>
+      <section className="bg-[#1f5c43] px-5 py-20 text-white lg:px-8 lg:py-24"><div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-sm font-bold uppercase tracking-[0.18em] text-amber-300">Made for the real world</p><h2 className="mt-3 font-nacelle text-4xl font-semibold sm:text-5xl">Perfect for small businesses.</h2><p className="mt-5 text-lg leading-8 text-emerald-50/70">You don't need a giant website project. You need a professional website that makes your business look legitimate and gives customers a place to find you.</p></div><div className="flex flex-wrap gap-3">{businesses.map((business) => <span key={business} className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm text-emerald-50">{business}</span>)}</div></div></section>
+      <section id="work" className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">Proof of capability</p><h2 className="mt-3 font-nacelle text-4xl font-semibold sm:text-5xl">Built for real businesses.</h2></div><p className="max-w-sm text-[#537460]">A few examples of the kinds of digital experiences we can build and support.</p></div><div className="mt-12 grid gap-6 lg:grid-cols-3"><Link href="/morelia" className="group overflow-hidden rounded-2xl bg-white shadow-lg shadow-[#234b3814] ring-1 ring-[#234b3814]"><div className="relative aspect-[4/3] overflow-hidden bg-[#8b2e20]"><Image src="/images/morelia/8112ee87-d71d-405b-abfc-328bdc65e71d.jpg" alt="Morelia Restaurant website project" fill className="object-cover transition duration-500 group-hover:scale-105" /></div><div className="p-6"><h3 className="font-nacelle text-2xl font-semibold">Morelia Restaurant</h3><p className="mt-2 text-sm leading-6 text-[#537460]">Restaurant website with online ordering and a professional digital customer experience.</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#1f5c43]">View website <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span></div></Link><Link href="/generator" className="group overflow-hidden rounded-2xl bg-white shadow-lg shadow-[#234b3814] ring-1 ring-[#234b3814]"><div className="relative aspect-[4/3] overflow-hidden bg-[#274f40]"><Image src="/images/hero-image-01.jpg" alt="Website generator project" fill className="object-cover transition duration-500 group-hover:scale-105" /></div><div className="p-6"><h3 className="font-nacelle text-2xl font-semibold">AI Website Generator</h3><p className="mt-2 text-sm leading-6 text-[#537460]">A faster way to explore website ideas, layouts, and content for a new business.</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#1f5c43]">Explore the tool <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span></div></Link><Link href="/asset-management" className="group overflow-hidden rounded-2xl bg-white shadow-lg shadow-[#234b3814] ring-1 ring-[#234b3814]"><div className="relative aspect-[4/3] overflow-hidden bg-[#466b5a]"><Image src="/images/woman-946699_1280.jpg" alt="Asset management project" fill className="object-cover transition duration-500 group-hover:scale-105" /></div><div className="p-6"><h3 className="font-nacelle text-2xl font-semibold">Asset Management</h3><p className="mt-2 text-sm leading-6 text-[#537460]">A clear, professional experience for managing rental properties and guest operations.</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#1f5c43]">View project <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span></div></Link></div></section>
+      <section className="border-t border-[#234b3814] bg-white px-5 py-20 lg:px-8 lg:py-24"><div className="mx-auto max-w-6xl"><div className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">We handle the technical stuff</p><h2 className="mt-3 font-nacelle text-4xl font-semibold sm:text-5xl">You don't need to be technical.</h2><p className="mt-5 text-lg leading-8 text-[#537460]">You should not have to learn servers, DNS, certificates, or deployment to have a good website. Tell us what you need and we will take care of the machinery.</p></div><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{technicalDetails.map(([Icon,title,copy]) => <div key={title} className="rounded-xl border border-[#234b3814] p-6"><Icon className="h-6 w-6 text-[#1f5c43]" /><h3 className="mt-5 font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-[#537460]">{copy}</p></div>)}</div></div></section>
+      <section className="bg-[#101915] px-5 py-20 text-center text-white lg:px-8 lg:py-28"><div className="mx-auto max-w-3xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-amber-300">Ready when you are</p><h2 className="mt-4 font-nacelle text-4xl font-semibold sm:text-6xl">Give your business a proper home online.</h2><p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-emerald-50/70">One professional website. One simple payment. Three years handled for you.</p><Link href="/contact" className="mt-9 inline-flex items-center gap-2 rounded-full bg-amber-400 px-7 py-4 font-semibold text-[#18261e] hover:bg-amber-300">Get my website — $200 <ArrowRight className="h-4 w-4" /></Link></div></section>
++    </main>
++    <footer className="bg-[#101915] px-5 pb-8 text-center text-sm text-emerald-50/50 lg:px-8"><div className="mx-auto flex max-w-6xl flex-col justify-between gap-3 border-t border-white/10 pt-7 sm:flex-row sm:text-left"><span>The Fusion Space Inc</span><span>Professional websites without the technical headaches.</span></div></footer>
++  </>;
++}
