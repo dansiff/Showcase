@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useMemo, useState, useEffect, useRef } from "react";
+import { PageHeader, PageFooter } from "@/components/PageHeaderFooter";
 
 type GameKey = "tictactoe" | "memory" | "embed" | "snake" | "space";
 
-export default function Page() {
+export default function GamePage() {
 	const [active, setActive] = useState<GameKey | null>(null);
 
 	return (
-		<div className="max-w-7xl mx-auto p-6 text-slate-100 bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 rounded-xl shadow-xl">
+		<>
+			<PageHeader theme="game" title="🎮 Snack Arcade" subtitle="Play • Learn • Have Fun" />
+			<div className="max-w-7xl mx-auto p-6 text-slate-100 bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 rounded-xl shadow-xl">
 			<header className="mb-8 text-center">
 				<h1 className="text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-pink-400 to-violet-400 drop-shadow-xl">
 					Arcade Snack Bar �🥙✨
@@ -79,7 +82,9 @@ export default function Page() {
 				{active === "snake" && <SnakeGame />}
 				{active === "space" && <SpaceInvaders />}
 			</main>
-		</div>
+			</div>
+			<PageFooter theme="game" />
+		</>
 	);
 }
 
@@ -822,4 +827,3 @@ const GameNotes = () => (
 		</ul>
 	</div>
 );
-
