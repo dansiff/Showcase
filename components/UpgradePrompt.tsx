@@ -37,7 +37,7 @@ export default function UpgradePrompt({
           <strong>Pro Plan includes:</strong>
         </p>
         <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1 text-left">
-          <li>✓ Unlimited websites</li>
+          <li>✓ 50 websites</li>
           <li>✓ {feature}</li>
           <li>✓ Advanced SEO tools</li>
           <li>✓ E-commerce features</li>

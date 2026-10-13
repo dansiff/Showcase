@@ -1,5 +1,11 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ChangeEvent } from 'react'
+
+const extractErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message
+  if (typeof error === 'string') return error
+  return 'An unexpected error occurred'
+}
 
 export default function ContentEditor() {
   const [loading, setLoading] = useState(true)
@@ -21,8 +27,8 @@ export default function ContentEditor() {
         setBody(note.body || '')
         setMediaUrls(Array.isArray(note.mediaUrls) ? note.mediaUrls : [])
       }
-    } catch (e: any) {
-      setError(e.message || 'Error loading content')
+    } catch (error: unknown) {
+      setError(extractErrorMessage(error) || 'Error loading content')
     } finally {
       setLoading(false)
     }
@@ -30,7 +36,7 @@ export default function ContentEditor() {
 
   useEffect(() => { load() }, [])
 
-  async function onUpload(e: React.ChangeEvent<HTMLInputElement>) {
+  async function onUpload(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
     const fd = new FormData()
@@ -41,8 +47,8 @@ export default function ContentEditor() {
       const data = await res.json()
       if (!res.ok) throw new Error(data?.error || 'Upload failed')
       setMediaUrls((m) => [...m, data.url])
-    } catch (e: any) {
-      setError(e.message || 'Upload error')
+    } catch (error: unknown) {
+      setError(extractErrorMessage(error) || 'Upload error')
     } finally {
       e.target.value = ''
     }
@@ -59,8 +65,8 @@ export default function ContentEditor() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data?.error || 'Failed to save')
-    } catch (e: any) {
-      setError(e.message || 'Save error')
+    } catch (error: unknown) {
+      setError(extractErrorMessage(error) || 'Save error')
     } finally {
       setSaving(false)
     }

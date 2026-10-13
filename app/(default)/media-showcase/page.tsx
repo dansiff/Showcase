@@ -25,6 +25,20 @@ interface MediaItem {
 
 // Sample media data - replace with API calls to your database
 const SAMPLE_MEDIA: MediaItem[] = [
+    {
+      id: 'yt-1',
+      title: 'YouTube Example: AI Demo',
+      description: 'A real YouTube video embedded as a showcase example.',
+      type: 'video',
+      thumbnail: 'https://img.youtube.com/vi/Y_yBOGgzUus/hqdefault.jpg',
+      src: 'https://www.youtube.com/embed/Y_yBOGgzUus?si=3CQhzrCPnISA9eVr',
+      duration: '4:12',
+      category: 'Demo',
+      tags: ['youtube', 'demo', 'ai'],
+      createdAt: '2025-12-22',
+      views: 9999,
+      likes: 321,
+    },
   {
     id: '1',
     title: 'Summer Vibes - Product Launch',
@@ -515,7 +529,19 @@ function MediaModal({ media, onClose, isMuted, onMuteToggle, isLiked, onLike }: 
 
           {/* Media Content */}
           <div className="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
-            {media.type === 'video' ? (
+            {media.type === 'video' && media.src.includes('youtube.com/embed') ? (
+              <iframe
+                width="100%"
+                height="100%"
+                src={media.src}
+                title={media.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="w-full h-full rounded-lg"
+              />
+            ) : media.type === 'video' ? (
               <video
                 src={media.src}
                 controls

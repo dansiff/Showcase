@@ -15,6 +15,7 @@ type HeaderVariant = "default" | "taco" | "transparent" | "light" | "aurora";
 interface HeaderProps {
   logo?: React.ReactNode;
   className?: string;
+  hideOnHome?: boolean;
 }
 
 function resolveHeaderStyles(variant: HeaderVariant = "light") {
@@ -59,7 +60,7 @@ function resolveHeaderStyles(variant: HeaderVariant = "light") {
   }
 }
 
-export default function Header({ logo = <Logo />, className = "" }: HeaderProps) {
+export default function Header({ logo = <Logo />, className = "", hideOnHome = false }: HeaderProps) {
   const { config } = useHeader();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -79,7 +80,7 @@ export default function Header({ logo = <Logo />, className = "" }: HeaderProps)
     checkAuth();
   }, [pathname]);
 
-  if (config.show === false) return null;
+  if (config.show === false || (hideOnHome && pathname === "/")) return null;
 
   return (
     <header className={`sticky top-0 z-40 w-full ${className}`}>

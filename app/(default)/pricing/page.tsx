@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Check, Zap, Rocket, ArrowRight } from "lucide-react";
+import { Check, Zap, Rocket, ArrowRight, Star, Globe, DollarSign } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Pricing & Plans - Sandoval Bro's",
@@ -8,6 +8,25 @@ export const metadata: Metadata = {
 };
 
 const plans = [
+  {
+    name: "Budget Plan",
+    price: 499,
+    monthly: 19,
+    description: "A super affordable option for individuals or small businesses needing a simple, professional web presence.",
+    features: [
+      "1-page website",
+      "Mobile-responsive design",
+      "Basic contact form",
+      "SSL certificate included",
+      "Basic SEO setup",
+      "Email support",
+    ],
+    icon: DollarSign,
+    color: "from-green-500 to-teal-600",
+    checkoutUrl: "/pay/budget",
+    popular: false,
+    buildTime: "1 week",
+  },
   {
     name: "Standard Plan",
     price: 2500,
@@ -32,22 +51,39 @@ const plans = [
     buildTime: "2-3 weeks",
   },
   {
+    name: "Pro Plan",
+    price: 3200,
+    monthly: 69,
+    description: "For growing businesses needing advanced features and integrations.",
+    features: [
+      "Everything in Standard Plan",
+      "Multi-page website",
+      "Blog or portfolio setup",
+      "Advanced analytics dashboard",
+      "E-commerce ready",
+      "Priority support",
+    ],
+    icon: Globe,
+    color: "from-indigo-500 to-blue-700",
+    checkoutUrl: "/pay/pro",
+    popular: false,
+    buildTime: "2 weeks",
+  },
+  {
     name: "Blitz Plan",
     price: 3999,
     monthly: 79,
     description: "Fast-track your launch with our 48-hour rapid development service",
     features: [
-      "Everything in Standard Plan",
+      "Everything in Pro Plan",
       "48-hour delivery guarantee",
       "Priority development",
       "Advanced animations & interactions",
-      "E-commerce integration (if needed)",
       "Custom checkout solutions",
       "Premium monthly hosting ($79/mo)",
       "Priority support (24/7)",
       "Expedited revisions",
       "Google Ads setup assistance",
-      "Advanced analytics dashboard",
     ],
     icon: Zap,
     color: "from-purple-500 to-pink-600",

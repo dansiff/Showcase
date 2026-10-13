@@ -1,6 +1,6 @@
 "use client"
 
-import { Sparkles, Zap, Shield, Palette, Code, BarChart3 } from 'lucide-react'
+import { Sparkles, Zap } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 

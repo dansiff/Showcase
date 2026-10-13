@@ -23,9 +23,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
         event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
-    } catch (err: any) {
-        console.error("Webhook Error:", err.message);
-        return res.status(400).send(`Webhook Error: ${err.message}`);
+    } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.error("Webhook Error:", message);
+        return res.status(400).send(`Webhook Error: ${message}`);
     }
 
     // ✅ Handle the event

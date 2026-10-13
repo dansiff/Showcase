@@ -2,10 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+type RouteParams = { params: Promise<{ id: string }> };
+
+export async function GET(req: Request, { params }: RouteParams) {
   try {
     const { id } = await params;
 
@@ -35,10 +34,11 @@ export async function GET(
     }
 
     return NextResponse.json(intake, { status: 200 });
-  } catch (err: any) {
-    console.error("Admin intake detail API error:", err);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("Admin intake detail API error:", message);
     return NextResponse.json(
-      { error: err?.message ?? "Internal server error" },
+      { error: message ?? "Internal server error" },
       { status: 500 }
     );
   }
@@ -46,11 +46,11 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: RouteParams
 ) {
   try {
     const { id } = await params;
-    const body = await req.json();
+    const body = (await req.json()) as { status?: string };
 
     // Verify admin access
     const supabase = await createSupabaseServerClient();
@@ -77,10 +77,11 @@ export async function PATCH(
     });
 
     return NextResponse.json(intake, { status: 200 });
-  } catch (err: any) {
-    console.error("Admin intake update API error:", err);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("Admin intake update API error:", message);
     return NextResponse.json(
-      { error: err?.message ?? "Internal server error" },
+      { error: message ?? "Internal server error" },
       { status: 500 }
     );
   }

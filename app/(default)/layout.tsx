@@ -20,7 +20,7 @@ export default function DefaultLayout({ children }: { children: ReactNode }) {
       }}
     >
       <div className="min-h-screen flex flex-col overflow-x-hidden">
-        <Header />
+        <Header hideOnHome />
         <main className="flex-grow overflow-x-hidden">{children}</main>
         <Footer />
       </div>
