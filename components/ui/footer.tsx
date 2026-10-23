@@ -20,7 +20,7 @@ const linkGroups = [
   {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
+      { label: "About", href: "/About" },
       { label: "Contact", href: "/contact" },
     ],
   },
