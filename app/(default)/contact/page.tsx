@@ -1,103 +1,59 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import GetStartedForm from '@/components/GetStartedForm';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Contact - Fusion Space Inc | Get Your Website Built',
-  description: 'Contact us to build your professional website. Fast, affordable, and custom-designed for your business.',
+  title: "Contact | The Fusion Space Inc",
+  description: "Tell us about your business website project.",
 };
+
+const contactEmail = "contact@thefusionspace.com";
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Let's Build Your Website
+    <main className="min-h-screen bg-[#f6f1e7] text-[#18261e]">
+      <section className="bg-[#101915] px-5 py-20 text-white sm:py-28 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-amber-300">
+            Start a project
+          </p>
+          <h1 className="mt-4 max-w-3xl font-nacelle text-4xl font-semibold leading-tight sm:text-6xl">
+            Tell us what your business needs online.
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Whether you need a simple landing page or a full restaurant ordering system like our Morelia site, we're here to help.
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-emerald-50/70">
+            Share a little about your business, the customers you serve, and what you want your website to do. We will follow up by email.
           </p>
         </div>
+      </section>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left: Contact Info */}
-          <div className="space-y-8">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Get in Touch</h2>
-              
-              <div className="space-y-4 text-gray-200">
-                <div>
-                  <div className="font-semibold text-amber-300 mb-1">📧 Email</div>
-                  <a href="mailto:contact@thefusionspace.com" className="hover:text-amber-300 transition-colors">
-                    contact@thefusionspace.com
-                  </a>
-                </div>
-
-                <div>
-                  <div className="font-semibold text-amber-300 mb-1">💬 Response Time</div>
-                  <p>Within 24 hours (usually same day)</p>
-                </div>
-
-                <div>
-                  <div className="font-semibold text-amber-300 mb-1">🕐 Business Hours</div>
-                  <p>Monday - Friday: 9 AM - 6 PM CST</p>
-                  <p className="text-sm text-gray-400">Email support available 24/7</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Links */}
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Explore Examples</h3>
-              <div className="space-y-3">
-                <Link href="/morelia" className="block text-amber-300 hover:text-amber-200 transition-colors">
-                  → Morelia Restaurant Site (Full Featured)
-                </Link>
-                <Link href="/get-started" className="block text-amber-300 hover:text-amber-200 transition-colors">
-                  → View Pricing & Plans
-                </Link>
-                <Link href="/" className="block text-amber-300 hover:text-amber-200 transition-colors">
-                  → Back to Homepage
-                </Link>
-              </div>
-            </div>
-
-            {/* Why Choose Us */}
-            <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Why Fusion Space?</h3>
-              <ul className="space-y-3 text-white">
-                <li className="flex items-start gap-2">
-                  <span className="text-green-200">✓</span>
-                  <span>Fast turnaround (3-7 days)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-200">✓</span>
-                  <span>Affordable pricing (starting $297)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-200">✓</span>
-                  <span>Custom designs, not templates</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-200">✓</span>
-                  <span>Mobile-first approach</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-200">✓</span>
-                  <span>Free 14-day trial</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Right: Form */}
-          <div>
-            <GetStartedForm />
-          </div>
+      <section className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:py-20 lg:grid-cols-[1fr_0.8fr] lg:px-8">
+        <div>
+          <h2 className="font-nacelle text-3xl font-semibold">One simple package</h2>
+          <p className="mt-4 max-w-xl leading-7 text-[#537460]">
+            The current offer is $200 for the first three years, including the website, hosting, domain management, and SSL. After that, ongoing service is $25 per year.
+          </p>
+          <Link
+            href="/#offer"
+            className="mt-6 inline-flex items-center gap-2 font-semibold text-[#1f5c43] hover:text-[#174932]"
+          >
+            Review what is included <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
-      </div>
+
+        <div className="border-t-2 border-[#c58d2e] pt-6">
+          <Mail className="h-7 w-7 text-[#b07b22]" aria-hidden="true" />
+          <h2 className="mt-4 font-nacelle text-2xl font-semibold">Email us</h2>
+          <p className="mt-3 text-sm leading-6 text-[#537460]">
+            Include your business name, the best way to reach you, and a few details about the site you have in mind.
+          </p>
+          <a
+            href={`mailto:${contactEmail}?subject=Website%20project%20inquiry`}
+            className="mt-5 inline-flex items-center justify-center rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white transition-colors hover:bg-[#174932]"
+          >
+            {contactEmail}
+          </a>
+        </div>
+      </section>
     </main>
   );
 }
