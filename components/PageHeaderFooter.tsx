@@ -62,7 +62,7 @@ export function PageHeader({ theme = 'default', title, subtitle }: { theme?: The
             {theme === 'sushi' && '🍣 Sakura'}
             {theme === 'italian' && '🍝 Bella Cucina'}
             {theme === 'game' && '🎮 Snack Arcade'}
-            {theme === 'morelia' && '🌮 Morelia'}
+            {theme === 'morelia' && 'Morelia'}
             {theme === 'default' && 'Fusion Space'}
           </Link>
           
