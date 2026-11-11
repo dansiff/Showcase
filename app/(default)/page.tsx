@@ -37,13 +37,23 @@ export default function Home() {
       <section className="border-t border-[#234b3814] bg-white px-5 py-20 lg:px-8 lg:py-24"><div className="mx-auto max-w-6xl"><div className="max-w-2xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">We handle the technical stuff</p><h2 className="mt-3 font-nacelle text-4xl font-semibold sm:text-5xl">You don't need to be technical.</h2><p className="mt-5 text-lg leading-8 text-[#537460]">You should not have to learn servers, DNS, certificates, or deployment to have a good website. Tell us what you need and we will take care of the machinery.</p></div><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{technicalDetails.map(([Icon,title,copy]) => <div key={title} className="rounded-xl border border-[#234b3814] p-6"><Icon className="h-6 w-6 text-[#1f5c43]" /><h3 className="mt-5 font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-[#537460]">{copy}</p></div>)}</div></div></section>
       <section className="bg-[#101915] px-5 py-20 text-center text-white lg:px-8 lg:py-28"><div className="mx-auto max-w-3xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-amber-300">Ready when you are</p><h2 className="mt-4 font-nacelle text-4xl font-semibold sm:text-6xl">Give your business a proper home online.</h2><p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-emerald-50/70">One professional website. One simple payment. Three years handled for you.</p><Link href="/contact" className="mt-9 inline-flex items-center gap-2 rounded-full bg-amber-400 px-7 py-4 font-semibold text-[#18261e] hover:bg-amber-300">Get my website — $200 <ArrowRight className="h-4 w-4" /></Link></div></section>
       <section className="border-t border-[#234b3814] bg-[#e9e2d3] px-5 py-12 lg:px-8">
-        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-5 sm:flex-row sm:items-center">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">A closer look at the data</p>
-            <h2 className="mt-2 font-nacelle text-2xl font-semibold">Explore business tools in action.</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#537460]">Try interactive previews for bookkeeping, invoices, and inventory, with the data models and SQL reports behind them.</p>
+        <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-2">
+          <div className="flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#f6f1e7] p-6 ring-1 ring-[#234b3814] sm:flex-row sm:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">A closer look at the data</p>
+              <h2 className="mt-2 font-nacelle text-2xl font-semibold">Explore business tools in action.</h2>
+              <p className="mt-2 max-w-lg text-sm leading-6 text-[#537460]">Try interactive previews for bookkeeping, invoices, and inventory, with the data models and SQL reports behind them.</p>
+            </div>
+            <Link href="/business-data" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white hover:bg-[#174932]">Business Data Studio <ArrowRight className="h-4 w-4" /></Link>
           </div>
-          <Link href="/business-data" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white hover:bg-[#174932]">Open Business Data Studio <ArrowRight className="h-4 w-4" /></Link>
+          <div className="flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#f6f1e7] p-6 ring-1 ring-[#234b3814] sm:flex-row sm:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">For after-school programs</p>
+              <h2 className="mt-2 font-nacelle text-2xl font-semibold">ProgramTrack · 21st CCLC demo</h2>
+              <p className="mt-2 max-w-lg text-sm leading-6 text-[#537460]">Built around ISBE&apos;s reporting requirements. This independent demo is not affiliated with or endorsed by ISBE. Your program owns its student data: export it anytime, no lock-in.</p>
+            </div>
+            <Link href="/programtrack" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white hover:bg-[#174932]">Explore ProgramTrack <ArrowRight className="h-4 w-4" /></Link>
+          </div>
         </div>
       </section>
   </main>

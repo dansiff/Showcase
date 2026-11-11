@@ -27,6 +27,7 @@ import {
   WalletCards,
   X,
 } from "lucide-react";
+import JSZip from "jszip";
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import {
   attendancePercent,
@@ -175,9 +176,12 @@ function escapeCsv(value: string | number) {
   return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
+function csvContent(rows: (string | number)[][]) {
+  return `\uFEFF${rows.map((row) => row.map(escapeCsv).join(",")).join("\r\n")}`;
+}
+
 function downloadCsv(filename: string, rows: (string | number)[][]) {
-  const csv = rows.map((row) => row.map(escapeCsv).join(",")).join("\r\n");
-  const url = URL.createObjectURL(new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" }));
+  const url = URL.createObjectURL(new Blob([csvContent(rows)], { type: "text/csv;charset=utf-8" }));
   const link = document.createElement("a");
   link.href = url;
   link.download = filename;
@@ -204,6 +208,7 @@ export default function ProgramTrackApp() {
   const [expenditures, setExpenditures] = useState<Expenditure[]>(seedData.expenditures);
   const [expenseFormOpen, setExpenseFormOpen] = useState(false);
   const [expenseNotice, setExpenseNotice] = useState("");
+  const [exportNotice, setExportNotice] = useState("");
 
   const attendanceByStudent = useMemo(() => {
     const map = new Map<string, { attended: number; possible: number }>();
@@ -387,6 +392,73 @@ export default function ProgramTrackApp() {
     downloadCsv(filename, [reportRows.headers, ...reportRows.rows]);
   };
 
+  const downloadProgramData = async () => {
+    const zip = new JSZip();
+    const siteName = (siteId: string) => seedData.sites.find((site) => site.id === siteId)?.name ?? siteId;
+    const activityName = (activityId: string | null) =>
+      seedData.activities.find((activity) => activity.id === activityId)?.name ?? "";
+    zip.file("students.csv", csvContent([
+      ["Student ID", "Student name", "Grade", "Site", "Gender", "Race / ethnicity", "Lunch status", "English learner", "IEP", "Enrollment date", "Activities"],
+      ...seedData.students.map((student) => [
+        student.id,
+        student.name,
+        student.grade === "K" ? "Kindergarten" : `Grade ${student.grade}`,
+        siteName(student.siteId),
+        student.gender,
+        student.raceEthnicity,
+        student.lunchStatus,
+        student.englishLearner ? "Yes" : "No",
+        student.iep ? "Yes" : "No",
+        student.enrollmentDate,
+        student.activityIds.map(activityName).join("; "),
+      ]),
+    ]));
+    zip.file("attendance.csv", csvContent([
+      ["Student ID", "Student name", "Date", "Present", "Activity"],
+      ...attendance.map((record) => [
+        record.studentId,
+        seedData.students.find((student) => student.id === record.studentId)?.name ?? "",
+        record.date,
+        record.present ? "Yes" : "No",
+        activityName(record.activityId),
+      ]),
+    ]));
+    zip.file("activities.csv", csvContent([
+      ["Activity", "Site", "Assigned staff", "Staff role", "Days per week", "Hours per session"],
+      ...seedData.activities.map((activity) => {
+        const assignedStaff = seedData.staff.find((member) => member.id === activity.staffId);
+        return [
+          activity.name,
+          siteName(activity.siteId),
+          assignedStaff?.name ?? "",
+          assignedStaff?.role ?? "",
+          activity.daysPerWeek,
+          activity.hoursPerSession,
+        ];
+      }),
+    ]));
+    zip.file("staff.csv", csvContent([
+      ["Staff name", "Role", "Site"],
+      ...seedData.staff.map((member) => [member.name, member.role, siteName(member.siteId)]),
+    ]));
+    zip.file("budget.csv", csvContent([
+      ["Budget category", "Budgeted", "Spent to date", "Remaining"],
+      ...budgetRows.map((row) => [row.category, row.budgeted, row.spent, row.remaining]),
+    ]));
+    zip.file("expenditures.csv", csvContent([
+      ["Date", "Category", "Vendor", "Amount", "Description"],
+      ...expenditures.map((item) => [item.date, item.category, item.vendor, item.amount, item.description]),
+    ]));
+    const archive = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(archive);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `programtrack-data-${seedData.asOfDate}.zip`;
+    link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setExportNotice("Data export downloaded. This demo stores no live student records.");
+  };
+
   const toggleScreen = (nextScreen: Screen) => {
     setScreen(nextScreen);
     setReport(null);
@@ -490,7 +562,7 @@ export default function ProgramTrackApp() {
                       return <button type="button" key={site.id} onClick={() => { setSiteFilter(site.id); toggleScreen("attendance"); }} className="flex w-full items-center gap-3 py-3 text-left first:pt-0 last:pb-0 hover:bg-slate-50/70"><span className="grid h-9 w-9 place-items-center rounded-xl bg-emerald-50 text-emerald-700"><MapPin size={16} /></span><span className="min-w-0 flex-1"><span className="block truncate text-xs font-semibold text-slate-800">{site.name}</span><span className="mt-1 block text-[11px] text-slate-400">{roster.length} students enrolled</span></span><span className="text-right"><span className="block text-sm font-semibold text-slate-800">{rate}%</span><span className="text-[10px] text-slate-400">attendance</span></span><ChevronRight size={14} className="text-slate-300" /></button>;
                     })}</div>
                   </Panel>
-                  <Panel><PanelTitle title="Regular attendee milestone" action={<Badge green>Federal metric</Badge>} />
+                  <Panel><PanelTitle title="Regular attendee milestone" action={<Badge green>Federal performance measure</Badge>} />
                     <div className="flex items-end justify-between gap-4"><div><p className="text-[38px] font-semibold leading-none tracking-[-0.05em] text-slate-900">{regularCount}<span className="ml-2 text-base font-normal text-slate-400">/ {seedData.students.length}</span></p><p className="mt-2 text-xs text-slate-500">students reached 30+ program days</p></div><div className="grid h-12 w-12 place-items-center rounded-2xl bg-emerald-50 text-emerald-700"><BadgeCheck size={23} /></div></div>
                     <div className="mt-5 pt-progress pt-progress-tall"><span style={{ width: `${attendancePercent(regularCount, seedData.students.length)}%` }} /></div>
                     <div className="mt-2 flex justify-between text-[10px] text-slate-400"><span>0 students</span><span>{attendancePercent(regularCount, seedData.students.length)}% of enrollment</span><span>{seedData.students.length} students</span></div>
@@ -580,7 +652,8 @@ export default function ProgramTrackApp() {
                   return <button type="button" key={item.id} onClick={() => { setReport(item.id); setReportPeriod(item.id === "monthly" ? "month" : "year"); }} className="pt-report-card text-left"><div className="flex items-start justify-between"><span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-700"><Icon size={18} /></span><span className="rounded-full bg-slate-50 px-2.5 py-1 text-[10px] font-medium text-slate-500">{item.id === "monthly" ? "FINANCIAL" : item.id === "annual" ? "EVALUATION" : "PERFORMANCE"}</span></div><h2 className="mt-5 text-[15px] font-semibold text-slate-900">{item.title}</h2><p className="mt-1.5 min-h-10 text-xs leading-5 text-slate-500">{item.description}</p><div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3"><span className="text-[11px] text-slate-400">{item.id === "monthly" ? "Current month" : isPeriodMonth ? "Current month" : reportPeriod === "year" ? "Program year to date" : "Full demo history"}</span><span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700">Preview report <ArrowRight size={13} /></span></div></button>;
                 })}</div>
                 <Panel className="mt-4"><PanelTitle title="Reporting notes" />
-                  <div className="grid gap-4 sm:grid-cols-3"><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><BadgeCheck size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Regular attendee definition</p><p className="mt-1 text-[11px] leading-5 text-slate-500">Students with 30 or more days attended in the selected reporting period.</p></div></div><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><CalendarDays size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Attendance records</p><p className="mt-1 text-[11px] leading-5 text-slate-500">School-day attendance is generated from the local sample roster.</p></div></div><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><ArrowDownToLine size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Portable exports</p><p className="mt-1 text-[11px] leading-5 text-slate-500">Each report exports the displayed rows to a UTF-8 CSV file.</p></div></div></div>
+                  <div className="grid gap-4 sm:grid-cols-2"><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><BadgeCheck size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Regular attendee measure</p><p className="mt-1 text-[11px] leading-5 text-slate-500">Students with 30 or more days attended in the selected reporting period.</p></div></div><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><CalendarDays size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Attendance records</p><p className="mt-1 text-[11px] leading-5 text-slate-500">School-day attendance is generated from the local sample roster.</p></div></div><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><ArrowDownToLine size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Your data, your choice</p><p className="mt-1 text-[11px] leading-5 text-slate-500">Your organization owns its student data. Export it anytime; no lock-in.</p></div></div><div className="flex gap-2.5"><span className="mt-0.5 text-emerald-700"><FileBarChart size={16} /></span><div><p className="text-xs font-semibold text-slate-800">Illinois reporting alignment</p><p className="mt-1 text-[11px] leading-5 text-slate-500">Built around ISBE&apos;s reporting requirements. This independent demo is not affiliated with or endorsed by ISBE. Confirm current forms and due dates with your grant administrator.</p></div></div></div>
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4"><p className="max-w-2xl text-[10px] leading-4 text-slate-400">Sample reports illustrate a workflow; they are not official ISBE forms or a substitute for current grant guidance. This demo uses fictional seed data and does not store live student records.</p><div className="flex flex-wrap items-center gap-3"><span role="status" className="text-[11px] text-emerald-700">{exportNotice}</span><button type="button" onClick={downloadProgramData} className="pt-button pt-button-primary"><ArrowDownToLine size={14} /> Export all program data</button></div></div>
                 </Panel>
               </div>
             )}
