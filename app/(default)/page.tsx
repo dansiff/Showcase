@@ -54,6 +54,22 @@ export default function Home() {
             </div>
             <Link href="/programtrack" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white hover:bg-[#174932]">Explore ProgramTrack <ArrowRight className="h-4 w-4" /></Link>
           </div>
+          <div className="flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#f6f1e7] p-6 ring-1 ring-[#234b3814] sm:flex-row sm:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">For barbershops &amp; beauty studios</p>
+              <h2 className="mt-2 font-nacelle text-2xl font-semibold">BookedSolid · a booking demo.</h2>
+              <p className="mt-2 max-w-lg text-sm leading-6 text-[#537460]">A mobile-first booking page and owner dashboard for deposits, reminders, no-shows, and filling open appointments.</p>
+            </div>
+            <Link href="/bookedsolid" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white hover:bg-[#174932]">Explore BookedSolid <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#f6f1e7] p-6 ring-1 ring-[#234b3814] sm:flex-row sm:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b07b22]">For appointment-based businesses</p>
+              <h2 className="mt-2 font-nacelle text-2xl font-semibold">FusionBook · booking &amp; no-show demo.</h2>
+              <p className="mt-2 max-w-lg text-sm leading-6 text-[#537460]">A multi-business booking system with separate barber and lash studio demos, deposits, reminders, and interactive waitlist refills.</p>
+            </div>
+            <Link href="/fusionbook" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f5c43] px-5 py-3 font-semibold text-white hover:bg-[#174932]">Explore FusionBook <ArrowRight className="h-4 w-4" /></Link>
+          </div>
         </div>
       </section>
   </main>

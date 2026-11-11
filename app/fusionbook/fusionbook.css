@@ -1,0 +1,340 @@
+.fb-root {
+  min-height: 100vh;
+  background: #f7f8fa;
+  color: #17211f;
+  font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fb-demo-banner {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  background: #10251f;
+  color: #d3e2dc;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+.fb-demo-banner > span {
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #48cf9d;
+  box-shadow: 0 0 0 3px rgb(72 207 157 / 12%);
+}
+
+.fb-hub-main {
+  min-height: calc(100vh - 100px);
+}
+
+.fb-hub-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #e8ecef;
+  background: #fff;
+  padding: 18px max(20px, calc((100% - 1152px) / 2));
+  color: #98a2b3;
+  font-size: 11px;
+}
+
+.fb-shell {
+  display: flex;
+  min-height: calc(100vh - 30px);
+  background: #f7f8fa;
+  color: #17211f;
+}
+
+.fb-sidebar {
+  position: fixed;
+  z-index: 30;
+  top: 30px;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 236px;
+  flex-direction: column;
+  padding: 22px 14px 16px;
+  background: #111a19;
+  color: #dce5e2;
+}
+
+.fb-side-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 9px 22px;
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+}
+
+.fb-nav-label {
+  padding: 23px 10px 9px;
+  color: #687875;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.fb-nav {
+  display: grid;
+  gap: 4px;
+}
+
+.fb-nav-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #a7b3b0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  transition: color 140ms ease, background 140ms ease;
+}
+
+.fb-nav-item:hover {
+  background: rgb(255 255 255 / 5%);
+  color: #f3f8f6;
+}
+
+.fb-nav-item[aria-current="page"] {
+  background: var(--fb-accent-soft);
+  color: var(--fb-accent);
+}
+
+.fb-side-bottom {
+  margin-top: auto;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 3%);
+  padding: 13px;
+}
+
+.fb-main-column {
+  display: flex;
+  min-width: 0;
+  min-height: calc(100vh - 30px);
+  flex: 1;
+  flex-direction: column;
+  margin-left: 236px;
+}
+
+.fb-topbar {
+  position: sticky;
+  z-index: 15;
+  top: 0;
+  display: flex;
+  min-height: 62px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid #e9ecef;
+  background: rgb(255 255 255 / 93%);
+  padding: 0 29px;
+  backdrop-filter: blur(12px);
+}
+
+.fb-content {
+  width: 100%;
+  max-width: 1380px;
+  flex: 1;
+  margin: 0 auto;
+  padding: 27px 29px 34px;
+}
+
+.fb-panel,
+.fb-metric {
+  min-width: 0;
+  border: 1px solid #e9edf0;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(24 39 36 / 2%);
+}
+
+.fb-panel {
+  padding: 19px;
+}
+
+.fb-metric {
+  padding: 16px;
+  color: #19221f;
+}
+
+.fb-metric-highlight {
+  border-color: var(--fb-accent);
+  background: linear-gradient(135deg, var(--fb-accent), color-mix(in srgb, var(--fb-accent), #17211f 18%));
+  color: #fff;
+}
+
+.fb-eyebrow {
+  color: #98a2b3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.fb-page-title {
+  color: #15201b;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+}
+
+.fb-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.fb-status-booked { background: #fff4dc; color: #946a1d; }
+.fb-status-confirmed { background: #e4f5ee; color: #18764f; }
+.fb-status-completed { background: #eef1f4; color: #56616d; }
+.fb-status-no-show { background: #fde9e8; color: #b6423b; }
+.fb-status-cancelled { background: #f1f1f1; color: #7a7f82; text-decoration: line-through; }
+
+.fb-avatar {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(15 23 42 / 5%);
+  border-radius: 10px;
+  background: var(--fb-accent-soft);
+  color: var(--fb-accent);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.fb-calendar-day {
+  min-width: 0;
+  min-height: 145px;
+  border-right: 1px solid #edf0f2;
+  padding: 10px 7px;
+}
+
+.fb-calendar-day:last-child {
+  border-right: 0;
+}
+
+.fb-calendar-event {
+  margin-top: 7px;
+  border-left: 3px solid var(--fb-event-color, #16805f);
+  border-radius: 6px;
+  background: var(--fb-event-bg, #edf8f3);
+  padding: 7px;
+  color: #34413b;
+  font-size: 10px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.fb-calendar-event-cancelled {
+  border-left-color: #9da3a0;
+  background: #f1f2f1;
+  color: #858b88;
+}
+
+.fb-booking-input {
+  width: 100%;
+  border: 1px solid #dfe5e2;
+  border-radius: 9px;
+  background: #fff;
+  padding: 11px 12px;
+  color: #17211f;
+  font: inherit;
+  outline: none;
+}
+
+.fb-booking-input:focus {
+  border-color: var(--fb-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fb-accent) 15%, transparent);
+}
+
+.fb-phone-bubble {
+  width: fit-content;
+  max-width: 92%;
+  border: 1px solid #e7eaed;
+  border-radius: 14px 14px 14px 4px;
+  background: #f3f5f7;
+  padding: 11px 13px;
+  color: #34413b;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.fb-phone-bubble-out {
+  margin-left: auto;
+  border-color: color-mix(in srgb, var(--fb-accent) 25%, white);
+  border-radius: 14px 14px 4px 14px;
+  background: var(--fb-accent-soft);
+}
+
+@media (max-width: 760px) {
+  .fb-sidebar {
+    position: sticky;
+    top: 30px;
+    bottom: auto;
+    width: 100%;
+    height: auto;
+    padding: 9px 12px;
+  }
+
+  .fb-side-brand,
+  .fb-nav-label,
+  .fb-side-bottom {
+    display: none;
+  }
+
+  .fb-nav {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+  }
+
+  .fb-nav-item {
+    width: auto;
+    flex: 0 0 auto;
+    gap: 7px;
+    padding: 9px 10px;
+    white-space: nowrap;
+  }
+
+  .fb-shell {
+    display: block;
+  }
+
+  .fb-main-column {
+    min-height: calc(100vh - 80px);
+    margin-left: 0;
+  }
+
+  .fb-topbar {
+    min-height: 54px;
+    padding: 0 16px;
+  }
+
+  .fb-content {
+    padding: 22px 16px 30px;
+  }
+}

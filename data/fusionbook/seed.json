@@ -1,0 +1,1796 @@
+{
+  "businesses": [
+    {
+      "id": "business-fade-factory",
+      "slug": "fade-factory",
+      "asOfDate": "2026-11-11",
+      "profile": {
+        "name": "Fade Factory Barbershop",
+        "trade": "Barbershop",
+        "location": "Chicago, Illinois",
+        "tagline": "Sharp work. Good people. Your chair is ready.",
+        "phone": "(312) 555-0184",
+        "cancellationPolicy": "Please give us at least 24 hours’ notice to cancel or reschedule. Deposits transfer to a new appointment when you reschedule within that window.",
+        "noShowPolicy": "Missed appointments without notice forfeit the deposit. After two no-shows, future appointments must be prepaid in full."
+      },
+      "branding": {
+        "primary": "#17211c",
+        "accent": "#bd9345",
+        "accentSoft": "#f4ecd9",
+        "surface": "#fbfaf7",
+        "ink": "#1c2821",
+        "logoMark": "FF"
+      },
+      "depositRules": {
+        "required": true,
+        "applyToService": true,
+        "repeatNoShowPrepayThreshold": 2
+      },
+      "staff": [
+        {
+          "id": "barber-marcus",
+          "name": "Marcus Reed",
+          "role": "Master barber",
+          "specialty": "Fades & classic cuts",
+          "initials": "MR",
+          "photoPlaceholder": "Warm portrait placeholder",
+          "workingHours": {
+            "Monday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Tuesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Wednesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Thursday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Friday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Saturday": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "Sunday": null
+          }
+        },
+        {
+          "id": "barber-isaiah",
+          "name": "Isaiah Clark",
+          "role": "Senior barber",
+          "specialty": "Tapers & beard work",
+          "initials": "IC",
+          "photoPlaceholder": "Warm portrait placeholder",
+          "workingHours": {
+            "Monday": {
+              "start": "10:00",
+              "end": "18:00"
+            },
+            "Tuesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Wednesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Thursday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Friday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Saturday": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "Sunday": null
+          }
+        },
+        {
+          "id": "barber-andre",
+          "name": "Andre Lewis",
+          "role": "Barber",
+          "specialty": "Clean cuts & kids",
+          "initials": "AL",
+          "photoPlaceholder": "Warm portrait placeholder",
+          "workingHours": {
+            "Monday": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "Tuesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Wednesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Thursday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Friday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Saturday": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "Sunday": null
+          }
+        }
+      ],
+      "services": [
+        {
+          "id": "signature-cut",
+          "name": "Signature Cut",
+          "category": "Cuts",
+          "durationMinutes": 45,
+          "price": 45,
+          "deposit": 10,
+          "staffIds": [
+            "barber-marcus",
+            "barber-isaiah",
+            "barber-andre"
+          ]
+        },
+        {
+          "id": "skin-fade",
+          "name": "Skin Fade",
+          "category": "Fades",
+          "durationMinutes": 50,
+          "price": 55,
+          "deposit": 15,
+          "staffIds": [
+            "barber-marcus",
+            "barber-isaiah"
+          ]
+        },
+        {
+          "id": "taper-fade",
+          "name": "Taper Fade",
+          "category": "Fades",
+          "durationMinutes": 45,
+          "price": 50,
+          "deposit": 15,
+          "staffIds": [
+            "barber-isaiah",
+            "barber-andre"
+          ]
+        },
+        {
+          "id": "beard-sculpt",
+          "name": "Beard Sculpt",
+          "category": "Beard work",
+          "durationMinutes": 30,
+          "price": 30,
+          "deposit": 10,
+          "staffIds": [
+            "barber-marcus",
+            "barber-isaiah"
+          ]
+        },
+        {
+          "id": "cut-and-beard",
+          "name": "Cut + Beard",
+          "category": "Combos",
+          "durationMinutes": 70,
+          "price": 75,
+          "deposit": 20,
+          "staffIds": [
+            "barber-marcus",
+            "barber-isaiah"
+          ]
+        },
+        {
+          "id": "kids-cut",
+          "name": "Kids Cut",
+          "category": "Cuts",
+          "durationMinutes": 30,
+          "price": 35,
+          "deposit": 10,
+          "staffIds": [
+            "barber-andre",
+            "barber-marcus"
+          ]
+        }
+      ],
+      "clients": [
+        {
+          "id": "client-01",
+          "name": "Aaliyah Brooks",
+          "phone": "(312) 555-1200"
+        },
+        {
+          "id": "client-02",
+          "name": "Amari Johnson",
+          "phone": "(773) 555-1217"
+        },
+        {
+          "id": "client-03",
+          "name": "Andre Williams",
+          "phone": "(708) 555-1234"
+        },
+        {
+          "id": "client-04",
+          "name": "Ariana Davis",
+          "phone": "(630) 555-1251"
+        },
+        {
+          "id": "client-05",
+          "name": "Benjamin Carter",
+          "phone": "(847) 555-1268"
+        },
+        {
+          "id": "client-06",
+          "name": "Brianna Jackson",
+          "phone": "(312) 555-1285"
+        },
+        {
+          "id": "client-07",
+          "name": "Caleb Thompson",
+          "phone": "(773) 555-1302"
+        },
+        {
+          "id": "client-08",
+          "name": "Camille Lewis",
+          "phone": "(708) 555-1319"
+        },
+        {
+          "id": "client-09",
+          "name": "Carlos Walker",
+          "phone": "(630) 555-1336"
+        },
+        {
+          "id": "client-10",
+          "name": "Chloe Robinson",
+          "phone": "(847) 555-1353"
+        },
+        {
+          "id": "client-11",
+          "name": "Darius Hall",
+          "phone": "(312) 555-1370"
+        },
+        {
+          "id": "client-12",
+          "name": "Destiny Allen",
+          "phone": "(773) 555-1387"
+        },
+        {
+          "id": "client-13",
+          "name": "Elijah Young",
+          "phone": "(708) 555-1404"
+        },
+        {
+          "id": "client-14",
+          "name": "Gabrielle King",
+          "phone": "(630) 555-1421"
+        },
+        {
+          "id": "client-15",
+          "name": "Isaiah Wright",
+          "phone": "(847) 555-1438"
+        },
+        {
+          "id": "client-16",
+          "name": "Jasmine Scott",
+          "phone": "(312) 555-1455"
+        },
+        {
+          "id": "client-17",
+          "name": "Jayden Green",
+          "phone": "(773) 555-1472"
+        },
+        {
+          "id": "client-18",
+          "name": "Jocelyn Baker",
+          "phone": "(708) 555-1489"
+        },
+        {
+          "id": "client-19",
+          "name": "Jordan Adams",
+          "phone": "(630) 555-1506"
+        },
+        {
+          "id": "client-20",
+          "name": "Kennedy Nelson",
+          "phone": "(847) 555-1523"
+        },
+        {
+          "id": "client-21",
+          "name": "Layla Mitchell",
+          "phone": "(312) 555-1540"
+        },
+        {
+          "id": "client-22",
+          "name": "London Perez",
+          "phone": "(773) 555-1557"
+        },
+        {
+          "id": "client-23",
+          "name": "Malik Roberts",
+          "phone": "(708) 555-1574"
+        },
+        {
+          "id": "client-24",
+          "name": "Maya Turner",
+          "phone": "(630) 555-1591"
+        },
+        {
+          "id": "client-25",
+          "name": "Micah Phillips",
+          "phone": "(847) 555-1608"
+        },
+        {
+          "id": "client-26",
+          "name": "Nia Campbell",
+          "phone": "(312) 555-1625"
+        },
+        {
+          "id": "client-27",
+          "name": "Noah Parker",
+          "phone": "(773) 555-1642"
+        },
+        {
+          "id": "client-28",
+          "name": "Quincy Evans",
+          "phone": "(708) 555-1659"
+        },
+        {
+          "id": "client-29",
+          "name": "Sofia Edwards",
+          "phone": "(630) 555-1676"
+        },
+        {
+          "id": "client-30",
+          "name": "Taylor Collins",
+          "phone": "(847) 555-1693"
+        }
+      ],
+      "appointments": [
+        {
+          "id": "appointment-001",
+          "clientId": "client-01",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-10-21",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-002",
+          "clientId": "client-02",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-10-21",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-003",
+          "clientId": "client-03",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-10-22",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-004",
+          "clientId": "client-04",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-10-22",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-031",
+          "clientId": "client-04",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-10-22",
+          "time": "11:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-005",
+          "clientId": "client-05",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-10-23",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-032",
+          "clientId": "client-13",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-10-23",
+          "time": "11:00",
+          "status": "no-show",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-006",
+          "clientId": "client-06",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-10-24",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-007",
+          "clientId": "client-07",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-10-24",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-033",
+          "clientId": "client-25",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-10-24",
+          "time": "11:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-008",
+          "clientId": "client-08",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-10-26",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-009",
+          "clientId": "client-09",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-10-26",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-010",
+          "clientId": "client-10",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-10-27",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-011",
+          "clientId": "client-11",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-10-28",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-012",
+          "clientId": "client-12",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-10-28",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-013",
+          "clientId": "client-13",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-10-29",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-014",
+          "clientId": "client-14",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-10-29",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-015",
+          "clientId": "client-15",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-10-30",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-016",
+          "clientId": "client-16",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-10-31",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-017",
+          "clientId": "client-17",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-10-31",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-018",
+          "clientId": "client-18",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-11-02",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-019",
+          "clientId": "client-19",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-11-02",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-020",
+          "clientId": "client-20",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-11-03",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-021",
+          "clientId": "client-21",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-11-04",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-022",
+          "clientId": "client-22",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-11-04",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-023",
+          "clientId": "client-23",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-11-05",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-024",
+          "clientId": "client-24",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-11-05",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-025",
+          "clientId": "client-25",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-11-06",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-026",
+          "clientId": "client-26",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-11-07",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-027",
+          "clientId": "client-27",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-11-07",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-028",
+          "clientId": "client-28",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-11-09",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-029",
+          "clientId": "client-29",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-11-09",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-030",
+          "clientId": "client-30",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-11-10",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-035",
+          "clientId": "client-16",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-11-11",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-036",
+          "clientId": "client-17",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-11-11",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-037",
+          "clientId": "client-18",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-11-12",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-038",
+          "clientId": "client-19",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-11-12",
+          "time": "11:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-039",
+          "clientId": "client-20",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-11-13",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-040",
+          "clientId": "client-21",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-11-13",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-041",
+          "clientId": "client-22",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-11-14",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-042",
+          "clientId": "client-23",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-11-14",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-034",
+          "clientId": "client-01",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-11-14",
+          "time": "11:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-043",
+          "clientId": "client-24",
+          "serviceId": "beard-sculpt",
+          "staffId": "barber-marcus",
+          "date": "2026-11-16",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-044",
+          "clientId": "client-25",
+          "serviceId": "cut-and-beard",
+          "staffId": "barber-marcus",
+          "date": "2026-11-16",
+          "time": "11:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-045",
+          "clientId": "client-26",
+          "serviceId": "kids-cut",
+          "staffId": "barber-andre",
+          "date": "2026-11-17",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-046",
+          "clientId": "client-27",
+          "serviceId": "signature-cut",
+          "staffId": "barber-marcus",
+          "date": "2026-11-17",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-047",
+          "clientId": "client-28",
+          "serviceId": "skin-fade",
+          "staffId": "barber-marcus",
+          "date": "2026-11-18",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-048",
+          "clientId": "client-29",
+          "serviceId": "taper-fade",
+          "staffId": "barber-isaiah",
+          "date": "2026-11-18",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        }
+      ],
+      "waitlist": [
+        {
+          "id": "waitlist-1",
+          "clientId": "client-27",
+          "serviceId": "signature-cut",
+          "preferredStaffId": "barber-marcus",
+          "requestedDay": "Saturday"
+        },
+        {
+          "id": "waitlist-2",
+          "clientId": "client-28",
+          "serviceId": "skin-fade",
+          "preferredStaffId": null,
+          "requestedDay": "Saturday"
+        },
+        {
+          "id": "waitlist-3",
+          "clientId": "client-29",
+          "serviceId": "taper-fade",
+          "preferredStaffId": null,
+          "requestedDay": "Saturday"
+        },
+        {
+          "id": "waitlist-4",
+          "clientId": "client-30",
+          "serviceId": "beard-sculpt",
+          "preferredStaffId": null,
+          "requestedDay": "Saturday"
+        }
+      ]
+    },
+    {
+      "id": "business-glow-lash",
+      "slug": "glow-lash",
+      "asOfDate": "2026-11-11",
+      "profile": {
+        "name": "Glow Lash Studio",
+        "trade": "Lash & brow studio",
+        "location": "Chicago, Illinois",
+        "tagline": "A little glow, right on schedule.",
+        "phone": "(312) 555-0162",
+        "cancellationPolicy": "Please give us at least 24 hours’ notice to cancel or reschedule. Deposits transfer to a new appointment when you reschedule within that window.",
+        "noShowPolicy": "Missed appointments without notice forfeit the deposit. After two no-shows, future appointments must be prepaid in full."
+      },
+      "branding": {
+        "primary": "#432d38",
+        "accent": "#d982a7",
+        "accentSoft": "#fae8ef",
+        "surface": "#fff9fb",
+        "ink": "#382831",
+        "logoMark": "GL"
+      },
+      "depositRules": {
+        "required": true,
+        "applyToService": true,
+        "repeatNoShowPrepayThreshold": 2
+      },
+      "staff": [
+        {
+          "id": "tech-jade",
+          "name": "Jade Williams",
+          "role": "Lead lash artist",
+          "specialty": "Lash extensions & lifts",
+          "initials": "JW",
+          "photoPlaceholder": "Soft portrait placeholder",
+          "workingHours": {
+            "Monday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Tuesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Wednesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Thursday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Friday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Saturday": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "Sunday": null
+          }
+        },
+        {
+          "id": "tech-samira",
+          "name": "Samira Patel",
+          "role": "Lash & brow artist",
+          "specialty": "Classic sets & brows",
+          "initials": "SP",
+          "photoPlaceholder": "Soft portrait placeholder",
+          "workingHours": {
+            "Monday": {
+              "start": "10:00",
+              "end": "18:00"
+            },
+            "Tuesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Wednesday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Thursday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Friday": {
+              "start": "09:00",
+              "end": "18:00"
+            },
+            "Saturday": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "Sunday": null
+          }
+        }
+      ],
+      "services": [
+        {
+          "id": "classic-lash-set",
+          "name": "Classic Lash Set",
+          "category": "Lash extensions",
+          "durationMinutes": 90,
+          "price": 120,
+          "deposit": 25,
+          "staffIds": [
+            "tech-jade",
+            "tech-samira"
+          ]
+        },
+        {
+          "id": "hybrid-lash-set",
+          "name": "Hybrid Lash Set",
+          "category": "Lash extensions",
+          "durationMinutes": 120,
+          "price": 145,
+          "deposit": 25,
+          "staffIds": [
+            "tech-jade"
+          ]
+        },
+        {
+          "id": "lash-fill",
+          "name": "Lash Fill",
+          "category": "Maintenance",
+          "durationMinutes": 60,
+          "price": 75,
+          "deposit": 25,
+          "staffIds": [
+            "tech-jade",
+            "tech-samira"
+          ]
+        },
+        {
+          "id": "brow-shaping",
+          "name": "Brow Shaping",
+          "category": "Brows",
+          "durationMinutes": 30,
+          "price": 35,
+          "deposit": 25,
+          "staffIds": [
+            "tech-samira"
+          ]
+        },
+        {
+          "id": "lash-lift",
+          "name": "Lash Lift + Tint",
+          "category": "Lash treatments",
+          "durationMinutes": 75,
+          "price": 95,
+          "deposit": 25,
+          "staffIds": [
+            "tech-jade",
+            "tech-samira"
+          ]
+        }
+      ],
+      "clients": [
+        {
+          "id": "client-01",
+          "name": "Aaliyah Brooks",
+          "phone": "(312) 555-1200"
+        },
+        {
+          "id": "client-02",
+          "name": "Amari Johnson",
+          "phone": "(773) 555-1217"
+        },
+        {
+          "id": "client-03",
+          "name": "Andre Williams",
+          "phone": "(708) 555-1234"
+        },
+        {
+          "id": "client-04",
+          "name": "Ariana Davis",
+          "phone": "(630) 555-1251"
+        },
+        {
+          "id": "client-05",
+          "name": "Benjamin Carter",
+          "phone": "(847) 555-1268"
+        },
+        {
+          "id": "client-06",
+          "name": "Brianna Jackson",
+          "phone": "(312) 555-1285"
+        },
+        {
+          "id": "client-07",
+          "name": "Caleb Thompson",
+          "phone": "(773) 555-1302"
+        },
+        {
+          "id": "client-08",
+          "name": "Camille Lewis",
+          "phone": "(708) 555-1319"
+        },
+        {
+          "id": "client-09",
+          "name": "Carlos Walker",
+          "phone": "(630) 555-1336"
+        },
+        {
+          "id": "client-10",
+          "name": "Chloe Robinson",
+          "phone": "(847) 555-1353"
+        },
+        {
+          "id": "client-11",
+          "name": "Darius Hall",
+          "phone": "(312) 555-1370"
+        },
+        {
+          "id": "client-12",
+          "name": "Destiny Allen",
+          "phone": "(773) 555-1387"
+        },
+        {
+          "id": "client-13",
+          "name": "Elijah Young",
+          "phone": "(708) 555-1404"
+        },
+        {
+          "id": "client-14",
+          "name": "Gabrielle King",
+          "phone": "(630) 555-1421"
+        },
+        {
+          "id": "client-15",
+          "name": "Isaiah Wright",
+          "phone": "(847) 555-1438"
+        },
+        {
+          "id": "client-16",
+          "name": "Jasmine Scott",
+          "phone": "(312) 555-1455"
+        },
+        {
+          "id": "client-17",
+          "name": "Jayden Green",
+          "phone": "(773) 555-1472"
+        },
+        {
+          "id": "client-18",
+          "name": "Jocelyn Baker",
+          "phone": "(708) 555-1489"
+        },
+        {
+          "id": "client-19",
+          "name": "Jordan Adams",
+          "phone": "(630) 555-1506"
+        },
+        {
+          "id": "client-20",
+          "name": "Kennedy Nelson",
+          "phone": "(847) 555-1523"
+        },
+        {
+          "id": "client-21",
+          "name": "Layla Mitchell",
+          "phone": "(312) 555-1540"
+        },
+        {
+          "id": "client-22",
+          "name": "London Perez",
+          "phone": "(773) 555-1557"
+        },
+        {
+          "id": "client-23",
+          "name": "Malik Roberts",
+          "phone": "(708) 555-1574"
+        },
+        {
+          "id": "client-24",
+          "name": "Maya Turner",
+          "phone": "(630) 555-1591"
+        },
+        {
+          "id": "client-25",
+          "name": "Micah Phillips",
+          "phone": "(847) 555-1608"
+        },
+        {
+          "id": "client-26",
+          "name": "Nia Campbell",
+          "phone": "(312) 555-1625"
+        },
+        {
+          "id": "client-27",
+          "name": "Noah Parker",
+          "phone": "(773) 555-1642"
+        },
+        {
+          "id": "client-28",
+          "name": "Quincy Evans",
+          "phone": "(708) 555-1659"
+        },
+        {
+          "id": "client-29",
+          "name": "Sofia Edwards",
+          "phone": "(630) 555-1676"
+        },
+        {
+          "id": "client-30",
+          "name": "Taylor Collins",
+          "phone": "(847) 555-1693"
+        }
+      ],
+      "appointments": [
+        {
+          "id": "appointment-001",
+          "clientId": "client-01",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-21",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-002",
+          "clientId": "client-02",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-21",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-003",
+          "clientId": "client-03",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-10-22",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-004",
+          "clientId": "client-04",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-10-22",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-031",
+          "clientId": "client-04",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-10-22",
+          "time": "11:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-005",
+          "clientId": "client-05",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-10-23",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-032",
+          "clientId": "client-13",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-10-23",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-006",
+          "clientId": "client-06",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-24",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-007",
+          "clientId": "client-07",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-24",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-033",
+          "clientId": "client-25",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-24",
+          "time": "13:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-008",
+          "clientId": "client-08",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-10-26",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-009",
+          "clientId": "client-09",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-10-26",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-010",
+          "clientId": "client-10",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-10-27",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-011",
+          "clientId": "client-11",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-28",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-012",
+          "clientId": "client-12",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-28",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-013",
+          "clientId": "client-13",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-10-29",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-014",
+          "clientId": "client-14",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-10-29",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-015",
+          "clientId": "client-15",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-10-30",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-016",
+          "clientId": "client-16",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-31",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-017",
+          "clientId": "client-17",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-10-31",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-018",
+          "clientId": "client-18",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-11-02",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-019",
+          "clientId": "client-19",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-11-02",
+          "time": "11:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-020",
+          "clientId": "client-20",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-11-03",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-021",
+          "clientId": "client-21",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-04",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-022",
+          "clientId": "client-22",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-04",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-023",
+          "clientId": "client-23",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-11-05",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-024",
+          "clientId": "client-24",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-11-05",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-025",
+          "clientId": "client-25",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-11-06",
+          "time": "09:00",
+          "status": "no-show",
+          "depositPaid": false,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-026",
+          "clientId": "client-26",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-07",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-027",
+          "clientId": "client-27",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-07",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-028",
+          "clientId": "client-28",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-11-09",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-029",
+          "clientId": "client-29",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-11-09",
+          "time": "11:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-030",
+          "clientId": "client-30",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-11-10",
+          "time": "09:00",
+          "status": "completed",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-035",
+          "clientId": "client-16",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-11",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-036",
+          "clientId": "client-17",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-11-11",
+          "time": "11:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-037",
+          "clientId": "client-18",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-11-12",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-038",
+          "clientId": "client-19",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-11-12",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-039",
+          "clientId": "client-20",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-13",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-040",
+          "clientId": "client-21",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-13",
+          "time": "11:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-041",
+          "clientId": "client-22",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-11-14",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-042",
+          "clientId": "client-23",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-11-14",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-034",
+          "clientId": "client-01",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-14",
+          "time": "11:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-043",
+          "clientId": "client-24",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-11-16",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-044",
+          "clientId": "client-25",
+          "serviceId": "classic-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-16",
+          "time": "11:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-045",
+          "clientId": "client-26",
+          "serviceId": "hybrid-lash-set",
+          "staffId": "tech-jade",
+          "date": "2026-11-17",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        },
+        {
+          "id": "appointment-046",
+          "clientId": "client-27",
+          "serviceId": "lash-fill",
+          "staffId": "tech-jade",
+          "date": "2026-11-17",
+          "time": "11:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-047",
+          "clientId": "client-28",
+          "serviceId": "brow-shaping",
+          "staffId": "tech-samira",
+          "date": "2026-11-18",
+          "time": "09:00",
+          "status": "confirmed",
+          "depositPaid": true,
+          "reminderConfirmed": true
+        },
+        {
+          "id": "appointment-048",
+          "clientId": "client-29",
+          "serviceId": "lash-lift",
+          "staffId": "tech-jade",
+          "date": "2026-11-18",
+          "time": "09:00",
+          "status": "booked",
+          "depositPaid": true,
+          "reminderConfirmed": false
+        }
+      ],
+      "waitlist": [
+        {
+          "id": "waitlist-1",
+          "clientId": "client-27",
+          "serviceId": "classic-lash-set",
+          "preferredStaffId": "tech-jade",
+          "requestedDay": "Saturday"
+        },
+        {
+          "id": "waitlist-2",
+          "clientId": "client-28",
+          "serviceId": "hybrid-lash-set",
+          "preferredStaffId": null,
+          "requestedDay": "Saturday"
+        },
+        {
+          "id": "waitlist-3",
+          "clientId": "client-29",
+          "serviceId": "lash-fill",
+          "preferredStaffId": null,
+          "requestedDay": "Saturday"
+        },
+        {
+          "id": "waitlist-4",
+          "clientId": "client-30",
+          "serviceId": "brow-shaping",
+          "preferredStaffId": null,
+          "requestedDay": "Saturday"
+        }
+      ]
+    }
+  ]
+}

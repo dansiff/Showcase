@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "demo:reset": "node scripts/generate-programtrack-seed.mjs",
+    "demo:reset:bookedsolid": "node scripts/generate-bookedsolid-seed.mjs",
+    "demo:reset:fusionbook": "node scripts/generate-fusionbook-seed.mjs",
     "postinstall": "prisma generate",
     "seed": "node scripts/seed.mjs",
     "test:pre-launch": "node scripts/pre-launch-test.mjs"
